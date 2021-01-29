@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="icon" href="src/Icon.png" type="image/png">
+    <title>ClassMood</title>
+</head>
+
+<body>
+    <!-- Menu lateral para las sesiones próximas -->
+    <div class="o-sidemenu">
+        <div class="o-user-name-header">Hola&nbsp;<strong id="userName">David López</strong></div>
+        <div class="o-sidemenu-body">
+            <!-- Sesiones -->
+            <div class="o-sessions">
+                <span class="o-next-sessions">Próximas sesiones</span>
+                <div class="o-session">
+                    <div class="o-session-header">
+                        <span class="o-session-title" id="sessionGroupName">Computación Físca</span>
+                        <span class="o-session-group" id="sessionGroupNumber">Grupo 1</span>
+                    </div>
+                    <div class="o-session-time">
+                        <span>Inicio:&nbsp;<span id="sessionStartTime">1:52 AM</span></span>
+                        <span>Fin:&nbsp;<span id="sessioneNDTime">5:52 AM</span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="o-sidemenu-footer">
+                <!-- ClassMood Web -->
+                <a class="o-classmoodweb" href="https://demotion-1.herokuapp.com" target="blank">Visita
+                    <strong>ClassMood web</strong></a>
+                <!-- Cerrar sesion -->
+                <div class="o-logout">
+                    <img src="src/logOut.png" alt="logOut">
+                    <span>Cerrar sesión</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contenedor principal -->
+    <div class="o-main-container">
+        <div class="o-nosession-content">
+            <span>No hay sesiones disponibles</span>
+            <img src="src/NoSession.svg" alt="NoSession">
+        </div>
+    </div>
+</body>
+
+</html>
