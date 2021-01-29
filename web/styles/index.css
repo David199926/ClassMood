@@ -1,6 +1,7 @@
 /*estilos del contenedor principal*/
 body{
     display: flex;
+    background-color: #1d1d1d;
 }
 
 /*estilos del menu lateral*/
@@ -8,6 +9,8 @@ body{
     background-color: #242424;
     height: 100vh;
     width: 320px;
+    display: flex;
+    flex-direction: column;
 }
 
 /*estilos del contendedor del nombre del estudiante*/
@@ -17,6 +20,7 @@ body{
     color: #ffffff;
     background-color: #2e2e2e;
     height: 60px;
+    width: 100%;
     margin: auto;
     font-size: 1.5rem;
     padding-left: 1rem;
@@ -26,7 +30,8 @@ body{
 .o-sidemenu-body{
     box-sizing: border-box;
     padding: 1.5rem .5rem .5rem .5rem;
-    height: calc(100vh - 60px);
+    width: 100%;
+    flex-grow: 1;
     display: grid;
 }
 
