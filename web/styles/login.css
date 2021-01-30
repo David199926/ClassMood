@@ -1,0 +1,88 @@
+body{
+    background: url('../src/Background.png') no-repeat center top;
+    background-size: auto;
+    position: relative;
+}
+
+/*estilos de la division derecha de la patalla*/
+.element1{
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    padding-right: 2rem;
+}
+
+/*estilos de la imagen de titulo*/
+.o-title{
+    width: 45rem;
+}
+
+/*estilos del subtitulo de la página*/
+.o-subtitle{
+    display: block;
+    color: #ababab;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    margin-bottom: 4rem;
+}
+
+/*estilos de la tarjeta del login*/
+.o-login-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 1rem 2rem;
+    background-color: #242424;
+    width: 20rem;
+    min-width: 260px;
+    border-radius: 20px;
+}
+
+/*estilos del titulo de la tarjeta de Login*/
+.o-login-title{
+    color: #ffffff;
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+/*estilos de los label de la tarjeta de login*/
+.o-login-label{
+    color: #ffffff;
+    font-size: 1.2rem;
+    align-self: flex-start;
+    margin: .5rem 0;
+}
+
+/*estilos de los campos de texto de Login*/
+.o-login-input{
+    width: 100%;
+}
+
+/*estilos del mensaje de error*/
+.o-validation-error{
+    margin-top: 1rem;
+    color: #ff8b6c;
+    text-align: center;
+}
+
+/*estilos del boton de login*/
+.o-login-button{
+    margin-top: 1rem;
+}
+
+/*estilos del link de registro*/
+.o-registerlink{
+    margin: 1.5rem 0;
+    color: #ababab;
+}
+.o-registerlink a{
+    color: #ffffff;
+}

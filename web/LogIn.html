@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassMood</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="icon" href="src/Icon.png" type="image/png">
+    <script src="/eel.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="element1">
+        <img src="./src/ClassMood.png" alt="ClassMood Detection" class="o-title">
+        <span class="o-subtitle">Detectamos tus emociones durante tus clases</span>
+        <!--inicio de sesion-->
+        <form class="o-login-card">
+            <span class="o-login-title">Inicia Sesion</span>
+            <label for="email" class="o-login-label">Correo</label>
+            <input type="text" id="email" class="o-login-input">
+            <label for="password" class="o-login-label">Contrasena</label>
+            <input type="password" id="password" class="o-login-input">
+            <span class="o-validation-error" id="validationError"></span>
+            <input type="button" id="logInButton" value="Iniciar Sesión" class="o-btn-primary o-login-button" onclick="logIn()">
+            <span class="o-registerlink">¿Aún no tienes cuenta? <a href="https://demotion-1.herokuapp.com/register" target="blank">Regístrate aquí</a></span>
+        </form>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

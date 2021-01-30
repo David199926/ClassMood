@@ -4,3 +4,42 @@
     font-family: "Inter", sans-serif;
 }
 
+/*estilos de los links*/
+a{
+    text-decoration: none;
+}
+
+/*estilos del boton principal*/
+.o-btn-primary{
+    color: #000000;
+    background-color: #DECC54;
+    width: 10rem;
+    height: 2.3rem;
+    border-radius: 19px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 300ms ease;
+}
+.o-btn-primary:hover{
+    background-color: #f8e040;
+}
+
+/*estilos de los campos de texto*/
+input[type = "text"], input[type = "password"]{
+    border: none;
+    border-bottom: #ababab 1px solid;
+    background-color: transparent;
+    color: #ababab;
+    outline: none;
+    font-size: 1.2rem;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    box-shadow: none;
+    -webkit-box-shadow: 0 0 0 30px #242424 inset !important;
+    -webkit-text-fill-color: #ababab;
+}
