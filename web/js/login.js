@@ -11,7 +11,14 @@ function logIn(){
         if(data === "no found") return document.getElementById("validationError").innerHTML = "El usuario que ingresaste no está registrado. Inténtalo de nuevo";
         //si no hay errores
         sessionStorage.setItem("user", JSON.stringify(data));
-        window.location.href = "index.html";
+        eel.readConf()((conf)=>{
+            conf.user.email = email;
+            conf.user.password = data.Contrasena;
+            conf.user.code = data.Codigo;
+            eel.saveConf(conf)(_=>{
+                window.location.href = "index.html";
+            });
+        })
     }).fail(_=>{
         //si el servidor no responde
         document.getElementById("validationError").innerHTML = "Error de conexión. Inténtalo más tarde";

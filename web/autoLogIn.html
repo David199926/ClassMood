@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/eel.js"></script>
+    <link rel="icon" href="src/Icon.png" type="image/png">
+    <style>
+        *,*::after,*::before{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        
+        body{
+            display: flex;
+            flex-direction: column;
+            background-color: #1d1d1d;
+            height: 100vh;
+        }
+
+        .o-contenedor-carga{
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .o-label{
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .o-carga{
+            border: 15px solid #242424;
+            border-top-color: #DECC54;
+            height: 100px;
+            width: 100px;
+            border-radius: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            animation: girar 1s linear infinite;
+        }
+        
+        @keyframes girar {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(360deg);}
+        }
+    </style>
+    <script>
+        eel.readConf()((conf)=>{
+        //read user data
+        if(conf.user.email === "" && conf.user.password === ""){
+            //go to login page
+            window.location.href = "LogIn.html"
+        }else{
+            const url = 'http://localhost:3000/login'
+            $.get(url, {Correo: conf.user.email, Contrasena: conf.user.password, Type:'encrypted'}, function(data){
+                if(data !== "wrong password" || data !== "no found"){
+                    //user found
+                    sessionStorage.setItem("usuario", JSON.stringify(data));
+                    window.location.href = "index.html";
+                }
+            }).fail(()=>{
+                //log conection error
+                console.log("error de coneccion")
+            })
+        }
+        })
+    </script>
+    <title>ClassMood</title>
+</head>
+<body>
+    <div class="o-contenedor-carga">
+        <span class="o-label">Cargando sesion</span>
+        <div class="o-carga"></div>
+    </div>
+</body>
+</html>
