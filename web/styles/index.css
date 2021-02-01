@@ -190,20 +190,20 @@ body{
     justify-content: center;
 }
 /* estilos del titutlo de la materia */
-.o-title-deteccion{
+.o-title-detection{
     text-align: center;
     font-size: 2rem;
     color: #ffffff;
     display: block;
 }
 /* estilos del boton */
-.o-comenzar{
+.o-btn-start{
 height: 3.5rem;
 border-radius: 15px;
 
 }
 /* estilos para el footer */
-.o-footer-deteccion{
+.o-footer-detection{
     display: flex;
     width: 40%;
     justify-content: space-around;
@@ -224,7 +224,7 @@ border-radius: 15px;
     outline: none;
 }
 /* estilos para la barra de sonido */
-.o-barra-sonido{
+.o-sound-bar{
     width: 0.5rem;
     height: 3.5rem;
     background-color: #292929;
