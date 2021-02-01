@@ -15,4 +15,4 @@ def saveConf(data):
 
 if __name__ == "__main__":
     eel.init('web')
-    eel.start('deteccion.html')
+    eel.start('autoLogIn.html')
