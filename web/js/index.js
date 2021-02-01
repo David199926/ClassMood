@@ -73,15 +73,11 @@ function camera(){
 }
 
 function micro(){
-
-    if(microState) {
-        document.getElementById('micro-icon').src= './src/NoMicrophone.png'
-        document.getElementById('micro-icon').style.width='1.3rem'
-        microState=false
-    }
-    else{
-        document.getElementById('micro-icon').src= './src/Microphone.png'
-        document.getElementById('micro-icon').style.width='1rem'
-        microState=true
-    }
+    var microControl = document.getElementById('microControl');
+    let state = !JSON.parse(microControl.dataset.state)
+    //setear imagen
+    document.getElementById("microIcon").src = state? './src/Microphone.png' : './src/NoMicrophone.png';
+    document.getElementById("microText").innerHTML = state? "Silenciar" : "Activar";
+    microControl.dataset.state = state
+    
 }
