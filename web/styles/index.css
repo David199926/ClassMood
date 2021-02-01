@@ -218,12 +218,14 @@ body{
     cursor: pointer;
     background-color:transparent;
     border: none;
-    width: 50%;
+    width: 65%;
     display: flex;
     color: white;
     outline: none;
-    
     justify-content: center;
+}
+.o-btn-dots{
+    width: 35%;
 }
 .o-icon-text:hover{
     background-color: #2e2e2e;
@@ -293,6 +295,13 @@ body{
     border-radius: 15px;    
 }
 
+/* estilos de los iconos */
+.camera-icon{
+    width:2rem
+}
+.micro-icon{
+    width:1rem
+}
 /* mediaquery */
 
 @media only screen and (max-width:1335px){

@@ -44,23 +44,31 @@ var cameraState=true
 var microState=true
 function camera(){
 
-    if(cameraState) {
-        document.getElementById('camera-icon').src= './src/NoCamera.png'
-        cameraState=false
-    }
-    else{
-        document.getElementById('camera-icon').src= './src/Camera.png'
-        cameraState=true
-    }
+    var camara = document.getElementById('camera-icon')
+    var state = document.getElementById('camera-icon').getAttribute('data-state')
+    var u = (state) ? camara.src = './src/NoCamera.png'  : camara.src = './src/Camera.png'
+        .then(state.value= !state)
+    // if(cameraState) {
+    //     document.getElementById('camera-icon').src= './src/NoCamera.png'
+    //     document.getElementById('camera-icon').style.width='1.9rem'
+    //     cameraState=false
+    // }
+    // else{
+    //     document.getElementById('camera-icon').src= './src/Camera.png'
+    //     document.getElementById('camera-icon').style.width='2rem'
+    //     cameraState=true
+    // }
 }
 function micro(){
 
     if(microState) {
         document.getElementById('micro-icon').src= './src/NoMicrophone.png'
+        document.getElementById('micro-icon').style.width='1.3rem'
         microState=false
     }
     else{
         document.getElementById('micro-icon').src= './src/Microphone.png'
+        document.getElementById('micro-icon').style.width='1rem'
         microState=true
     }
 }
