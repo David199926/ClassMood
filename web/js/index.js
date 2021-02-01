@@ -63,24 +63,15 @@ function logOut(){
         })
     })
 }
-var cameraState=true
-var microState=true
+
 function camera(){
 
-    var camara = document.getElementById('camera-icon')
-    var state = document.getElementById('camera-icon').getAttribute('data-state')
-    var u = (state) ? camara.src = './src/NoCamera.png'  : camara.src = './src/Camera.png'
-        .then(state.value= !state)
-    // if(cameraState) {
-    //     document.getElementById('camera-icon').src= './src/NoCamera.png'
-    //     document.getElementById('camera-icon').style.width='1.9rem'
-    //     cameraState=false
-    // }
-    // else{
-    //     document.getElementById('camera-icon').src= './src/Camera.png'
-    //     document.getElementById('camera-icon').style.width='2rem'
-    //     cameraState=true
-    // }
+    let state = $('#camera-icon').attr('data-state')
+    let u= (state=='true') ? 
+        (($('#camera-icon').attr('src', './src/NoCamera.png')) ? $('#camera-icon').attr('data-state', 'false') : false) :
+        (($('#camera-icon').attr('src', './src/Camera.png')) ? $('#camera-icon').attr('data-state', 'true') : false);
+    
+
 }
 function micro(){
 
