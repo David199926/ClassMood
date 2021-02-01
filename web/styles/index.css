@@ -198,6 +198,7 @@ body{
 }
 /* estilos del boton */
 .o-btn-start{
+    width: 8rem;
 height: 3.5rem;
 border-radius: 15px;
 
@@ -205,7 +206,7 @@ border-radius: 15px;
 /* estilos para el footer */
 .o-footer-detection{
     display: flex;
-    width: 40%;
+    width: 34%;
     justify-content: space-around;
 }
 .o-micro-container{
@@ -217,7 +218,7 @@ border-radius: 15px;
     cursor: pointer;
     background-color: #292929;
     border: none;
-    width: 6.5rem;
+    width: 5.5rem;
     height: 3.5rem;
     border-radius: 15px;
     color: white;
