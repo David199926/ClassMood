@@ -202,13 +202,14 @@ body{
     color: #ffffff;
     display: block;
 }
+
 /* estilos del boton */
 .o-btn-start{
     width: 8rem;
     height: 3.2rem;
     border-radius: 15px;
-
 }
+
 /* estilos para el footer */
 .o-footer-detection{
     display: flex;
@@ -233,12 +234,10 @@ body{
 .o-btn-dots{
     width: 35%;
 }
-.o-icon-text:hover{
-    background-color: #2e2e2e;
-}
 .o-dots:hover{
     background-color: #2e2e2e;
 }
+
 /* estilos para la barra de sonido */
 .o-sound-bar{
     width: 0.5rem;
@@ -260,6 +259,10 @@ body{
     font-weight: lighter;
     padding: 0rem 0rem 0rem 0.5rem;
 }
+.o-icon-text:hover{
+    background-color: #2e2e2e;
+}
+
 /* estilos para el div que contiene los puntos blancos */
 .o-dots{
     width: 100%;
@@ -285,6 +288,7 @@ body{
     border-radius: 15px;
     width: 5.5rem;
     height: 3.2rem;
+    overflow: hidden;
 }
 /* estilos de los puntos blancos */
 .o-dot-blank{

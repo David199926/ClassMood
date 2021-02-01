@@ -30,7 +30,6 @@ $.get(url + 'upcoming', { Correo: user.Correo }, (data)=>{
         $("#nextSessionsContainer").append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>')
     }
     else{
-        console.log(typeof data[0].HoraInicio)
         for(session of data){
             $("#nextSessionsContainer").append(`
                 <div class="o-session">
@@ -65,14 +64,14 @@ function logOut(){
 }
 
 function camera(){
-
-    let state = $('#camera-icon').attr('data-state')
-    let u= (state=='true') ? 
-        (($('#camera-icon').attr('src', './src/NoCamera.png')) ? $('#camera-icon').attr('data-state', 'false') : false) :
-        (($('#camera-icon').attr('src', './src/Camera.png')) ? $('#camera-icon').attr('data-state', 'true') : false);
-    
-
+    var cameraControl = document.getElementById('cameraControl');
+    let state = !JSON.parse(cameraControl.dataset.state)
+    //setear imagen
+    document.getElementById("cameraIcon").src = state? './src/Camera.png' : './src/NoCamera.png';
+    document.getElementById("cameraText").innerHTML = state? "Desactivar" : "Activar";
+    cameraControl.dataset.state = state
 }
+
 function micro(){
 
     if(microState) {
