@@ -40,4 +40,27 @@ function logOut(){
         })
     })
 }
+var cameraState=true
+var microState=true
+function camera(){
 
+    if(cameraState) {
+        document.getElementById('camera-icon').src= './src/NoCamera.png'
+        cameraState=false
+    }
+    else{
+        document.getElementById('camera-icon').src= './src/Camera.png'
+        cameraState=true
+    }
+}
+function micro(){
+
+    if(microState) {
+        document.getElementById('micro-icon').src= './src/NoMicrophone.png'
+        microState=false
+    }
+    else{
+        document.getElementById('micro-icon').src= './src/Microphone.png'
+        microState=true
+    }
+}

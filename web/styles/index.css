@@ -216,13 +216,20 @@ body{
 /* estilos del boton de apagar y encender */
 .o-btn-secundary{
     cursor: pointer;
-    background-color: #292929;
+    background-color:transparent;
     border: none;
-    width: 5.5rem;
-    height: 3.2rem;
-    border-radius: 15px;
+    width: 50%;
+    display: flex;
     color: white;
     outline: none;
+    
+    justify-content: center;
+}
+.o-icon-text:hover{
+    background-color: #2e2e2e;
+}
+.o-dots:hover{
+    background-color: #2e2e2e;
 }
 /* estilos para la barra de sonido */
 .o-sound-bar{
@@ -235,28 +242,41 @@ body{
 .o-icon-text{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius:0 ;
     justify-content: center;
     align-items: center;
     font-weight: lighter;
+    padding: 0rem 0rem 0rem 0.5rem;
 }
 /* estilos para el div que contiene los puntos blancos */
 .o-dots{
-    width: 30%;
+    width: 100%;
+    height: 100%;
     display: flex;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius:0 ;
     align-self: center;
-    justify-content: space-around;
-    margin-right: 1rem;
+    justify-content: center;
+    align-items: center;
     font-size: 2rem;
 }
 /* estilos para el texto */
 .o-text{
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 /* estilos para el contenedor del icono, texto y los puntos blancos */
 .o-dot-icon-container{
+    background-color: #292929;
     display: flex;
     justify-content: center;
+    border-radius: 15px;
+    width: 5.5rem;
+    height: 3.2rem;
 }
 /* estilos de los puntos blancos */
 .o-dot-blank{
@@ -264,10 +284,13 @@ body{
     height: 4px;
     border-radius: 50%;
     background-color: white;
+    margin: 0.1rem;
 }
 /* estilos del boton para mostrar la emoción detectada */
 .o-btn-img{
     width: 4rem;
+    background-color: #292929;
+    border-radius: 15px;    
 }
 
 /* mediaquery */

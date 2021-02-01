@@ -15,38 +15,43 @@
 <div class="o-footer-detection">
     <button class="o-btn-start o-btn-primary"> Comenzar</button>
     <!-- boton de apagar camara -->
-    <button class=" o-btn-secundary">
-        <div class="o-dot-icon-container">
+    <div class="o-dot-icon-container">
+        <button class=" o-btn-secundary" onclick="camera()">
             <div class="o-icon-text">
-                <img src="./src/video-camera.svg" alt="camara icon" width="30rem">
+                <img src="./src/Camera.png" id="camera-icon" alt="camara icon" width="29rem">
                 <span class="o-text"> Apagar</span>
             </div>
+        </button>
+        <button class="o-btn-secundary">
             <div class="o-dots">
                 <div class="o-dot-blank"></div>
                 <div class="o-dot-blank"></div>
                 <div class="o-dot-blank"></div>
             </div>
-        </div>
-    </button>
+        </button>
+    </div>
+    
     <!-- boton de apagar microfono -->
     <div class="o-micro-container">
-        <button class=" o-btn-secundary" onclick="micro()">
-            <div class="o-dot-icon-container">
+        <div class="o-dot-icon-container">
+            <button class=" o-btn-secundary" onclick="micro()">
                 <div class="o-icon-text">
-                    <img src="./src/microphone-black-shape.svg" id="micr-img" alt="microfone icon" width="30rem">
+                    <img src="./src/Microphone.png" id="micro-icon" alt="camara icon" width="16rem">
                     <span class="o-text"> Silenciar</span>
                 </div>
+            </button>
+            <button class="o-btn-secundary">
                 <div class="o-dots">
                     <div class="o-dot-blank"></div>
                     <div class="o-dot-blank"></div>
                     <div class="o-dot-blank"></div>
                 </div>
-            </div>
-        </button>&nbsp;
+            </button> 
+        </div>&nbsp;
         <!-- barra de sonido -->
         <div class="o-sound-bar"></div>
     </div>
     <!-- boton donde se despliega la emocion detectada -->
-    <button class=" o-btn-secundary o-btn-img"> <img src="./src/Icon.png" alt="imagen de la emocion" width="45rem"
+    <button class=" o-btn-secundary o-btn-img"> <img src="./src/Icon.png" alt="imagen de la emocion" width="35rem"
             title="ver emociones detectadas"></button>
 </div>
