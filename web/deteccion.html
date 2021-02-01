@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/deteccion.css">
     <link rel="icon" href="./src/Icon.png" type="image/png">
+    <script src="js/deteccion.js"></script>
     <title>ClassMood</title>
 </head>
 
@@ -72,10 +73,10 @@
                     </div>
                 </div>
              </button>&nbsp;&nbsp;
-             <button class=" o-btn-secundary">
+             <button class=" o-btn-secundary" onclick="micro()">
                 <div class="o-dot-icon-container">
                     <div class="o-icon-text">
-                        <img src="./src/microphone-black-shape.svg" alt="camara icon" width="30rem">
+                        <img src="./src/microphone-black-shape.svg" id="micr-img" alt="camara icon" width="30rem">
                         <span class="o-text"> Silenciar</span>
                     </div>
                     <div class="o-dots">

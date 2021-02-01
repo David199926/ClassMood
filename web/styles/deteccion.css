@@ -216,6 +216,7 @@ border-radius: 15px;
     height: 3.5rem;
     border-radius: 15px;
     color: white;
+    outline: none;
 }
 /* estilos para la barra de sonido */
 .barra-sonido{
