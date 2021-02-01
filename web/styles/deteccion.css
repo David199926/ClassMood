@@ -253,8 +253,11 @@ border-radius: 15px;
 }
 /* estilos de los puntos blancos */
 .dot-blank{
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background-color: white;
+}
+.btn-img{
+    width: 4rem;
 }
