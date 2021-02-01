@@ -1,0 +1,264 @@
+/*estilos del contenedor principal*/
+body{
+    display: flex;
+    background-color: #1d1d1d;
+}
+
+/*estilos del menu lateral*/
+.o-sidemenu{
+    background-color: #242424;
+    height: 100vh;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*estilos del contendedor del nombre del estudiante*/
+.o-user-name-header{
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    background-color: #2e2e2e;
+    height: 60px;
+    width: 100%;
+    margin: auto;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
+
+/*estilos del cuerpo del contenedor del menu lateral*/
+.o-sidemenu-body{
+    box-sizing: border-box;
+    padding: 1.5rem .5rem .5rem .5rem;
+    width: 100%;
+    flex-grow: 1;
+    display: grid;
+}
+
+/*estilos de texto de proximas sesiones*/
+.o-next-sessions{
+    color: #ffffff;
+    display: block;
+    font-size: 1.5rem;
+    height: fit-content;
+    margin: 1rem 0;
+}
+
+/*estilos de una sesion proxima*/
+.o-session{
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #363636;
+    border-radius: 23px;
+    height: 135px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*estilos del header de la sesion*/
+.o-session-header{
+    display: flex;
+}
+
+/*estilos del titulo de la sesion*/
+.o-session-title{
+    font-size: 1.5rem;
+    color: #ffffff;
+    display: block;
+}
+
+/*estilos del grupo de la sesion*/
+.o-session-group{
+    font-size: 1.2rem;
+    color: #ababab;
+    width: 50%;
+    height: fit-content;
+    margin-top: 7px;
+}
+
+/*estilos del contenedor de los tiempos de una sesion*/
+.o-session-time{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #ababab;
+    font-size: 1.2rem
+}
+
+/*estilos del footer del menu lateral*/
+.o-sidemenu-footer{
+    align-self: flex-end;
+}
+
+/*estilos del link de ClassMood web*/
+.o-classmoodweb{
+    color: #ababab;
+    font-size: 1.2rem;
+    display: block;
+    margin: 1rem 0 1.5rem 0;
+}
+.o-classmoodweb strong{
+    color: #ffffff;
+}
+
+/*estilos del contenedor de cerrar sesion*/
+.o-logout{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #1f1f1f;
+    width: 100%;
+    height: 70px;
+    border-radius: 16px;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 300ms ease;
+}
+.o-logout:hover{
+    background-color: #2e2e2e;
+}
+
+/*estilos del texto de cerrar sesion*/
+.o-logout span{
+    color: #ababab;
+    font-size: 1.2rem;
+}
+
+/*estilos de la imagen de cerrar sesion*/
+.o-logout img{
+    height: 2.8rem;
+    position: absolute;
+    left: 0;
+    padding-left: 1rem;
+}
+
+/*estilos del contenedor principal*/
+.o-main-container{
+    background-color: #1d1d1d;
+    height: 100vh;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*estilos de la pantalla de no sesiones disponibles*/
+.o-nosession-content{
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*estilos del titulo de la pantalla de no sesiones disponibles*/
+.o-nosession-content span{
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+/*estilos de la imagen de la pantalla de no sesiones disponibles*/
+.o-nosession-content img{
+    margin-top: 1rem;
+    width: 30rem;
+}
+/* estilos para el recuadro de la deteccion */
+.session-content{
+    width: 70%;
+    height: 70%;
+    background-color: #242424;
+}
+
+/* estilos para el titulo del grupo en la ventana de deteccion */
+.o-group-detect{
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+/* esitlos para el header de la deteccion */
+.title-detect-container{
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* estilos del titutlo de la materia */
+.o-title-deteccion{
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    display: block;
+}
+/* estilos del boton */
+.o-comenzar{
+height: 3.5rem;
+border-radius: 15px;
+
+}
+/* estilos para el footer */
+.footer-deteccion{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+/* estilos del boton de apagar y encender */
+.o-btn-secundary{
+    cursor: pointer;
+    background-color: #292929;
+    border: none;
+    width: 6.5rem;
+    height: 3.5rem;
+    border-radius: 15px;
+    color: white;
+    outline: none;
+}
+/* estilos para la barra de sonido */
+.barra-sonido{
+    width: 0.5rem;
+    height: 3.5rem;
+    background-color: #292929;
+  
+}
+/* estilos para el div del icono con el texto */
+.o-icon-text{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+    font-weight: lighter;
+}
+/* estilos para el div que contiene los puntos blancos */
+.o-dots{
+    width: 30%;
+    display: flex;
+    align-self: center;
+    justify-content: space-around;
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+/* estilos para el texto */
+.o-text{
+    font-size: 0.8rem;
+}
+/* estilos para el contenedor del icono, texto y los puntos blancos */
+.o-dot-icon-container{
+    display: flex;
+    justify-content: center;
+}
+/* estilos de los puntos blancos */
+.dot-blank{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: white;
+}
+.btn-img{
+    width: 4rem;
+}

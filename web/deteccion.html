@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/deteccion.css">
+    <link rel="icon" href="./src/Icon.png" type="image/png">
+    <script src="js/deteccion.js"></script>
+    <title>ClassMood</title>
+</head>
+
+<body>
+    <!-- Menu lateral para las sesiones próximas -->
+    <div class="o-sidemenu">
+        <div class="o-user-name-header">Hola&nbsp;<strong id="userName">David López</strong></div>
+        <div class="o-sidemenu-body">
+            <!-- Sesiones -->
+            <div class="o-sessions">
+                <span class="o-next-sessions">Próximas sesiones</span>
+                <div class="o-session">
+                    <div class="o-session-header">
+                        <span class="o-session-title" id="sessionGroupName">Computación Físca</span>
+                        <span class="o-session-group" id="sessionGroupNumber">Grupo 1</span>
+                    </div>
+                    <div class="o-session-time">
+                        <span>Inicio:&nbsp;<span id="sessionStartTime">1:52 AM</span></span>
+                        <span>Fin:&nbsp;<span id="sessioneNDTime">5:52 AM</span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="o-sidemenu-footer">
+                <!-- ClassMood Web -->
+                <a class="o-classmoodweb" href="https://demotion-1.herokuapp.com" target="blank">Visita
+                    <strong>ClassMood web</strong></a>
+                <!-- Cerrar sesion -->
+                <div class="o-logout" onclick="location.href = 'Login.html'">
+                    <img src="./src/logOut.png" alt="logOut">
+                    <span>Cerrar sesión</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contenedor principal -->
+    <div class="o-main-container">
+        <div class="title-detect-container">
+            <span class="o-title-deteccion">Diseño</span>
+            <span class="o-group-detect">Grupo 1</span>
+            <div class="o-session-time">
+                <span>Inicio:&nbsp;<span id="sessionStartTime">1:52 AM</span></span>
+                <span>Fin:&nbsp;<span id="sessioneNDTime">5:52 AM</span></span>
+            </div>
+        </div>
+        <br>
+        <div class="session-content">
+        </div>
+        <br>
+        <div class="footer-deteccion">
+            <button class="o-comenzar o-btn-primary"> Comenzar</button>&nbsp;&nbsp;
+            <button class=" o-btn-secundary">
+                <div class="o-dot-icon-container">
+                    <div class="o-icon-text">
+                        <img src="./src/video-camera.svg" alt="camara icon" width="30rem">
+                        <span class="o-text"> Apagar</span>
+                    </div>
+                    <div class="o-dots">
+                        <div class="dot-blank"></div>
+                        <div class="dot-blank"></div>
+                        <div class="dot-blank"></div>
+                    </div>
+                </div>
+             </button>&nbsp;&nbsp;
+             <button class=" o-btn-secundary" onclick="micro()">
+                <div class="o-dot-icon-container">
+                    <div class="o-icon-text">
+                        <img src="./src/microphone-black-shape.svg" id="micr-img" alt="camara icon" width="30rem">
+                        <span class="o-text"> Silenciar</span>
+                    </div>
+                    <div class="o-dots">
+                        <div class="dot-blank"></div>
+                        <div class="dot-blank"></div>
+                        <div class="dot-blank"></div>
+                    </div>
+                </div>
+             </button>&nbsp;
+            <div class="barra-sonido"></div>&nbsp;&nbsp;
+            <button class=" o-btn-secundary btn-img"> <img src="./src/Icon.png" alt="imagen de la emocion" width="45rem" title="ver emociones detectadas"></button>&nbsp;&nbsp;
+        </div>
+    </div>
+</body>
+
+</html>
