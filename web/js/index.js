@@ -81,3 +81,11 @@ function micro(){
     microControl.dataset.state = state
     
 }
+
+function emotion(){
+    var emotionControl = document.getElementById('emotionControl');
+    let state = !JSON.parse(emotionControl.dataset.state)
+    //setear imagen
+    document.getElementById("emotionIcon").src = state? './src/Emotions.png' : './src/NoEmotions.png';
+    emotionControl.dataset.state = state
+}

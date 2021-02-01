@@ -303,6 +303,9 @@ body{
     width: 4rem;
     background-color: #292929;
     border-radius: 15px;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* estilos de los iconos */
