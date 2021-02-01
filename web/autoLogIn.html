@@ -34,6 +34,7 @@
             color: #ffffff;
             font-size: 2rem;
             margin-bottom: 1rem;
+            text-align: center;
         }
         
         .o-carga{
@@ -70,7 +71,8 @@
                 }
             }).fail(()=>{
                 //log conection error
-                console.log("error de coneccion")
+                document.getElementById("carga").remove()
+                document.getElementById("label").innerHTML = "No se pudo conectar con el servidor :( <br> Inténtalo más tarde"
             })
         }
         })
@@ -79,8 +81,8 @@
 </head>
 <body>
     <div class="o-contenedor-carga">
-        <span class="o-label">Cargando sesion</span>
-        <div class="o-carga"></div>
+        <span class="o-label" id="label">Cargando sesion</span>
+        <div class="o-carga" id="carga"></div>
     </div>
 </body>
 </html>
