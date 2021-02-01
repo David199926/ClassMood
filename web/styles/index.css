@@ -210,7 +210,6 @@ border-radius: 15px;
 }
 .o-micro-container{
     display: flex;
-    
     justify-content: space-between;
 }
 /* estilos del boton de apagar y encender */
@@ -279,6 +278,9 @@ border-radius: 15px;
     .o-title-detect-container{
         width: 40%;
 
+    }
+    .o-footer-deteccion{
+        width: 65%;
     }
 
 }
