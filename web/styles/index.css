@@ -205,8 +205,13 @@ border-radius: 15px;
 /* estilos para el footer */
 .o-footer-deteccion{
     display: flex;
-    width: 100%;
-    justify-content: center;
+    width: 40%;
+    justify-content: space-around;
+}
+.o-micro-container{
+    display: flex;
+    
+    justify-content: space-between;
 }
 /* estilos del boton de apagar y encender */
 .o-btn-secundary{
@@ -263,4 +268,17 @@ border-radius: 15px;
 /* estilos del boton para mostrar la emoción detectada */
 .o-btn-img{
     width: 4rem;
+}
+
+/* mediaquery */
+
+@media only screen and (max-width:1335px){
+    .o-session-content{
+        width: 80%;
+    }
+    .o-title-detect-container{
+        width: 40%;
+
+    }
+
 }
