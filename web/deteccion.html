@@ -1,0 +1,52 @@
+<div class="o-title-detect-container">
+    <span class="o-title-deteccion" id="titleDetection"></span>
+    <span class="o-group-detect" id="groupDetection"></span>
+    <div class="o-session-time">
+        <span>Inicio:&nbsp;<span id="currentSessionStartTime"></span></span>
+        <span>Fin:&nbsp;<span id="currentSessionEndTime"></span></span>
+    </div>
+</div>
+<br>
+<!-- entorno de la camara -->
+<div class="o-session-content">
+</div>
+<br>
+<!-- panel donde se agregan todos los botones de control -->
+<div class="o-footer-deteccion">
+    <button class="o-comenzar o-btn-primary"> Comenzar</button>
+    <!-- boton de apagar camara -->
+    <button class=" o-btn-secundary">
+        <div class="o-dot-icon-container">
+            <div class="o-icon-text">
+                <img src="./src/video-camera.svg" alt="camara icon" width="30rem">
+                <span class="o-text"> Apagar</span>
+            </div>
+            <div class="o-dots">
+                <div class="o-dot-blank"></div>
+                <div class="o-dot-blank"></div>
+                <div class="o-dot-blank"></div>
+            </div>
+        </div>
+    </button>
+    <!-- boton de apagar microfono -->
+    <div class="o-micro-container">
+        <button class=" o-btn-secundary" onclick="micro()">
+            <div class="o-dot-icon-container">
+                <div class="o-icon-text">
+                    <img src="./src/microphone-black-shape.svg" id="micr-img" alt="camara icon" width="30rem">
+                    <span class="o-text"> Silenciar</span>
+                </div>
+                <div class="o-dots">
+                    <div class="o-dot-blank"></div>
+                    <div class="o-dot-blank"></div>
+                    <div class="o-dot-blank"></div>
+                </div>
+            </div>
+        </button>&nbsp;
+        <!-- barra de sonido -->
+        <div class="o-barra-sonido"></div>
+    </div>
+    <!-- boton donde se despliega la emocion detectada -->
+    <button class=" o-btn-secundary o-btn-img"> <img src="./src/Icon.png" alt="imagen de la emocion" width="45rem"
+            title="ver emociones detectadas"></button>
+</div>
