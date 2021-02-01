@@ -260,6 +260,7 @@ border-radius: 15px;
     border-radius: 50%;
     background-color: white;
 }
+/* estilos del boton para mostrar la emoción detectada */
 .btn-img{
     width: 4rem;
 }
