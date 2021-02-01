@@ -65,7 +65,7 @@
             $.get(url, {Correo: conf.user.email, Contrasena: conf.user.password, Type:'encrypted'}, function(data){
                 if(data !== "wrong password" || data !== "no found"){
                     //user found
-                    sessionStorage.setItem("usuario", JSON.stringify(data));
+                    sessionStorage.setItem("user", JSON.stringify(data));
                     window.location.href = "index.html";
                 }
             }).fail(()=>{
