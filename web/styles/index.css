@@ -170,7 +170,7 @@ body{
     width: 30rem;
 }
 /* estilos para el recuadro de la deteccion */
-.session-content{
+.o-session-content{
     width: 70%;
     height: 70%;
     background-color: #242424;
@@ -183,7 +183,7 @@ body{
     text-align: center;
 }
 /* esitlos para el header de la deteccion */
-.title-detect-container{
+.o-title-detect-container{
     width: 23%;
     display: flex;
     flex-direction: column;
@@ -203,10 +203,14 @@ border-radius: 15px;
 
 }
 /* estilos para el footer */
-.footer-deteccion{
+.o-footer-deteccion{
     display: flex;
-    width: 100%;
-    justify-content: center;
+    width: 40%;
+    justify-content: space-around;
+}
+.o-micro-container{
+    display: flex;
+    justify-content: space-between;
 }
 /* estilos del boton de apagar y encender */
 .o-btn-secundary{
@@ -220,7 +224,7 @@ border-radius: 15px;
     outline: none;
 }
 /* estilos para la barra de sonido */
-.barra-sonido{
+.o-barra-sonido{
     width: 0.5rem;
     height: 3.5rem;
     background-color: #292929;
@@ -254,12 +258,29 @@ border-radius: 15px;
     justify-content: center;
 }
 /* estilos de los puntos blancos */
-.dot-blank{
+.o-dot-blank{
     width: 4px;
     height: 4px;
     border-radius: 50%;
     background-color: white;
 }
-.btn-img{
+/* estilos del boton para mostrar la emoción detectada */
+.o-btn-img{
     width: 4rem;
+}
+
+/* mediaquery */
+
+@media only screen and (max-width:1335px){
+    .o-session-content{
+        width: 80%;
+    }
+    .o-title-detect-container{
+        width: 40%;
+
+    }
+    .o-footer-deteccion{
+        width: 65%;
+    }
+
 }
