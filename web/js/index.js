@@ -1,4 +1,7 @@
-var state = true
+let user = JSON.parse(sessionStorage.getItem("user"));
+//setear el nombre del usuario en el menu lateral
+document.getElementById("userName").innerHTML = user.Nombre+' '+user.Apellido;
+
 function logOut(){
     sessionStorage.removeItem("user");
     eel.readConf()(conf =>{
@@ -11,14 +14,3 @@ function logOut(){
     })
 }
 
-
-function micro(){
-    
-    if(state){
-    document.getElementById("micr-img").src="./src/microphone-with-slash-interface-symbol-for-mute-audio.svg"
-    state= false
-    }else{
-        document.getElementById("micr-img").src="./src/microphone-black-shape.svg"
-        state=true
-    }
-}
