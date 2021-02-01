@@ -45,6 +45,12 @@ body{
     margin: 1rem 0;
 }
 
+/*estilos del texto de no hay proximas sesiones*/
+.o-no-next-sessions{
+    font-size: 1.2rem;
+    color: #ababab;
+}
+
 /*estilos de una sesion proxima*/
 .o-session{
     box-sizing: border-box;
@@ -60,7 +66,8 @@ body{
 
 /*estilos del header de la sesion*/
 .o-session-header{
-    display: flex;
+    display: grid;
+    grid-template-columns: 60% 40%;
 }
 
 /*estilos del titulo de la sesion*/
@@ -74,9 +81,8 @@ body{
 .o-session-group{
     font-size: 1.2rem;
     color: #ababab;
-    width: 50%;
     height: fit-content;
-    margin-top: 7px;
+    margin-top: 5px;
 }
 
 /*estilos del contenedor de los tiempos de una sesion*/
