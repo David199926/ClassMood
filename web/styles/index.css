@@ -199,14 +199,14 @@ body{
 /* estilos del boton */
 .o-btn-start{
     width: 8rem;
-height: 3.2rem;
-border-radius: 15px;
+    height: 3.2rem;
+    border-radius: 15px;
 
 }
 /* estilos para el footer */
 .o-footer-detection{
     display: flex;
-    width: 34%;
+    width: 26rem;
     justify-content: space-around;
 }
 .o-micro-container{
@@ -280,8 +280,6 @@ border-radius: 15px;
         width: 40%;
 
     }
-    .o-footer-detection{
-        width: 55%;
-    }
+
 
 }
