@@ -100,25 +100,27 @@ function getDevices(){
             let label = device.label
             if (device.kind === "audioinput"){
                 option = document.createElement("div");
-                option.setAttribute('id','selectOption')
+                option.setAttribute('id','selectOption'+device.deviceId)
                 option.setAttribute('class','o-select-option')
+                option.setAttribute('data-id',device.deviceId)
+                option.setAttribute('onclick',"selectOption('"+device.deviceId+"','micro')")
                 text = document.createElement('span')
                 text.setAttribute('id','selectOptionText')
                 text.setAttribute('class','o-select-option-Text')
                 text.innerHTML = label;
-                option.value = device.deviceId
                 option.append(text)
                 audioOptions.append(option)
             }else if(device.kind === "videoinput"){
                 label = label.split("(")[0].trim() //only device name
                 option = document.createElement("div");
-                option.setAttribute('id','selectCameraOption')
-                option.setAttribute('class','o-select-option')
+                option.setAttribute('id','selectCameraOption'+device.deviceId)
+                option.setAttribute('class','o-selectC-option')
+                option.setAttribute('data-id',device.deviceId)
                 text = document.createElement('span')
                 text.setAttribute('id','selectOptionText')
                 text.setAttribute('class','o-select-option-Text')
                 text.innerHTML = label;
-                option.value = device.deviceId
+                option.setAttribute('onclick',"selectOption('"+device.deviceId+"','camera')")
                 option.append(text)
                 videoOptions.append(option)
             }
@@ -140,4 +142,18 @@ function displayCameraDevices(){
     let state = !JSON.parse(CdevicesControl.dataset.state)
     document.getElementById('CdevicesContainer').hidden= state ? true:false;          
     CdevicesControl.dataset.state=state
+}
+
+function selectOption(id,type){
+    if (type === "micro") {
+        let elements = document.getElementsByClassName('o-select-option')
+        for(el of elements)el.style.backgroundColor='#1F1F1F'
+        let option = document.getElementById('selectOption' + id)
+        option.style.backgroundColor = '#2E8AE5'
+    }else if(type === "camera"){
+        let elements = document.getElementsByClassName('o-selectC-option')
+        for(el of elements)el.style.backgroundColor='#1F1F1F'
+        let option = document.getElementById('selectCameraOption' + id)
+        option.style.backgroundColor = '#2E8AE5'
+    }
 }
