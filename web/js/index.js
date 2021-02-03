@@ -133,6 +133,7 @@ function displayMicroDevices(){
     let state = !JSON.parse(MdevicesControl.dataset.state)
     document.getElementById('MdevicesContainer').hidden= state ? true:false;          
     MdevicesControl.dataset.state=state
+    
 }
 function displayCameraDevices(){
     var CdevicesControl = document.getElementById('dispCamera')

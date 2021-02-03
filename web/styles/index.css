@@ -290,6 +290,10 @@ body{
     background-size: 1.1rem;
     background-color: transparent;
     cursor: pointer;
+    overflow-x: hidden;
+    overflow-y: auto;
+   
+ 
 }
 /* estilos para el texto */
 .o-text{
@@ -334,40 +338,42 @@ body{
 .o-microdevices-container{
     width: fit-content;
     position: absolute;
-    bottom: 4rem;
+    z-index: 2000;
+    bottom: 5.5rem;
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
-    left: 63rem;
     color: white;
+    overflow: hidden ;
+    right: calc(0% + 11rem);
 
 }
 
 .o-cameradevices-container{
     width: fit-content;
     position: absolute;
-    bottom: 4rem;
+    bottom: 5.5rem;
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
-    left: 53rem;
     color: white;
-
+    overflow: hidden ;
+    right: calc(8% + 20rem);
 }
 /* estilos de la opcion  */
 .o-select-option{
     display: flex;
     align-items: center;
     padding-left: 1rem;
+    padding-right: 1rem;
     height: 1.5rem;
+   
     
 }
 /* estilos del hover en la opcion */
 .o-select-option:hover{
-    border-radius: 11px;
    background-color: #2E8AE5;
    cursor: pointer;
-   
 }
 
 
@@ -381,6 +387,14 @@ body{
     .o-title-detect-container{
         width: 40%;
 
+    }
+    .o-microdevices-container{
+        right: calc(0% + 7rem);
+    
+    }
+    .o-cameradevices-container{
+
+        right: calc(10% + 12rem);
     }
 
 
