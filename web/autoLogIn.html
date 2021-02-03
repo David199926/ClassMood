@@ -62,7 +62,7 @@
             //go to login page
             window.location.href = "LogIn.html"
         }else{
-            const url = 'http://localhost:3000/login';
+            const url = 'https://classmood-appserver.herokuapp.com/login';
             $.get(url, {Correo: conf.user.email, Contrasena: conf.user.password, Type:'encrypted'}, function(data){
                 if(data !== "wrong password" || data !== "no found"){
                     //user found
@@ -81,7 +81,7 @@
 </head>
 <body>
     <div class="o-contenedor-carga">
-        <span class="o-label" id="label">Cargando sesion</span>
+        <span class="o-label" id="label">Cargando sesión</span>
         <div class="o-carga" id="carga"></div>
     </div>
 </body>
