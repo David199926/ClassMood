@@ -63,7 +63,7 @@ function logOut(){
         })
     })
 }
-
+// cambiar la imagen de la camara al activar/desactivar
 function camera(){
     var cameraControl = document.getElementById('cameraControl');
     let state = !JSON.parse(cameraControl.dataset.state)
@@ -72,7 +72,7 @@ function camera(){
     document.getElementById("cameraText").innerHTML = state? "Desactivar" : "Activar";
     cameraControl.dataset.state = state
 }
-
+// cambiar la imagen del microno al activar/desactivar
 function micro(){
     var microControl = document.getElementById('microControl');
     let state = !JSON.parse(microControl.dataset.state)
@@ -82,7 +82,7 @@ function micro(){
     microControl.dataset.state = state
     
 }
-
+// cambiar la imagen de la emocion al activar/desactivar
 function emotion(){
     var emotionControl = document.getElementById('emotionControl');
     let state = !JSON.parse(emotionControl.dataset.state)
@@ -90,7 +90,7 @@ function emotion(){
     document.getElementById("emotionIcon").src = state? './src/Emotions.png' : './src/NoEmotions.png';
     emotionControl.dataset.state = state
 }
-
+// obtener los dispositivos
 function getDevices(){
     audioOptions = document.getElementById("MdevicesContainer");
     videoOptions = document.getElementById("CdevicesContainer");
@@ -130,6 +130,7 @@ function getDevices(){
       });
 }
 
+// mostrar el menú de opciones de los dispositivos de microfono
 function displayMicroDevices(){
     var MdevicesControl = document.getElementById('dispMicro')
     let state = !JSON.parse(MdevicesControl.dataset.state)
@@ -137,13 +138,14 @@ function displayMicroDevices(){
     MdevicesControl.dataset.state=state
     
 }
+// mostrar el menú de opciones de los dispositivos de camara
 function displayCameraDevices(){
     var CdevicesControl = document.getElementById('dispCamera')
     let state = !JSON.parse(CdevicesControl.dataset.state)
     document.getElementById('CdevicesContainer').hidden= state ? true:false;          
     CdevicesControl.dataset.state=state
 }
-
+// funcion para mantener seleccionada la opcion
 function selectOption(id,type){
     if (type === "micro") {
         let elements = document.getElementsByClassName('o-select-option')
