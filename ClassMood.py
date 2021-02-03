@@ -1,5 +1,6 @@
 import eel
 import Configuration
+import VideoProcessing
 
 if __name__ == "__main__":
     eel.init('web')

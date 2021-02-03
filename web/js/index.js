@@ -65,20 +65,22 @@ function logOut(){
 
 function camera(){
     var cameraControl = document.getElementById('cameraControl');
-    let state = !JSON.parse(cameraControl.dataset.state)
-    //setear imagen
-    document.getElementById("cameraIcon").src = state? './src/Camera.png' : './src/NoCamera.png';
-    document.getElementById("cameraText").innerHTML = state? "Desactivar" : "Activar";
-    cameraControl.dataset.state = state
+    let state = !JSON.parse(cameraControl.dataset.state);
+    eel.changeVideoControl(state)(_=>{
+        //setear imagen
+        document.getElementById("cameraIcon").src = state? './src/Camera.png' : './src/NoCamera.png';
+        document.getElementById("cameraText").innerHTML = state? "Desactivar" : "Activar";
+        cameraControl.dataset.state = state;
+    })
 }
 
 function micro(){
     var microControl = document.getElementById('microControl');
-    let state = !JSON.parse(microControl.dataset.state)
+    let state = !JSON.parse(microControl.dataset.state);
     //setear imagen
     document.getElementById("microIcon").src = state? './src/Microphone.png' : './src/NoMicrophone.png';
     document.getElementById("microText").innerHTML = state? "Silenciar" : "Activar";
-    microControl.dataset.state = state
+    microControl.dataset.state = state;
     
 }
 
@@ -88,4 +90,21 @@ function emotion(){
     //setear imagen
     document.getElementById("emotionIcon").src = state? './src/Emotions.png' : './src/NoEmotions.png';
     emotionControl.dataset.state = state
+}
+
+function detectionEvent(caller){
+    let state = caller.dataset.state === "stopped"? "started": "stopped";
+    if(state === "started"){
+        eel.run()(_=>{
+            caller.innerHTML = "Terminar";
+            caller.dataset.state = state;
+        });
+    }
+    else if(state === "stopped"){
+        eel.stop()(_=>{
+            caller.innerHTML = "Comenzar";
+            caller.dataset.state = state;
+        });
+    } 
+    else throw Error;
 }
