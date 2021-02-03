@@ -3,13 +3,13 @@ let user = JSON.parse(sessionStorage.getItem("user"));
 //setear el nombre del usuario en el menu lateral
 document.getElementById("userName").innerHTML = user.Nombre+' '+user.Apellido;
 //obtener la sesión actual (si existe)
-let url = 'http://localhost:3000/';
+let url = 'https://classmood-appserver.herokuapp.com/';
 $.get(url + 'available', { Correo: user.Correo }, (data)=>{
     if(data.length === 0){
         document.getElementById("mainContainer").innerHTML = `
         <div class="o-nosession-content">
             <span>No hay sesiones disponibles</span>
-            <img src="src/NoSession.svg" alt="NoSession">
+            <img src="./src/NoSession.png" alt="NoSession">
         </div>`;
     }
     else{

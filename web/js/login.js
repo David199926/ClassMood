@@ -3,7 +3,7 @@ function logIn(){
     let password = document.getElementById("password").value
     //si no ingresa los datos
     if(email === "" || password === "") return document.getElementById("validationError").innerHTML = "Llena ambos campos para poder iniciar sesion";
-    const url = 'http://localhost:3000/login'
+    const url = 'https://classmood-appserver.herokuapp.com/login'
     $.get(url, {Correo: email, Contrasena: password, Type: 'normal'}, (data)=>{
         //si la contraseña es incorrecta
         if(data === "wrong password") return  document.getElementById("validationError").innerHTML = "La contraseña que ingresaste es incorrecta. Inténtalo de nuevo";
