@@ -340,7 +340,7 @@ body{
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
-    color: white;
+    color: #8A8A8A;
     overflow: hidden ;
     right: calc(0% + 11rem);
 
@@ -353,7 +353,7 @@ body{
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
-    color: white;
+    color: #8A8A8A;
     overflow: hidden ;
     right: calc(8% + 20rem);
 }
@@ -386,6 +386,13 @@ body{
 .o-selectC-option:hover{
    background-color: #2E8AE5;
    cursor: pointer;
+}
+/* estilos para el header de las opciones */
+.o-header-option{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
 

@@ -147,13 +147,15 @@ function displayCameraDevices(){
 function selectOption(id,type){
     if (type === "micro") {
         let elements = document.getElementsByClassName('o-select-option')
-        for(el of elements)el.style.backgroundColor='#1F1F1F'
+        for(el of elements){el.style.backgroundColor='#1F1F1F';el.style.color='#8A8A8A'}
         let option = document.getElementById('selectOption' + id)
         option.style.backgroundColor = '#2E8AE5'
+        option.style.color = 'white'
     }else if(type === "camera"){
         let elements = document.getElementsByClassName('o-selectC-option')
-        for(el of elements)el.style.backgroundColor='#1F1F1F'
+        for(el of elements){el.style.backgroundColor='#1F1F1F';el.style.color='#8A8A8A'}
         let option = document.getElementById('selectCameraOption' + id)
         option.style.backgroundColor = '#2E8AE5'
+        option.style.color = 'white'
     }
 }
