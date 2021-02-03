@@ -1,3 +1,5 @@
+
+</script>
 <div class="o-title-detect-container">
     <span class="o-title-detection" id="titleDetection"></span>
     <span class="o-group-detect" id="groupDetection"></span>
@@ -22,13 +24,12 @@
                 <span class="o-text" id="cameraText">Desactivar</span>
             </div>
         </button>
-        <button class="o-btn-secundary o-btn-dots">
-            <div class="o-dots">
-                <div class="o-dot-blank"></div>
-                <div class="o-dot-blank"></div>
-                <div class="o-dot-blank"></div>
+       
+        <div class="o-dots" id="dispCamera" data-state="true" onclick="displayCameraDevices()">
+            <div class="o-cameradevices-container" id="CdevicesContainer" hidden>
             </div>
-        </button>
+         </div>
+        
     </div>
     
     <!-- boton de apagar microfono -->
@@ -40,13 +41,10 @@
                     <span class="o-text" id="microText">Desactivar</span>
                 </div>
             </button>
-            <button class="o-btn-secundary o-btn-dots">
-                <div class="o-dots">
-                    <div class="o-dot-blank"></div>
-                    <div class="o-dot-blank"></div>
-                    <div class="o-dot-blank"></div>
+                <div class="o-dots" id="dispMicro" data-state="true" onclick="displayMicroDevices()">
+                   <div class="o-microdevices-container" id="MdevicesContainer" hidden>
+                   </div>
                 </div>
-            </button> 
         </div>&nbsp;
         <!-- barra de sonido -->
         <div class="o-sound-bar"><div class="o-sound-level"></div></div>

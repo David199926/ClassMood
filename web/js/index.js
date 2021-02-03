@@ -20,6 +20,7 @@ $.get(url + 'available', { Correo: user.Correo }, (data)=>{
             document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
             document.getElementById("currentSessionStartTime").innerHTML = timeFormatter(new Date(session.HoraInicio));
             document.getElementById("currentSessionEndTime").innerHTML = timeFormatter(new Date(session.HoraFinal));
+            getDevices()
         })
         
     }
@@ -88,4 +89,54 @@ function emotion(){
     //setear imagen
     document.getElementById("emotionIcon").src = state? './src/Emotions.png' : './src/NoEmotions.png';
     emotionControl.dataset.state = state
+}
+
+function getDevices(){
+    audioOptions = document.getElementById("MdevicesContainer");
+    videoOptions = document.getElementById("CdevicesContainer");
+    
+    navigator.mediaDevices.enumerateDevices().then(function(devices){
+        devices.forEach((device)=>{
+            let label = device.label
+            if (device.kind === "audioinput"){
+                option = document.createElement("div");
+                option.setAttribute('id','selectOption')
+                option.setAttribute('class','o-select-option')
+                text = document.createElement('span')
+                text.setAttribute('id','selectOptionText')
+                text.setAttribute('class','o-select-option-Text')
+                text.innerHTML = label;
+                option.value = device.deviceId
+                option.append(text)
+                audioOptions.append(option)
+            }else if(device.kind === "videoinput"){
+                label = label.split("(")[0].trim() //only device name
+                option = document.createElement("div");
+                option.setAttribute('id','selectCameraOption')
+                option.setAttribute('class','o-select-option')
+                text = document.createElement('span')
+                text.setAttribute('id','selectOptionText')
+                text.setAttribute('class','o-select-option-Text')
+                text.innerHTML = label;
+                option.value = device.deviceId
+                option.append(text)
+                videoOptions.append(option)
+            }
+        })
+    }).catch(function(err) {
+        console.log(err.name + ": " + err.message);
+      });
+}
+
+function displayMicroDevices(){
+    var MdevicesControl = document.getElementById('dispMicro')
+    let state = !JSON.parse(MdevicesControl.dataset.state)
+    document.getElementById('MdevicesContainer').hidden= state ? true:false;          
+    MdevicesControl.dataset.state=state
+}
+function displayCameraDevices(){
+    var CdevicesControl = document.getElementById('dispCamera')
+    let state = !JSON.parse(CdevicesControl.dataset.state)
+    document.getElementById('CdevicesContainer').hidden= state ? true:false;          
+    CdevicesControl.dataset.state=state
 }
