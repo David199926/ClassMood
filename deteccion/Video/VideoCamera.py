@@ -1,10 +1,10 @@
 import cv2
 
 class VideoCamera:
-    def __init__(self):
+    def startCapture(self):
         self.video = cv2.VideoCapture(0)
 
-    def __del__(self):
+    def release(self):
         self.video.release()
 
     def getFrame(self):
