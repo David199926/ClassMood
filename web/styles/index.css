@@ -374,7 +374,7 @@ body{
 
 /* estilos del hover en la opcion */
 .o-select-option:hover{
-   background-color: #2E8AE5;
+   background-color: #363636;
    cursor: pointer;
 }
 /* estilos de las opciones de camara */
@@ -389,7 +389,7 @@ body{
 }
 /* estilos del hover en la opcion de camara */
 .o-selectC-option:hover{
-   background-color: #2E8AE5;
+   background-color: #363636;
    cursor: pointer;
 }
 /* estilos para el header de las opciones */
