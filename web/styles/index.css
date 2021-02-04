@@ -175,11 +175,23 @@ body{
     margin-top: 1rem;
     width: 30rem;
 }
+
 /* estilos para el recuadro de la deteccion */
 .o-session-content{
-    width: 70%;
-    height: 70%;
+    width: 65%;
+}
+.o-video-placeholder{
     background-color: #242424;
+    width: 100%;
+    padding-top: 75%;
+    position: relative;
+}
+
+/*estilos de la captura de video*/
+.o-video-capture{
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 /* estilos para el titulo del grupo en la ventana de deteccion */
@@ -188,6 +200,7 @@ body{
     font-size: 1rem;
     text-align: center;
 }
+
 /* esitlos para el header de la deteccion */
 .o-title-detect-container{
     width: 23%;
@@ -195,6 +208,7 @@ body{
     flex-direction: column;
     justify-content: center;
 }
+
 /* estilos del titutlo de la materia */
 .o-title-detection{
     text-align: center;
@@ -288,12 +302,13 @@ body{
     background-size: 1.1rem;
     background-color: transparent;
     cursor: pointer; 
- 
 }
+
 /* estilos para el texto */
 .o-text{
     font-size: 0.7rem;
 }
+
 /* estilos para el contenedor del icono, texto y los puntos blancos */
 .o-dot-icon-container{
     background-color: #292929;
@@ -304,6 +319,7 @@ body{
     height: 3.2rem;
     overflow: hidden;
 }
+
 /* estilos de los puntos blancos */
 .o-dot-blank{
     width: 4px;
@@ -312,6 +328,7 @@ body{
     background-color: white;
     margin: 0.1rem;
 }
+
 /* estilos del boton para mostrar la emoción detectada */
 .o-btn-img{
     width: 4rem;
@@ -329,6 +346,7 @@ body{
 .micro-icon{
     width: 1.5rem
 }
+
 /* estilos para el container del los dispositivos del micronfono */
 .o-microdevices-container{
     width: fit-content;
@@ -343,6 +361,7 @@ body{
     right: calc(0% + 11rem);
 
 }
+
 /* estilos para el contenedor de las opciones de camara */
 .o-cameradevices-container{
     width: fit-content;
@@ -356,6 +375,7 @@ body{
     overflow: hidden ;
     right: calc(8% + 20rem);
 }
+
 /* estilos de la opcion  */
 .o-select-option{
     display: flex;
@@ -364,9 +384,8 @@ body{
     padding-left: 1rem;
     padding-right: 1rem;
     height: 1.5rem;
-   
-    
 }
+
 /* estilos para el texto de la opcion */
 .o-select-option-Text{
     margin-right: 1rem;
@@ -377,6 +396,7 @@ body{
    background-color: #2E8AE5;
    cursor: pointer;
 }
+
 /* estilos de las opciones de camara */
 .o-selectC-option{
     display: flex;
@@ -384,14 +404,14 @@ body{
     padding-left: 1rem;
     padding-right: 1rem;
     height: 1.5rem;
-   
-    
 }
+
 /* estilos del hover en la opcion de camara */
 .o-selectC-option:hover{
    background-color: #2E8AE5;
    cursor: pointer;
 }
+
 /* estilos para el header de las opciones */
 .o-header-option{
     padding-left: 1rem;
@@ -399,17 +419,10 @@ body{
     margin-bottom: 0.5rem;
     font-size: 1rem;
 }
+
 /* estilos para la imagen del chulo */
 .o-chulo-device{
     width: 0.7rem;
-}
-
-
-
-/*estilos de la captura de video*/
-.o-video-capture{
-    width: 100%;
-    height: 100%;
 }
 
 /* mediaquery */
