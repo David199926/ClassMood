@@ -336,7 +336,7 @@ body{
     width: fit-content;
     position: absolute;
     z-index: 2000;
-    bottom: 3.5rem;
+    bottom: 5.5rem;
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
@@ -349,7 +349,8 @@ body{
 .o-cameradevices-container{
     width: fit-content;
     position: absolute;
-    bottom: 3.5rem;
+    z-index: 2000;
+    bottom: 5.5rem;
     font-size: 0.7rem;
     background-color: #1F1F1F;
     border-radius: 11px;
@@ -361,12 +362,18 @@ body{
 .o-select-option{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: 1rem;
     padding-right: 1rem;
     height: 1.5rem;
    
     
 }
+/* estilos para el texto de la opcion */
+.o-select-option-Text{
+    margin-right: 1rem;
+}
+
 /* estilos del hover en la opcion */
 .o-select-option:hover{
    background-color: #2E8AE5;
@@ -394,7 +401,10 @@ body{
     margin-bottom: 0.5rem;
     font-size: 1rem;
 }
-
+/* estilos para la imagen del chulo */
+.o-chulo-device{
+    width: 0.7rem;
+}
 
 
 

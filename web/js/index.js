@@ -100,28 +100,50 @@ function getDevices(){
             let label = device.label
             if (device.kind === "audioinput"){
                 option = document.createElement("div");
-                option.setAttribute('id','selectOption'+device.deviceId)
+                // se crea el contenedor del texto y el chulo
+                option.setAttribute('id',device.deviceId)
                 option.setAttribute('class','o-select-option')
                 option.setAttribute('data-id',device.deviceId)
                 option.setAttribute('onclick',"selectOption('"+device.deviceId+"','micro')")
+                // se crea el texto
                 text = document.createElement('span')
                 text.setAttribute('id','selectOptionText')
                 text.setAttribute('class','o-select-option-Text')
                 text.innerHTML = label;
+                // se crea y se oculta el chulo por defecto
+                img= document.createElement('img')
+                img.setAttribute('src','./src/Chulo.png')
+                img.setAttribute('class','o-chulo-device')
+                img.setAttribute('id','chulo'+device.deviceId)
+                img.setAttribute('hidden',true)
+                // se agregan el texto mas el chulo al contendor
                 option.append(text)
+                option.append(img)
+                // se agrega el contendor al select de opciones
                 audioOptions.append(option)
             }else if(device.kind === "videoinput"){
                 label = label.split("(")[0].trim() //only device name
+                // se crea el contenedor del chulo y el texto
                 option = document.createElement("div");
-                option.setAttribute('id','selectCameraOption'+device.deviceId)
+                option.setAttribute('id',device.deviceId)
                 option.setAttribute('class','o-selectC-option')
                 option.setAttribute('data-id',device.deviceId)
+                // se crea el texto
                 text = document.createElement('span')
                 text.setAttribute('id','selectOptionText')
                 text.setAttribute('class','o-select-option-Text')
                 text.innerHTML = label;
                 option.setAttribute('onclick',"selectOption('"+device.deviceId+"','camera')")
+                // se agrega la imagen del chulo y se esconde por defecto
+                img= document.createElement('img')
+                img.setAttribute('src','./src/Chulo.png')
+                img.setAttribute('class','o-chulo-device')
+                img.setAttribute('id','chulo'+device.deviceId)
+                img.setAttribute('hidden',true)
+                // se agregan el chulo mas el texto al contenedor
                 option.append(text)
+                option.append(img)
+                // se agrega el contendor al select de opciones
                 videoOptions.append(option)
             }
         })
@@ -148,15 +170,31 @@ function displayCameraDevices(){
 // funcion para mantener seleccionada la opcion
 function selectOption(id,type){
     if (type === "micro") {
+        // se esconden todos los fondos
         let elements = document.getElementsByClassName('o-select-option')
         for(el of elements){el.style.backgroundColor='#1F1F1F';el.style.color='#8A8A8A'}
-        let option = document.getElementById('selectOption' + id)
+        // se esconden todos los chulos
+        let img = document.getElementsByClassName('o-chulo-device')
+        for(im of img){im.hidden=true}
+        // se obtienes la opcion escogida y su chulo
+        let option = document.getElementById(id)
+        let imgOption= document.getElementById('chulo'+id)
+        // se pintan el fondo, la letra y el chulo se hace visible
+        imgOption.hidden=false
         option.style.backgroundColor = '#2E8AE5'
         option.style.color = 'white'
     }else if(type === "camera"){
+        // se esconden todos los fondos
         let elements = document.getElementsByClassName('o-selectC-option')
         for(el of elements){el.style.backgroundColor='#1F1F1F';el.style.color='#8A8A8A'}
-        let option = document.getElementById('selectCameraOption' + id)
+        // se esconden todos los chulos
+        let img = document.getElementsByClassName('o-chulo-device')
+        for(im of img){im.hidden=true}
+        // se obtienes la opcion escogida y su chulo
+        let option = document.getElementById(id)
+        let imgOption= document.getElementById('chulo'+id)
+        // se pintan el fondo, la letra y el chulo se hace visible
+        imgOption.hidden=false
         option.style.backgroundColor = '#2E8AE5'
         option.style.color = 'white'
     }
