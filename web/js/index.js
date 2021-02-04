@@ -156,16 +156,16 @@ function getDevices(){
 function displayMicroDevices(){
     var MdevicesControl = document.getElementById('dispMicro')
     let state = !JSON.parse(MdevicesControl.dataset.state)
-    document.getElementById('MdevicesContainer').hidden= state ? true:false;          
-    MdevicesControl.dataset.state=state
+    document.getElementById('MdevicesContainer').hidden= state ? true:false;  
+    MdevicesControl.dataset.state=state       
     
 }
 // mostrar el menú de opciones de los dispositivos de camara
 function displayCameraDevices(){
     var CdevicesControl = document.getElementById('dispCamera')
     let state = !JSON.parse(CdevicesControl.dataset.state)
-    document.getElementById('CdevicesContainer').hidden= state ? true:false;          
-    CdevicesControl.dataset.state=state
+    document.getElementById('CdevicesContainer').hidden= state ? true:false;
+    CdevicesControl.dataset.state=state          
 }
 // funcion para mantener seleccionada la opcion
 function selectOption(id,type){
