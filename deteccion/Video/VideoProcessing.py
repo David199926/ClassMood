@@ -8,7 +8,6 @@ import base64
 control = False
 camera = VideoCamera()
 detector = None
-emotions = ['Enojo', 'Disgusto', 'Miedo', 'Felicidad', 'Tristeza', 'Sorpresa', 'Neutral']
 #intervalo de procesamiento (segundos)
 dt = 1
 t0 = 0
@@ -44,7 +43,7 @@ def processing(frame):
     if detector is not None and time.time() - t0 >= dt:
         emotion = detector.predict(frame)
         t0 = time.time()
-        if emotion is not None: print(emotions[emotion])
+        if emotion is not None: eel.processEmotion(int(emotion))()
     
 
 def transmit():

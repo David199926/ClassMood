@@ -195,6 +195,16 @@ body{
     top: 0;
 }
 
+/*estilos para el emoji de la emocion detectada*/
+.o-emotion-display{
+    width: 2rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    z-index: 999;
+}
+
 /* estilos para el titulo del grupo en la ventana de deteccion */
 .o-group-detect{
     color: white;
