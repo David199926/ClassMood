@@ -1,5 +1,3 @@
-
-</script>
 <div class="o-title-detect-container">
     <span class="o-title-detection" id="titleDetection"></span>
     <span class="o-group-detect" id="groupDetection"></span>
@@ -11,11 +9,12 @@
 <br>
 <!-- entorno de la camara -->
 <div class="o-session-content">
+    <img id="videoCapture" class="o-video-capture" src="./src/dummy.png" alt="">
 </div>
 <br>
 <!-- panel donde se agregan todos los botones de control -->
 <div class="o-footer-detection">
-    <button class="o-btn-start o-btn-primary">Comenzar</button>
+    <button class="o-btn-start o-btn-primary" id="detectionController" onclick="detectionEvent(this)" data-state="stopped">Comenzar</button>
     <!-- boton de apagar camara -->
     <div class="o-dot-icon-container">
         <button class=" o-btn-secundary" onclick="camera()">
