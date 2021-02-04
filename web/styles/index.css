@@ -225,15 +225,13 @@ body{
     cursor: pointer;
     background-color:transparent;
     border: none;
-    width: 65%;
+    width: 75%;
     display: flex;
     color: white;
     outline: none;
     justify-content: center;
 }
-.o-btn-dots{
-    width: 35%;
-}
+
 .o-dots:hover{
     background-color: #2e2e2e;
 }
@@ -274,7 +272,7 @@ body{
 
 /* estilos para el div que contiene los puntos blancos */
 .o-dots{
-    width: 100%;
+    width: 25%;
     height: 100%;
     display: flex;
     border-radius: 15px;
