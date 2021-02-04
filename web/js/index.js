@@ -79,9 +79,10 @@ function camera(){
             document.getElementById("cameraIcon").src = './src/NoCamera.png';
             document.getElementById("cameraText").innerHTML = "Activar";
             cameraControl.dataset.state = state;
+            cleanVideoPlaceHolder();
+            
         })
     }
-    showVideoPlaceHolder(state);
 }
 
 //funcion para activar/desactivar micrófono
@@ -109,27 +110,22 @@ function detectionEvent(caller){
     let state = caller.dataset.state === "stopped"? "started": "stopped";
     if(state === "started"){
         eel.run()
-        showVideoPlaceHolder(true);
         caller.innerHTML = "Terminar";
         caller.dataset.state = state;
     }
     else if(state === "stopped"){
         eel.stop()(_=>{
-            showVideoPlaceHolder(false);
             caller.innerHTML = "Comenzar";
             caller.dataset.state = state;
+            cleanVideoPlaceHolder();
         })
     } 
     else throw Error;
 }
 
-//funcion para cambiar estilo del contenedor de la imagen
-function showVideoPlaceHolder(bool){
-    if(bool){
-        document.getElementById('videoCapture').classList.remove('o-video-capture-hidden');
-    }else{
-        document.getElementById('videoCapture').classList.add('o-video-capture-hidden');
-    }
+//funcion para limpiar el contenedor de video
+function cleanVideoPlaceHolder(){
+    document.getElementById('videoCapture').src = "./src/dummy.png"
 }
 
 //funcion llamada por python para mostrar captura de video

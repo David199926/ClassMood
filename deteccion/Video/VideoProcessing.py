@@ -1,5 +1,6 @@
 import eel
-from  VideoCamera import VideoCamera
+from deteccion.Video.VideoCamera import VideoCamera
+from deteccion.Video.VideoDetector import VideoDetector
 import base64
 
 control = False
@@ -16,7 +17,8 @@ def run():
 def capture():
     while control:
         frame = camera.getFrame()
-        yield processing(frame)
+        processing(frame)
+        yield frame
 
 
 def processing(frame):
