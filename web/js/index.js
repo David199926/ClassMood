@@ -46,11 +46,12 @@ $.get(url + 'upcoming', { Correo: user.Correo }, (data)=>{
         }
     }
 })
-
+//funcion para dar formato a los objetos Date
 function timeFormatter(time){
     return `${time.getHours() % 12 || 12}:${time.getMinutes().toString().padStart(2, '0')} ${time.getHours()> 12? 'PM': 'AM'}`
 }
 
+//función para cerrar sesión
 function logOut(){
     sessionStorage.removeItem("user");
     eel.readConf()(conf =>{
@@ -63,17 +64,27 @@ function logOut(){
     })
 }
 
+//funcion para activar/desactivar camara
 function camera(){
     var cameraControl = document.getElementById('cameraControl');
     let state = !JSON.parse(cameraControl.dataset.state);
-    eel.changeVideoControl(state)(_=>{
-        //setear imagen
-        document.getElementById("cameraIcon").src = state? './src/Camera.png' : './src/NoCamera.png';
-        document.getElementById("cameraText").innerHTML = state? "Desactivar" : "Activar";
+    if(state){
+        eel.run();
+        document.getElementById("cameraIcon").src = './src/Camera.png';
+        document.getElementById("cameraText").innerHTML = "Desactivar";
         cameraControl.dataset.state = state;
-    })
+    }
+    else{
+        eel.stop()(_=>{
+            document.getElementById("cameraIcon").src = './src/NoCamera.png';
+            document.getElementById("cameraText").innerHTML = "Activar";
+            cameraControl.dataset.state = state;
+        })
+    }
+    showVideoPlaceHolder(state);
 }
 
+//funcion para activar/desactivar micrófono
 function micro(){
     var microControl = document.getElementById('microControl');
     let state = !JSON.parse(microControl.dataset.state);
@@ -84,6 +95,7 @@ function micro(){
     
 }
 
+//funcion para el boton de mostrar/ocultar emociones detectadas
 function emotion(){
     var emotionControl = document.getElementById('emotionControl');
     let state = !JSON.parse(emotionControl.dataset.state)
@@ -92,19 +104,36 @@ function emotion(){
     emotionControl.dataset.state = state
 }
 
+//funcion del boton de comenzar/terminar captura de emociones
 function detectionEvent(caller){
     let state = caller.dataset.state === "stopped"? "started": "stopped";
     if(state === "started"){
-        eel.run()(_=>{
-            caller.innerHTML = "Terminar";
-            caller.dataset.state = state;
-        });
+        eel.run()
+        showVideoPlaceHolder(true);
+        caller.innerHTML = "Terminar";
+        caller.dataset.state = state;
     }
     else if(state === "stopped"){
         eel.stop()(_=>{
+            showVideoPlaceHolder(false);
             caller.innerHTML = "Comenzar";
             caller.dataset.state = state;
-        });
+        })
     } 
     else throw Error;
+}
+
+//funcion para cambiar estilo del contenedor de la imagen
+function showVideoPlaceHolder(bool){
+    if(bool){
+        document.getElementById('videoCapture').classList.remove('o-video-capture-hidden');
+    }else{
+        document.getElementById('videoCapture').classList.add('o-video-capture-hidden');
+    }
+}
+
+//funcion llamada por python para mostrar captura de video
+eel.expose(transmitVideo);
+function transmitVideo(blob){
+    document.getElementById('videoCapture').src = "data:image/jpeg;base64," + blob
 }
