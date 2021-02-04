@@ -27,7 +27,7 @@ class VideoDetector:
 
     def detectFace(self, input, toGrayScale = False):
         if toGrayScale: input = cv2.cvtColor(input, cv2.COLOR_BGR2GRAY)
-        faces = self.face_cascade.detectMultiScale(input, 1.3, 5)
+        faces = self.faceCascade.detectMultiScale(input, 1.3, 5)
         return faces[0] if len(faces) > 0 else None
 
     def predict(self, input):
@@ -43,5 +43,5 @@ class VideoDetector:
         prediction = self.loadedModel.predict(face)
         confidence = prediction.max()
         emotion = np.argmax(prediction)
-        return emotion if confidence >= __certainty else None
+        return emotion if confidence >= self.__certainty else None
 
