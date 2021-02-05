@@ -413,7 +413,7 @@ body{
 
 /* estilos del hover en la opcion */
 .o-select-option:hover{
-   background-color: #2E8AE5;
+   background-color: #363636;
    cursor: pointer;
 }
 
@@ -428,7 +428,7 @@ body{
 
 /* estilos del hover en la opcion de camara */
 .o-selectC-option:hover{
-   background-color: #2E8AE5;
+   background-color: #363636;
    cursor: pointer;
 }
 
@@ -436,15 +436,19 @@ body{
 .o-header-option{
     padding-left: 1rem;
     padding-right: 1rem;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.7rem;
+    height: 1rem;
 }
 
 /* estilos para la imagen del chulo */
 .o-chulo-device{
     width: 0.7rem;
 }
-
+/* estilos si la opcion es seleccionada */
+.o-yes-selected{
+    background-color: #2E8AE5;
+    color: white;
+}
 /* mediaquery */
 @media only screen and (max-width:1335px){
     /* estilos para el recuadro de la deteccion */
