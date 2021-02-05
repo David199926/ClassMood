@@ -185,6 +185,7 @@ body{
     width: 100%;
     padding-top: 75%;
     position: relative;
+    overflow: hidden;
 }
 
 /*estilos de la captura de video*/
@@ -194,14 +195,22 @@ body{
     position: absolute;
     top: 0;
 }
+/*estilos para el contenedor de emociones detectadas*/
+.o-particle-container{
+    width: 15%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    z-index: 99;
+}
 
 /*estilos para el emoji de la emocion detectada*/
-.o-emotion-display{
-    width: 2rem;
+.o-emotion-particle{
+    width: 2.5rem;
     position: absolute;
-    bottom: 0;
+    bottom: 0%;
     right: 0;
-    margin: 1rem;
     z-index: 999;
 }
 

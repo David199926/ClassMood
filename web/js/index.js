@@ -1,5 +1,5 @@
 //imagenes de las emociones
-emotionImgs = ['enojo.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
+emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
 
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
@@ -256,19 +256,34 @@ function transmitVideo(blob) {
 //funcion llamada por python para procesar una emocion detectada
 eel.expose(processEmotion);
 function processEmotion(emotion) {
-    emotions = ['Enojo', 'Disgusto', 'Miedo', 'Felicidad', 'Tristeza', 'Sorpresa', 'Neutral']
-    console.log(emotions[emotion])
     //enviar emocion
     submitEmotion(emotion)
     //mostrar emocion
-    showEmotion(emotion)
+    if(JSON.parse(emotionControl.dataset.state)) showEmotion(emotion);
 }
 
 
 //funcion para mostrar una emocion detectada
 function showEmotion(emotion) {
-    let emoji = document.getElementById("emotionDisplay")
-    emoji.src = `./src/emotions/${emotionImgs[emotion]}`
+    //let emoji = document.getElementById("emotionDisplay")
+    //emoji.src = `./src/emotions/${emotionImgs[emotion]}`
+    //crear una nueva particula
+    let particle = document.createElement('img');
+    particle.classList.add('o-emotion-particle')
+    particle.src = `./src/emotions/${emotionImgs[emotion]}`
+    $(particle).css("left", getRoundInteger(0, $('#particleContainer').width()))
+    $('#particleContainer').append(particle)
+    $(particle).animate({
+        top: "-100%",
+        opacity: 0
+    }, getRoundInteger(5000,8000), _=>{
+        $(particle).remove()
+    })
+}
+
+//funcion para generar numeros aleatorios
+function getRoundInteger(min, max){
+    return Math.floor(Math.random()*(max - min + 1)) + min;
 }
 
 //funcion para enviar al servidor una emocion detectada
