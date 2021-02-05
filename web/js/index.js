@@ -70,23 +70,28 @@ function logOut() {
 
 //funcion para activar/desactivar camara
 function camera() {
-    var cameraControl = document.getElementById('cameraControl');
+    let cameraControl = document.getElementById('cameraControl');
     let state = !JSON.parse(cameraControl.dataset.state);
-    if (state) {
-        eel.run();
-        document.getElementById("cameraIcon").src = './src/Camera.png';
-        document.getElementById("cameraText").innerHTML = "Desactivar";
-        cameraControl.dataset.state = state;
+    let started = document.getElementById('detectionController').dataset.state === "started";
+    if (started) {
+        if (state) {
+            eel.run();
+        }
+        else {
+            eel.stop()(_ => {
+                changeCameraControl(cameraControl, state)
+                cleanVideoPlaceHolder();
+                return
+            })
+        }
     }
-    else {
-        eel.stop()(_ => {
-            document.getElementById("cameraIcon").src = './src/NoCamera.png';
-            document.getElementById("cameraText").innerHTML = "Activar";
-            cameraControl.dataset.state = state;
-            cleanVideoPlaceHolder();
+    changeCameraControl(cameraControl, state)
+}
 
-        })
-    }
+function changeCameraControl(cameraControl, state) {
+    document.getElementById("cameraIcon").src = state ? './src/Camera.png' : './src/NoCamera.png';
+    document.getElementById("cameraText").innerHTML = state ? "Desactivar" : "Activar";
+    cameraControl.dataset.state = state;
 }
 
 //funcion para activar/desactivar micrófono
@@ -178,8 +183,8 @@ function displayMicroDevices() {
     document.getElementById('MdevicesContainer').hidden = state;
     MdevicesControl.dataset.state = state
     var CdevicesControl = document.getElementById('dispCamera')
-    document.getElementById('CdevicesContainer').hidden=true
-    CdevicesControl.dataset.state='true'
+    document.getElementById('CdevicesContainer').hidden = true
+    CdevicesControl.dataset.state = 'true'
 }
 
 // mostrar el menú de opciones de los dispositivos de camara
@@ -189,8 +194,8 @@ function displayCameraDevices() {
     document.getElementById('CdevicesContainer').hidden = state;
     CdevicesControl.dataset.state = state
     var MdevicesControl = document.getElementById('dispMicro')
-    document.getElementById('MdevicesContainer').hidden=true
-    MdevicesControl.dataset.state='true'
+    document.getElementById('MdevicesContainer').hidden = true
+    MdevicesControl.dataset.state = 'true'
 }
 
 // funcion para mantener seleccionada la opcion
@@ -259,15 +264,11 @@ function processEmotion(emotion) {
     //enviar emocion
     submitEmotion(emotion)
     //mostrar emocion
-    if(JSON.parse(emotionControl.dataset.state)) showEmotion(emotion);
+    if (JSON.parse(emotionControl.dataset.state)) showEmotion(emotion);
 }
-
 
 //funcion para mostrar una emocion detectada
 function showEmotion(emotion) {
-    //let emoji = document.getElementById("emotionDisplay")
-    //emoji.src = `./src/emotions/${emotionImgs[emotion]}`
-    //crear una nueva particula
     let particle = document.createElement('img');
     particle.classList.add('o-emotion-particle')
     particle.src = `./src/emotions/${emotionImgs[emotion]}`
@@ -276,14 +277,14 @@ function showEmotion(emotion) {
     $(particle).animate({
         top: "-100%",
         opacity: 0
-    }, getRoundInteger(5000,8000), _=>{
+    }, getRoundInteger(5000, 8000), _ => {
         $(particle).remove()
     })
 }
 
 //funcion para generar numeros aleatorios
-function getRoundInteger(min, max){
-    return Math.floor(Math.random()*(max - min + 1)) + min;
+function getRoundInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //funcion para enviar al servidor una emocion detectada
