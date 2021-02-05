@@ -177,7 +177,9 @@ function displayMicroDevices() {
     let state = !JSON.parse(MdevicesControl.dataset.state)
     document.getElementById('MdevicesContainer').hidden = state;
     MdevicesControl.dataset.state = state
-
+    var CdevicesControl = document.getElementById('dispCamera')
+    document.getElementById('CdevicesContainer').hidden=true
+    CdevicesControl.dataset.state='true'
 }
 
 // mostrar el menú de opciones de los dispositivos de camara
@@ -186,6 +188,9 @@ function displayCameraDevices() {
     let state = !JSON.parse(CdevicesControl.dataset.state)
     document.getElementById('CdevicesContainer').hidden = state;
     CdevicesControl.dataset.state = state
+    var MdevicesControl = document.getElementById('dispMicro')
+    document.getElementById('MdevicesContainer').hidden=true
+    MdevicesControl.dataset.state='true'
 }
 
 // funcion para mantener seleccionada la opcion
@@ -193,7 +198,7 @@ function selectOption(id, type) {
     if (type === "micro") {
         // se esconden todos los fondos
         let elements = document.getElementsByClassName('o-select-option')
-        for (el of elements) { el.style.backgroundColor = '#1F1F1F'; el.style.color = '#8A8A8A' }
+        for (el of elements) { el.classList.remove('o-yes-selected') }
         // se esconden todos los chulos
         let img = document.getElementsByClassName('o-chulo-device')
         for (im of img) { im.hidden = true }
@@ -202,12 +207,11 @@ function selectOption(id, type) {
         let imgOption = document.getElementById('chulo' + id)
         // se pintan el fondo, la letra y el chulo se hace visible
         imgOption.hidden = false
-        option.style.backgroundColor = '#2E8AE5'
-        option.style.color = 'white'
+        option.classList.add('o-yes-selected')
     } else if (type === "camera") {
         // se esconden todos los fondos
         let elements = document.getElementsByClassName('o-selectC-option')
-        for (el of elements) { el.style.backgroundColor = '#1F1F1F'; el.style.color = '#8A8A8A' }
+        for (el of elements) { el.classList.remove('o-yes-selected') }
         // se esconden todos los chulos
         let img = document.getElementsByClassName('o-chulo-device')
         for (im of img) { im.hidden = true }
@@ -216,8 +220,7 @@ function selectOption(id, type) {
         let imgOption = document.getElementById('chulo' + id)
         // se pintan el fondo, la letra y el chulo se hace visible
         imgOption.hidden = false
-        option.style.backgroundColor = '#2E8AE5'
-        option.style.color = 'white'
+        option.classList.add('o-yes-selected')
     }
 }
 
