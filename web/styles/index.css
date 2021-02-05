@@ -372,7 +372,7 @@ body{
     width: fit-content;
     position: absolute;
     z-index: 2000;
-    bottom: 5.5rem;
+    bottom: 4.6rem;
     font-size: 0.7rem;
     padding-top: 0.5rem;
     background-color: #1F1F1F;
@@ -388,7 +388,7 @@ body{
     width: fit-content;
     position: absolute;
     z-index: 2000;
-    bottom: 5.5rem;
+    bottom: 4.6rem;
     font-size: 0.7rem;
     padding-top: 0.5rem;
     background-color: #1F1F1F;
@@ -466,13 +466,13 @@ body{
     }
     /* estilos para el contenedor de las opciones de microfono */
     .o-microdevices-container{
-        bottom: 4.2rem;
+        bottom: 5.2rem;
         right: calc(0% + 3rem);
     
     }
     /* estilos para el contenedor de las opciones de camara */
     .o-cameradevices-container{
-        bottom: 4.2rem;
+        bottom: 5.2rem;
         right: calc(10% + 11rem);
     }
 
