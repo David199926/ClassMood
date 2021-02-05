@@ -374,6 +374,7 @@ body{
     z-index: 2000;
     bottom: 5.5rem;
     font-size: 0.7rem;
+    padding-top: 0.5rem;
     background-color: #1F1F1F;
     border-radius: 11px;
     color: #8A8A8A;
@@ -389,6 +390,7 @@ body{
     z-index: 2000;
     bottom: 5.5rem;
     font-size: 0.7rem;
+    padding-top: 0.5rem;
     background-color: #1F1F1F;
     border-radius: 11px;
     color: #8A8A8A;
@@ -412,7 +414,7 @@ body{
 }
 
 /* estilos del hover en la opcion */
-.o-select-option:hover{
+.o-select-option:hover:not(.o-yes-selected){
    background-color: #363636;
    cursor: pointer;
 }
@@ -421,13 +423,14 @@ body{
 .o-selectC-option{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: 1rem;
     padding-right: 1rem;
     height: 1.5rem;
 }
 
 /* estilos del hover en la opcion de camara */
-.o-selectC-option:hover{
+.o-selectC-option:hover:not(.o-yes-selected){
    background-color: #363636;
    cursor: pointer;
 }
@@ -449,6 +452,7 @@ body{
     background-color: #2E8AE5;
     color: white;
 }
+
 /* mediaquery */
 @media only screen and (max-width:1335px){
     /* estilos para el recuadro de la deteccion */
