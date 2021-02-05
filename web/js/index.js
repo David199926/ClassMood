@@ -23,6 +23,7 @@ $.get(url + 'available', { Correo: user.Correo }, (data) => {
             document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
             document.getElementById("currentSessionStartTime").innerHTML = timeFormatter(new Date(session.HoraInicio));
             document.getElementById("currentSessionEndTime").innerHTML = timeFormatter(new Date(session.HoraFinal));
+            sessionStorage.setItem('currentSession', JSON.stringify(session))
             getDevices()
         })
 
@@ -105,7 +106,10 @@ function micro() {
 
 }
 
-//funcion para el boton de mostrar/ocultar emociones detectadas
+
+/**
+ * funcion para el boton de mostrar/ocultar emociones detectadas
+ */
 function emotion() {
     var emotionControl = document.getElementById('emotionControl');
     let state = !JSON.parse(emotionControl.dataset.state)
@@ -244,7 +248,7 @@ function detectionEvent(caller) {
             cleanVideoPlaceHolder();
         })
     }
-    else throw Error;
+    else throw new Error('Valor del caller diferente a stoopes o started');
 }
 
 //funcion para limpiar el contenedor de video
@@ -261,13 +265,19 @@ function transmitVideo(blob) {
 //funcion llamada por python para procesar una emocion detectada
 eel.expose(processEmotion);
 function processEmotion(emotion) {
-    //enviar emocion
-    submitEmotion(emotion)
-    //mostrar emocion
-    if (JSON.parse(emotionControl.dataset.state)) showEmotion(emotion);
+    if (JSON.parse(emotionControl.dataset.state)){
+        //enviar la deteccion y mostrar en pantalla
+        submitEmotion(emotion, showEmotion)
+    }else{
+        //enviar la deteccion y no mostrar en pantalla
+        submitEmotion(emotion)
+    }
 }
 
-//funcion para mostrar una emocion detectada
+/**
+ * Muestra un emoji flotante de la emocion detectada
+ * @param {Number} emotion 
+ */
 function showEmotion(emotion) {
     let particle = document.createElement('img');
     particle.classList.add('o-emotion-particle')
@@ -282,12 +292,35 @@ function showEmotion(emotion) {
     })
 }
 
-//funcion para generar numeros aleatorios
+
+/**
+ * funcion para generar numeros aleatorios entre min y max
+ * @param {Number} min 
+ * @param {Number} max 
+ */
 function getRoundInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//funcion para enviar al servidor una emocion detectada
-function submitEmotion(emotion) {
 
+/**
+ * funcion para enviar al servidor una emocion detectada,
+ * llama a success cuando la operacion ha sido exitosa
+ * @param {Object} emotion 
+ * @param {Function} success 
+ */
+function submitEmotion(emotion, success = _=>{}) {
+    //enviar
+    let url = "https://classmood-appserver.herokuapp.com/submit"
+    let data = {
+        Emotions: [emotion],
+        CodigoEstudiante: JSON.parse(sessionStorage.getItem('user')).Codigo,
+        CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
+    }
+    $.post(url, data, ()=>{
+        console.log('Send!!')
+        success(Number(emotion[1]))
+    }).fail(()=>{
+        throw new Error('Error al subir los datos')
+    })
 }

@@ -43,7 +43,11 @@ def processing(frame):
     if detector is not None and time.time() - t0 >= dt:
         emotion = detector.predict(frame)
         t0 = time.time()
-        if emotion is not None: eel.processEmotion(int(emotion))()
+        if emotion is not None: 
+            eel.processEmotion([
+                datetime.now().strftime("%H:%M:%S"),
+                str(emotion)
+            ])()
     
 
 def transmit():
