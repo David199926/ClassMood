@@ -1,5 +1,5 @@
 //imagenes de las emociones
-emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
+const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
 
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
@@ -25,6 +25,7 @@ $.get(url + 'available', { Correo: user.Correo }, (data) => {
             document.getElementById("currentSessionEndTime").innerHTML = timeFormatter(new Date(session.HoraFinal));
             sessionStorage.setItem('currentSession', JSON.stringify(session))
             getDevices()
+            eel.startTransmition(false)
         })
 
     }
@@ -51,7 +52,11 @@ $.get(url + 'upcoming', { Correo: user.Correo }, (data) => {
         }
     }
 })
-//funcion para dar formato a los objetos Date
+
+/**
+ * funcion para dar formato a los objetos Date
+ * @param {object} time 
+ */
 function timeFormatter(time) {
     return `${time.getHours() % 12 || 12}:${time.getMinutes().toString().padStart(2, '0')} ${time.getHours() > 12 ? 'PM' : 'AM'}`
 }
@@ -69,24 +74,23 @@ function logOut() {
     })
 }
 
-//funcion para activar/desactivar camara
+/**
+ * funcion para activar/desactivar transmision de video
+ */
 function camera() {
     let cameraControl = document.getElementById('cameraControl');
     let state = !JSON.parse(cameraControl.dataset.state);
-    let started = document.getElementById('detectionController').dataset.state === "started";
-    if (started) {
-        if (state) {
-            eel.run();
-        }
-        else {
-            eel.stop()(_ => {
-                changeCameraControl(cameraControl, state)
-                cleanVideoPlaceHolder();
-                return
-            })
-        }
+    let started = document.getElementById('detectionController').dataset.state === "started";    
+    if(state){
+        changeCameraControl(cameraControl, state);
+        eel.startTransmition(started)
     }
-    changeCameraControl(cameraControl, state)
+    else{
+        eel.stopTransmition()(_=>{
+            cleanVideoPlaceHolder();
+            changeCameraControl(cameraControl, state);
+        })
+    }
 }
 
 function changeCameraControl(cameraControl, state) {
@@ -236,19 +240,12 @@ function selectOption(id, type) {
 //funcion del boton de comenzar/terminar captura de emociones
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
-    if (state === "started") {
-        eel.run()
-        caller.innerHTML = "Terminar";
+    eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
-    }
-    else if (state === "stopped") {
-        eel.stop()(_ => {
-            caller.innerHTML = "Comenzar";
-            caller.dataset.state = state;
-            cleanVideoPlaceHolder();
-        })
-    }
-    else throw new Error('Valor del caller diferente a stoopes o started');
+        caller.innerHTML = state === "started"? "Terminar": "Comenzar";
+        if(state === "stopped") cleanVideoPlaceHolder();
+    })
+   
 }
 
 //funcion para limpiar el contenedor de video
