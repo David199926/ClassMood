@@ -1,5 +1,5 @@
 //imagenes de las emociones
-emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
+const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
 
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
@@ -23,7 +23,9 @@ $.get(url + 'available', { Correo: user.Correo }, (data) => {
             document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
             document.getElementById("currentSessionStartTime").innerHTML = timeFormatter(new Date(session.HoraInicio));
             document.getElementById("currentSessionEndTime").innerHTML = timeFormatter(new Date(session.HoraFinal));
+            sessionStorage.setItem('currentSession', JSON.stringify(session))
             getDevices()
+            eel.startTransmition(false)
         })
 
     }
@@ -50,7 +52,11 @@ $.get(url + 'upcoming', { Correo: user.Correo }, (data) => {
         }
     }
 })
-//funcion para dar formato a los objetos Date
+
+/**
+ * funcion para dar formato a los objetos Date
+ * @param {object} time 
+ */
 function timeFormatter(time) {
     return `${time.getHours() % 12 || 12}:${time.getMinutes().toString().padStart(2, '0')} ${time.getHours() > 12 ? 'PM' : 'AM'}`
 }
@@ -68,25 +74,29 @@ function logOut() {
     })
 }
 
-//funcion para activar/desactivar camara
+/**
+ * funcion para activar/desactivar transmision de video
+ */
 function camera() {
-    var cameraControl = document.getElementById('cameraControl');
+    let cameraControl = document.getElementById('cameraControl');
     let state = !JSON.parse(cameraControl.dataset.state);
-    if (state) {
-        eel.run();
-        document.getElementById("cameraIcon").src = './src/Camera.png';
-        document.getElementById("cameraText").innerHTML = "Desactivar";
-        cameraControl.dataset.state = state;
+    let started = document.getElementById('detectionController').dataset.state === "started";    
+    if(state){
+        changeCameraControl(cameraControl, state);
+        eel.startTransmition(started)
     }
-    else {
-        eel.stop()(_ => {
-            document.getElementById("cameraIcon").src = './src/NoCamera.png';
-            document.getElementById("cameraText").innerHTML = "Activar";
-            cameraControl.dataset.state = state;
+    else{
+        eel.stopTransmition()(_=>{
             cleanVideoPlaceHolder();
-
+            changeCameraControl(cameraControl, state);
         })
     }
+}
+
+function changeCameraControl(cameraControl, state) {
+    document.getElementById("cameraIcon").src = state ? './src/Camera.png' : './src/NoCamera.png';
+    document.getElementById("cameraText").innerHTML = state ? "Desactivar" : "Activar";
+    cameraControl.dataset.state = state;
 }
 
 //funcion para activar/desactivar micrófono
@@ -100,7 +110,10 @@ function micro() {
 
 }
 
-//funcion para el boton de mostrar/ocultar emociones detectadas
+
+/**
+ * funcion para el boton de mostrar/ocultar emociones detectadas
+ */
 function emotion() {
     var emotionControl = document.getElementById('emotionControl');
     let state = !JSON.parse(emotionControl.dataset.state)
@@ -178,8 +191,8 @@ function displayMicroDevices() {
     document.getElementById('MdevicesContainer').hidden = state;
     MdevicesControl.dataset.state = state
     var CdevicesControl = document.getElementById('dispCamera')
-    document.getElementById('CdevicesContainer').hidden=true
-    CdevicesControl.dataset.state='true'
+    document.getElementById('CdevicesContainer').hidden = true
+    CdevicesControl.dataset.state = 'true'
 }
 
 // mostrar el menú de opciones de los dispositivos de camara
@@ -189,8 +202,8 @@ function displayCameraDevices() {
     document.getElementById('CdevicesContainer').hidden = state;
     CdevicesControl.dataset.state = state
     var MdevicesControl = document.getElementById('dispMicro')
-    document.getElementById('MdevicesContainer').hidden=true
-    MdevicesControl.dataset.state='true'
+    document.getElementById('MdevicesContainer').hidden = true
+    MdevicesControl.dataset.state = 'true'
 }
 
 // funcion para mantener seleccionada la opcion
@@ -227,19 +240,12 @@ function selectOption(id, type) {
 //funcion del boton de comenzar/terminar captura de emociones
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
-    if (state === "started") {
-        eel.run()
-        caller.innerHTML = "Terminar";
+    eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
-    }
-    else if (state === "stopped") {
-        eel.stop()(_ => {
-            caller.innerHTML = "Comenzar";
-            caller.dataset.state = state;
-            cleanVideoPlaceHolder();
-        })
-    }
-    else throw Error;
+        caller.innerHTML = state === "started"? "Terminar": "Comenzar";
+        if(state === "stopped") cleanVideoPlaceHolder();
+    })
+   
 }
 
 //funcion para limpiar el contenedor de video
@@ -256,18 +262,20 @@ function transmitVideo(blob) {
 //funcion llamada por python para procesar una emocion detectada
 eel.expose(processEmotion);
 function processEmotion(emotion) {
-    //enviar emocion
-    submitEmotion(emotion)
-    //mostrar emocion
-    if(JSON.parse(emotionControl.dataset.state)) showEmotion(emotion);
+    if (JSON.parse(emotionControl.dataset.state)){
+        //enviar la deteccion y mostrar en pantalla
+        submitEmotion(emotion, showEmotion)
+    }else{
+        //enviar la deteccion y no mostrar en pantalla
+        submitEmotion(emotion)
+    }
 }
 
-
-//funcion para mostrar una emocion detectada
+/**
+ * Muestra un emoji flotante de la emocion detectada
+ * @param {Number} emotion 
+ */
 function showEmotion(emotion) {
-    //let emoji = document.getElementById("emotionDisplay")
-    //emoji.src = `./src/emotions/${emotionImgs[emotion]}`
-    //crear una nueva particula
     let particle = document.createElement('img');
     particle.classList.add('o-emotion-particle')
     particle.src = `./src/emotions/${emotionImgs[emotion]}`
@@ -276,17 +284,40 @@ function showEmotion(emotion) {
     $(particle).animate({
         top: "-100%",
         opacity: 0
-    }, getRoundInteger(5000,8000), _=>{
+    }, getRoundInteger(5000, 8000), _ => {
         $(particle).remove()
     })
 }
 
-//funcion para generar numeros aleatorios
-function getRoundInteger(min, max){
-    return Math.floor(Math.random()*(max - min + 1)) + min;
+
+/**
+ * funcion para generar numeros aleatorios entre min y max
+ * @param {Number} min 
+ * @param {Number} max 
+ */
+function getRoundInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//funcion para enviar al servidor una emocion detectada
-function submitEmotion(emotion) {
 
+/**
+ * funcion para enviar al servidor una emocion detectada,
+ * llama a success cuando la operacion ha sido exitosa
+ * @param {Object} emotion 
+ * @param {Function} success 
+ */
+function submitEmotion(emotion, success = _=>{}) {
+    //enviar
+    let url = "https://classmood-appserver.herokuapp.com/submit"
+    let data = {
+        Emotions: [emotion],
+        CodigoEstudiante: JSON.parse(sessionStorage.getItem('user')).Codigo,
+        CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
+    }
+    $.post(url, data, ()=>{
+        console.log('Send!!')
+        success(Number(emotion[1]))
+    }).fail(()=>{
+        throw new Error('Error al subir los datos')
+    })
 }
