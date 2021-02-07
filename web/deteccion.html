@@ -1,62 +1,57 @@
-<div class="o-title-detect-container">
-    <span class="o-title-detection" id="titleDetection"></span>
-    <span class="o-group-detect" id="groupDetection"></span>
-    <div class="o-session-time">
-        <span>Inicio:&nbsp;<span id="currentSessionStartTime"></span></span>
-        <span>Fin:&nbsp;<span id="currentSessionEndTime"></span></span>
-    </div>
-</div>
-<br>
-<!-- entorno de la camara -->
 <div class="o-session-content">
+    <!-- entorno de la camara -->
     <div class="o-video-placeholder">
+        <!-- Nombre y grupo de la asignatura -->
+        <div class="o-title-detect-container">
+            <span class="o-title-detection" id="titleDetection"></span>
+            <span class="o-group-detect" id="groupDetection"></span>
+        </div>
+        <!-- Contenedor de partículas -->
         <div id="particleContainer" class="o-particle-container"></div>
-        <!--  <img src="./src/emotions/feliz.png" alt="emotion" class="o-emotion-display" id="emotionDisplay"> -->
+        <!-- indicador de sonido -->
+        <div class="o-sound-level-container">
+            <div class="o-sound-level"></div>
+            <div class="o-sound-level"></div>
+            <div class="o-sound-level"></div>
+            <div class="o-sound-level"></div>
+            <div class="o-sound-level"></div>
+        </div>
+        <!-- Captura de video -->
         <img id="videoCapture" class="o-video-capture" src="./src/dummy.png" alt="">
     </div>
-    
-</div>
-<br>
-<!-- panel donde se agregan todos los botones de control -->
-<div class="o-footer-detection">
-    <button class="o-btn-start o-btn-primary" id="detectionController" onclick="detectionEvent(this)" data-state="stopped">Comenzar</button>
-    <!-- boton de apagar camara -->
-    <div class="o-dot-icon-container">
-        <button class=" o-btn-secundary" onclick="camera()">
-            <div class="o-icon-text" data-state="true" id="cameraControl">
-                <img src="./src/Camera.png" class="o-camera-icon" alt="camara icon" id="cameraIcon">
-                <span class="o-text" id="cameraText">Desactivar</span>
-            </div>
-        </button>
-       
-        <div class="o-dots" id="dispCamera" data-state="true" onclick="displayCameraDevices()">
-            <div class="o-cameradevices-container"  id="CdevicesContainer" hidden>
-                <div class="o-header-option"><span>Selecciona una cámara</span></div>
-            </div>
-        </div> 
-
-    </div>
-    
-    <!-- boton de apagar microfono -->
-    <div class="o-micro-container">
-        <div class="o-dot-icon-container">
-            <button class=" o-btn-secundary" onclick="micro()">
-                <div class="o-icon-text" data-state="true" id="microControl">
-                    <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon" width="16rem">
-                    <span class="o-text" id="microText">Desactivar</span>
+    <!-- panel donde se agregan todos los botones de control -->
+    <div class="o-footer-detection">
+        <span id="sessionDuration" class="o-session-time"></span>
+        <button class="o-btn o-btn-secundary o-btn-start" id="detectionController" onclick="detectionEvent(this)"
+            data-state="stopped">Comenzar</button>
+        <div class="o-config-set">
+            <!-- boton de apagar camara -->
+            <div class="o-dot-icon-container">
+                <button class="o-btn-config" onclick="camera(this)" data-state="true">
+                    <img src="./src/Camera.png" class="o-camera-icon" alt="camara icon" id="cameraIcon">
+                </button>
+                <div class="o-dots" id="dispCamera" data-state="true" onclick="displayCameraDevices()">
+                    <div class="o-cameradevices-container" id="CdevicesContainer" hidden>
+                        <div class="o-header-option"><span>Selecciona una cámara</span></div>
+                    </div>
                 </div>
-            </button>
+            </div>
+            <!-- boton de apagar microfono -->
+            <div class="o-dot-icon-container">
+                <button class="o-btn-config" onclick="micro(this)" data-state="true">
+                    <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon" width="16rem">
+                </button>
                 <div class="o-dots" id="dispMicro" data-state="true" onclick="displayMicroDevices()">
                     <div class="o-microdevices-container" id="MdevicesContainer" hidden>
                         <div class="o-header-option"><span>Selecciona un micrófono</span></div>
                     </div>
                 </div>
-        </div>&nbsp;
-        <!-- barra de sonido -->
-        <div class="o-sound-bar"><div class="o-sound-level"></div></div>
+            </div>
+            <!-- boton donde se despliega la emocion detectada -->
+            <button class="o-btn-config o-btn-img" onclick="emotion()" id="emotionControl" data-state='true'>
+                <img src="./src/Emotions.png" id="emotionIcon" alt="imagen de la emocion" width="30px"
+                    title="ver emociones detectadas">
+            </button>
+        </div>
     </div>
-    <!-- boton donde se despliega la emocion detectada -->
-    <button class=" o-btn-secundary o-btn-img" onclick="emotion()" id="emotionControl" data-state='true'>
-    <img src="./src/Emotions.png" id="emotionIcon" alt="imagen de la emocion" width="35rem" title="ver emociones detectadas"></button>
 </div>
-

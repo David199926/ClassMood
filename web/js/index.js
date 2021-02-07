@@ -21,8 +21,7 @@ $.get(url + 'available', { Correo: user.Correo }, (data) => {
             let session = data[0];
             document.getElementById("titleDetection").innerHTML = session.NombreCurso;
             document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
-            document.getElementById("currentSessionStartTime").innerHTML = timeFormatter(new Date(session.HoraInicio));
-            document.getElementById("currentSessionEndTime").innerHTML = timeFormatter(new Date(session.HoraFinal));
+            document.getElementById('sessionDuration').innerHTML = `${timeFormatter(new Date(session.HoraInicio))}--${timeFormatter(new Date(session.HoraFinal))}`;
             sessionStorage.setItem('currentSession', JSON.stringify(session))
             getDevices()
             eel.startTransmition(false)
@@ -61,7 +60,9 @@ function timeFormatter(time) {
     return `${time.getHours() % 12 || 12}:${time.getMinutes().toString().padStart(2, '0')} ${time.getHours() > 12 ? 'PM' : 'AM'}`
 }
 
-//función para cerrar sesión
+/**
+ * función para cerrar sesión
+ */
 function logOut() {
     sessionStorage.removeItem("user");
     eel.readConf()(conf => {
@@ -76,9 +77,9 @@ function logOut() {
 
 /**
  * funcion para activar/desactivar transmision de video
+ * @param {HTMLElement} cameraControl
  */
-function camera() {
-    let cameraControl = document.getElementById('cameraControl');
+function camera(cameraControl) {
     let state = !JSON.parse(cameraControl.dataset.state);
     let started = document.getElementById('detectionController').dataset.state === "started";    
     if(state){
@@ -93,23 +94,26 @@ function camera() {
     }
 }
 
+/**
+ * funcion para cambiar la apariencia del control de camara
+ * @param {HTMLElement} cameraControl 
+ * @param {boolean} state 
+ */
 function changeCameraControl(cameraControl, state) {
     document.getElementById("cameraIcon").src = state ? './src/Camera.png' : './src/NoCamera.png';
-    document.getElementById("cameraText").innerHTML = state ? "Desactivar" : "Activar";
     cameraControl.dataset.state = state;
 }
 
-//funcion para activar/desactivar micrófono
-function micro() {
-    var microControl = document.getElementById('microControl');
+/**
+ * funcion para activar/desactivar micrófono
+ * @param {HTMLElement} microControl 
+ */
+function micro(microControl) {
     let state = !JSON.parse(microControl.dataset.state);
     //setear imagen
     document.getElementById("microIcon").src = state ? './src/Microphone.png' : './src/NoMicrophone.png';
-    document.getElementById("microText").innerHTML = state ? "Silenciar" : "Activar";
     microControl.dataset.state = state;
-
 }
-
 
 /**
  * funcion para el boton de mostrar/ocultar emociones detectadas
@@ -122,7 +126,9 @@ function emotion() {
     emotionControl.dataset.state = state
 }
 
-// obtener los dispositivos
+/**
+ * funcion para obtener y mostrar los dispositivos
+ */
 function getDevices() {
     audioOptions = document.getElementById("MdevicesContainer");
     videoOptions = document.getElementById("CdevicesContainer");
@@ -184,7 +190,9 @@ function getDevices() {
     });
 }
 
-// mostrar el menú de opciones de los dispositivos de microfono
+/**
+ * funcion para mostrar el menú de opciones de los dispositivos de microfono
+ */
 function displayMicroDevices() {
     var MdevicesControl = document.getElementById('dispMicro')
     let state = !JSON.parse(MdevicesControl.dataset.state)
@@ -195,7 +203,9 @@ function displayMicroDevices() {
     CdevicesControl.dataset.state = 'true'
 }
 
-// mostrar el menú de opciones de los dispositivos de camara
+/**
+ * funcion para mostrar el menú de opciones de los dispositivos de camara
+ */
 function displayCameraDevices() {
     var CdevicesControl = document.getElementById('dispCamera')
     let state = !JSON.parse(CdevicesControl.dataset.state)
@@ -237,30 +247,42 @@ function selectOption(id, type) {
     }
 }
 
-//funcion del boton de comenzar/terminar captura de emociones
+/**
+ * funcion del boton de comenzar/terminar captura de emociones
+ * @param {HTMLElement} caller 
+ */
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
     eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
         caller.innerHTML = state === "started"? "Terminar": "Comenzar";
+        caller.classList.add(state === "started"? "o-btn-primary" : "o-btn-secundary")
+        caller.classList.remove(state === "started"? "o-btn-secundary" : "o-btn-primary")
         if(state === "stopped") cleanVideoPlaceHolder();
     })
-   
 }
 
-//funcion para limpiar el contenedor de video
+/**
+ * funcion para limpiar el contenedor de video
+ */
 function cleanVideoPlaceHolder() {
     document.getElementById('videoCapture').src = "./src/dummy.png"
 }
 
-//funcion llamada por python para mostrar captura de video
 eel.expose(transmitVideo);
+/**
+ * funcion llamada por python para mostrar captura de video
+ * @param {String} blob 
+ */
 function transmitVideo(blob) {
     document.getElementById('videoCapture').src = "data:image/jpeg;base64," + blob
 }
 
-//funcion llamada por python para procesar una emocion detectada
 eel.expose(processEmotion);
+/**
+ * funcion llamada por python para procesar una emocion detectada
+ * @param {any} emotion 
+ */
 function processEmotion(emotion) {
     if (JSON.parse(emotionControl.dataset.state)){
         //enviar la deteccion y mostrar en pantalla
