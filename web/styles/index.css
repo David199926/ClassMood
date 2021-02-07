@@ -87,11 +87,11 @@ body{
 
 /*estilos del contenedor de los tiempos de una sesion*/
 .o-session-time{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
     color: #ababab;
-    font-size: 1.2rem
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
 }
 
 /*estilos del footer del menu lateral*/
@@ -178,7 +178,8 @@ body{
 
 /* estilos para el recuadro de la deteccion */
 .o-session-content{
-    width: 65%;
+    width: 70%;
+    transform: translate(0, 1rem);
 }
 .o-video-placeholder{
     background-color: #242424;
@@ -195,7 +196,7 @@ body{
     position: absolute;
     top: 0;
 }
-/*estilos para el contenedor de emociones detectadas*/
+/*estilos para el contenedor de emociones detectadas (partículas)*/
 .o-particle-container{
     width: 15%;
     height: 100%;
@@ -205,7 +206,7 @@ body{
     z-index: 99;
 }
 
-/*estilos para el emoji de la emocion detectada*/
+/*estilos para el emoji de la emocion detectada (partícula)*/
 .o-emotion-particle{
     width: 2.5rem;
     position: absolute;
@@ -214,99 +215,97 @@ body{
     z-index: 999;
 }
 
-/* estilos para el titulo del grupo en la ventana de deteccion */
-.o-group-detect{
-    color: white;
-    font-size: 1rem;
-    text-align: center;
-}
-
 /* esitlos para el header de la deteccion */
 .o-title-detect-container{
-    width: 23%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    margin: .5rem;
 }
 
 /* estilos del titutlo de la materia */
 .o-title-detection{
-    text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #ffffff;
     display: block;
+}
+
+/* estilos para el titulo del grupo en la ventana de deteccion */
+.o-group-detect{
+    color: white;
+    font-size: 1rem;
+}
+
+/* estilos del contenedor de indicador de audio */
+.o-sound-level-container{
+    left: 0;
+    bottom: 0;
+    margin: .5rem;
+    position: absolute;
+    z-index: 99;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+/*estilos para el nivel de audio*/
+.o-sound-level{
+    background-color: #00BD00;
+    width: 5px;
+    height: 100%;
+    border-radius: 5px;
 }
 
 /* estilos del boton */
 .o-btn-start{
     width: 8rem;
-    height: 3.2rem;
+    height: 2.8rem;
     border-radius: 15px;
+    left: 50%;
+    top: 0;
+    position: absolute;
+    transform: translate(-50%, 0);
 }
 
 /* estilos para el footer */
 .o-footer-detection{
-    display: flex;
-    width: 26rem;
-    justify-content: space-around;
+    margin-top: 1rem;
+    padding-top: 2.8rem;
+    width: 100%;
+    position: relative;
 }
-.o-micro-container{
+
+/*estilos para el contenedor de los controles de configuración*/
+.o-config-set{
     display: flex;
-    justify-content: space-between;
+    gap: .5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
+
 /* estilos del boton de apagar y encender */
-.o-btn-secundary{
+.o-btn-config{
     cursor: pointer;
     background-color:transparent;
     border: none;
-    width: 75%;
     display: flex;
     color: white;
     outline: none;
     justify-content: center;
-}
-
-.o-dots:hover{
-    background-color: #2e2e2e;
-}
-
-/* estilos para la barra de sonido */
-.o-sound-bar{
-    position: relative;
-    width: 0.5rem;
-    height: 3.2rem;
-    background-color: #292929;
-}
-/*estilos para el nivel de audio*/
-.o-sound-level{
-    position: absolute;
-    bottom: 0;
-    background-color: #00BD00;
-    width: 100%;
-    height: 50%;
-}
-
-/* estilos para el div del icono con el texto */
-.o-icon-text{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius:0 ;
-    justify-content: center;
     align-items: center;
-    font-weight: lighter;
-    padding: 0rem 0rem 0rem 0.5rem;
 }
-.o-icon-text:hover{
+.o-btn-config:hover{
     background-color: #2e2e2e;
 }
 
 /* estilos para el div que contiene los puntos blancos */
 .o-dots{
-    width: 25%;
     height: 100%;
     display: flex;
     border-radius: 15px;
@@ -323,21 +322,19 @@ body{
     background-color: transparent;
     cursor: pointer; 
 }
-
-/* estilos para el texto */
-.o-text{
-    font-size: 0.7rem;
+.o-dots:hover{
+    background-color: #2e2e2e;
 }
 
 /* estilos para el contenedor del icono, texto y los puntos blancos */
 .o-dot-icon-container{
     background-color: #292929;
-    display: flex;
-    justify-content: center;
     border-radius: 15px;
     width: 5.5rem;
-    height: 3.2rem;
+    height: 2.8rem;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: 70% 30%;
 }
 
 /* estilos de los puntos blancos */
@@ -352,11 +349,9 @@ body{
 /* estilos del boton para mostrar la emoción detectada */
 .o-btn-img{
     width: 4rem;
+    height: 2.8rem;
     background-color: #292929;
     border-radius: 15px;    
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* estilos de los iconos */
@@ -457,12 +452,7 @@ body{
 @media only screen and (max-width:1335px){
     /* estilos para el recuadro de la deteccion */
     .o-session-content{
-        width: 80%;
-    }
-    /* esitlos para el header de la deteccion */
-    .o-title-detect-container{
-        width: 40%;
-
+        width: 90%;
     }
     /* estilos para el contenedor de las opciones de microfono */
     .o-microdevices-container{

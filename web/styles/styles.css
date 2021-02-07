@@ -9,21 +9,34 @@ a{
     text-decoration: none;
 }
 
-/*estilos del boton principal*/
-.o-btn-primary{
-    color: #000000;
-    background-color: #DECC54;
+/*estilos del boton generico*/
+.o-btn{
     width: 10rem;
     height: 2.3rem;
     border-radius: 19px;
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+/*estilos del boton principal*/
+.o-btn-primary{
+    color: #000000;
+    background-color: #DECC54;
     outline: none;
-    transition: background-color 300ms ease;
 }
 .o-btn-primary:hover{
     background-color: #f8e040;
+}
+
+/*estilos del boton secundario*/
+.o-btn-secundary{
+    color: #fff;
+    background-color: #363636;
+    outline: none;
+}
+.o-btn-secundary:hover{
+    background-color: #2e2e2e;
 }
 
 /*estilos de los campos de texto*/
