@@ -43,7 +43,7 @@ class EmotionDetector:
             result=np.hstack((result, mel))
         return result
     
-    def vad_collector(self,sample_rate, frame_duration_ms, padding_duration_ms, vad, device):
+    def vad_collector(self,sample_rate, frame_duration_ms, padding_duration_ms, vad,generated_frame):
         """filtering out non-voiced audio frames
         Returns a generator that yields PCM audio data
         """
@@ -53,7 +53,7 @@ class EmotionDetector:
         triggered = False
 
         voiced_frames = []
-        for frame in frame_generator(frame_duration_ms, sample_rate, device):
+        for frame in generated_frame:
             is_speech = vad.is_speech(frame, sample_rate)
 
             if not triggered:
