@@ -9,6 +9,7 @@
     <script src="/eel.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/deteccion.css">
     <link rel="icon" href="src/Icon.png" type="image/png">
     <title>ClassMood</title>
     
@@ -17,11 +18,15 @@
 <body>
     <!-- Menu lateral para las sesiones próximas -->
     <div class="o-sidemenu">
-        <div class="o-user-name-header">Hola&nbsp;<strong id="userName">David López</strong></div>
+        <div class="o-user-name-header">Hola&nbsp;<strong id="userName">Usuario</strong></div>
         <div class="o-sidemenu-body">
             <!-- Sesiones -->
             <div class="o-sessions" id="nextSessionsContainer">
-                <span class="o-next-sessions">Próximas sesiones</span>
+                <div class="o-next-sessions">
+                    <span class="o-next-sessions-text">Próximas sesiones</span>
+                    <div class="o-reload-sessions"><img src="./src/reload.png" class="o-reload-image" title="sincronizar sesiones" onclick="reloadSessions()"></div>
+                </div>
+                <div class="o-sessions-placeholder" id="sessionsPlaceholder"></div>
             </div>
             <!-- footer -->
             <div class="o-sidemenu-footer">
