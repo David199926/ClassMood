@@ -25,6 +25,7 @@ body{
     margin: auto;
     font-size: 1.5rem;
     padding-left: 1rem;
+    box-sizing: border-box;
 }
 
 /*estilos del cuerpo del contenedor del menu lateral*/
@@ -36,13 +37,19 @@ body{
     display: grid;
 }
 
-/*estilos de texto de proximas sesiones*/
+/*estilos de header de proximas sesiones*/
 .o-next-sessions{
-    color: #ffffff;
     display: block;
-    font-size: 1.5rem;
     height: fit-content;
     margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*estilos de texto de proximas sesiones*/
+.o-next-sessions-text{
+    color: #ffffff;
+    font-size: 1.5rem;
 }
 
 /*estilos del texto de no hay proximas sesiones*/
@@ -86,12 +93,9 @@ body{
 }
 
 /*estilos del contenedor de los tiempos de una sesion*/
-.o-session-time{
+.o-upsession-time{
     color: #ababab;
     font-size: 1rem;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
 }
 
 /*estilos del footer del menu lateral*/
@@ -176,295 +180,22 @@ body{
     width: 30rem;
 }
 
-/* estilos para el recuadro de la deteccion */
-.o-session-content{
-    width: 70%;
-    transform: translate(0, 1rem);
-}
-.o-video-placeholder{
-    background-color: #242424;
-    width: 100%;
-    padding-top: 75%;
-    position: relative;
-    overflow: hidden;
-}
-
-/*estilos de la captura de video*/
-.o-video-capture{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-}
-/*estilos para el contenedor de emociones detectadas (partículas)*/
-.o-particle-container{
-    width: 15%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 2rem;
-    z-index: 99;
-}
-
-/*estilos para el emoji de la emocion detectada (partícula)*/
-.o-emotion-particle{
-    width: 2.5rem;
-    position: absolute;
-    bottom: 0%;
-    right: 0;
-    z-index: 999;
-}
-
-/* esitlos para el header de la deteccion */
-.o-title-detect-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    margin: .5rem;
-}
-
-/* estilos del titutlo de la materia */
-.o-title-detection{
-    font-size: 1.5rem;
-    color: #ffffff;
-    display: block;
-}
-
-/* estilos para el titulo del grupo en la ventana de deteccion */
-.o-group-detect{
-    color: white;
-    font-size: 1rem;
-}
-
-/* estilos del contenedor de indicador de audio */
-.o-sound-level-container{
-    left: 0;
-    bottom: 0;
-    margin: .5rem;
-    position: absolute;
-    z-index: 99;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-/*estilos para el nivel de audio*/
-.o-sound-level{
-    background-color: #00BD00;
-    width: 5px;
-    height: 100%;
-    border-radius: 5px;
-}
-
-/* estilos del boton */
-.o-btn-start{
-    width: 8rem;
-    height: 2.8rem;
-    border-radius: 15px;
-    left: 50%;
-    top: 0;
-    position: absolute;
-    transform: translate(-50%, 0);
-}
-
-/* estilos para el footer */
-.o-footer-detection{
-    margin-top: 1rem;
-    padding-top: 2.8rem;
-    width: 100%;
-    position: relative;
-}
-
-/*estilos para el contenedor de los controles de configuración*/
-.o-config-set{
-    display: flex;
-    gap: .5rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-/* estilos del boton de apagar y encender */
-.o-btn-config{
-    cursor: pointer;
-    background-color:transparent;
-    border: none;
-    display: flex;
-    color: white;
-    outline: none;
-    justify-content: center;
-    align-items: center;
-}
-.o-btn-config:hover{
-    background-color: #2e2e2e;
-}
-
-/* estilos para el div que contiene los puntos blancos */
-.o-dots{
-    height: 100%;
-    display: flex;
-    border-radius: 15px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius:0 ;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    background-image: url(../src/dots.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.1rem;
-    background-color: transparent;
-    cursor: pointer; 
-}
-.o-dots:hover{
-    background-color: #2e2e2e;
-}
-
-/* estilos para el contenedor del icono, texto y los puntos blancos */
-.o-dot-icon-container{
-    background-color: #292929;
-    border-radius: 15px;
-    width: 5.5rem;
-    height: 2.8rem;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 70% 30%;
-}
-
-/* estilos de los puntos blancos */
-.o-dot-blank{
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: white;
-    margin: 0.1rem;
-}
-
-/* estilos del boton para mostrar la emoción detectada */
-.o-btn-img{
-    width: 4rem;
-    height: 2.8rem;
-    background-color: #292929;
-    border-radius: 15px;    
-}
-
-/* estilos de los iconos */
-.o-camera-icon{
-    width: 2.5rem;
-}
-.micro-icon{
-    width: 1.5rem
-}
-
-/* estilos para el container del los dispositivos del micronfono */
-.o-microdevices-container{
-    width: fit-content;
-    position: absolute;
-    z-index: 2000;
-    bottom: 4.6rem;
-    font-size: 0.7rem;
-    padding-top: 0.5rem;
-    background-color: #1F1F1F;
-    border-radius: 11px;
-    color: #8A8A8A;
-    overflow: hidden ;
-    right: calc(0% + 11rem);
-
-}
-
-/* estilos para el contenedor de las opciones de camara */
-.o-cameradevices-container{
-    width: fit-content;
-    position: absolute;
-    z-index: 2000;
-    bottom: 4.6rem;
-    font-size: 0.7rem;
-    padding-top: 0.5rem;
-    background-color: #1F1F1F;
-    border-radius: 11px;
-    color: #8A8A8A;
-    overflow: hidden ;
-    right: calc(8% + 20rem);
-}
-
-/* estilos de la opcion  */
-.o-select-option{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    height: 1.5rem;
-}
-
-/* estilos para el texto de la opcion */
-.o-select-option-Text{
-    margin-right: 1rem;
-}
-
-/* estilos del hover en la opcion */
-.o-select-option:hover:not(.o-yes-selected){
-   background-color: #363636;
-   cursor: pointer;
-}
-
-/* estilos de las opciones de camara */
-.o-selectC-option{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    height: 1.5rem;
-}
-
-/* estilos del hover en la opcion de camara */
-.o-selectC-option:hover:not(.o-yes-selected){
-   background-color: #363636;
-   cursor: pointer;
-}
-
-/* estilos para el header de las opciones */
-.o-header-option{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 0.7rem;
-    height: 1rem;
-}
-
-/* estilos para la imagen del chulo */
-.o-chulo-device{
-    width: 0.7rem;
-}
-/* estilos si la opcion es seleccionada */
-.o-yes-selected{
+/*estilos para el boton de recargar sesiones*/
+.o-reload-sessions{
     background-color: #2E8AE5;
-    color: white;
+    padding: .5rem;
+    border-radius: 5px;
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    cursor: pointer;
+}
+.o-reload-sessions:hover{
+    background-color: #297aca;
 }
 
-/* mediaquery */
-@media only screen and (max-width:1335px){
-    /* estilos para el recuadro de la deteccion */
-    .o-session-content{
-        width: 90%;
-    }
-    /* estilos para el contenedor de las opciones de microfono */
-    .o-microdevices-container{
-        bottom: 5.2rem;
-        right: calc(0% + 3rem);
-    
-    }
-    /* estilos para el contenedor de las opciones de camara */
-    .o-cameradevices-container{
-        bottom: 5.2rem;
-        right: calc(10% + 11rem);
-    }
-
-
+/*estilos para el icono de recargar sesiones*/
+.o-reload-image{
+    width: 1rem;
+    margin: auto;
 }

@@ -5,7 +5,10 @@ class VideoCamera:
         self.video = cv2.VideoCapture(0)
 
     def release(self):
-        self.video.release()
+        try:
+            self.video.release()
+        except AttributeError:
+            print('video no definido')
 
     def getFrame(self):
         success, image = self.video.read()
