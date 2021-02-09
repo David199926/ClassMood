@@ -64,11 +64,12 @@ body{
     width: 100%;
     background-color: #363636;
     border-radius: 23px;
-    height: 135px;
+    height: 125px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: .5rem;
 }
 
 /*estilos del header de la sesion*/
@@ -198,4 +199,10 @@ body{
 .o-reload-image{
     width: 1rem;
     margin: auto;
+}
+
+/*estilos del placeholder de sesiones*/
+.o-sessions-placeholder{
+    height: 30rem;
+    overflow: auto;
 }
