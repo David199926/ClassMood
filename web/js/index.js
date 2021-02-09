@@ -8,23 +8,25 @@ function getCurrentSession(user) {
     $.get(url, { Correo: user.Correo }, (data) => {
         if (data.length === 0) {
             document.getElementById("mainContainer").innerHTML = `
-        <div class="o-nosession-content">
-            <span>No hay sesiones disponibles</span>
-            <img src="./src/NoSession.png" alt="NoSession">
-        </div>`;
+            <div class="o-nosession-content">
+                <span>No hay sesiones disponibles</span>
+                <img src="./src/NoSession.png" alt="NoSession">
+            </div>`;
         }
         else {
-            $('#mainContainer').load('deteccion.html', _ => {
-                //insertar informacion de la sesion
-                let session = data[0];
-                document.getElementById("titleDetection").innerHTML = session.NombreCurso;
-                document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
-                document.getElementById('sessionDuration').innerHTML = `${timeFormatter(new Date(session.HoraInicio))}--${timeFormatter(new Date(session.HoraFinal))}`;
-                sessionStorage.setItem('currentSession', JSON.stringify(session))
-                getDevices()
-                eel.startTransmition(false)
-            })
-
+            let session = data[0];
+            let lastCurrentSession = sessionStorage.getItem('currentSession');
+            if(lastCurrentSession == null || lastCurrentSession._id !== session._id){
+                $('#mainContainer').load('deteccion.html', _ => {
+                    //si no hay una sesion actual anterior o la sesion anterior es diferente a la actual
+                    document.getElementById("titleDetection").innerHTML = session.NombreCurso;
+                    document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
+                    document.getElementById('sessionDuration').innerHTML = `${timeFormatter(new Date(session.HoraInicio))}&nbsp--&nbsp${timeFormatter(new Date(session.HoraFinal))}`;
+                    sessionStorage.setItem('currentSession', JSON.stringify(session));
+                    getDevices();
+                    eel.startTransmition(false);
+                })
+            }
         }
     });
 }
@@ -40,19 +42,24 @@ function getUpcomingSessions(user) {
             $("#nextSessionsContainer").append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>')
         }
         else {
-            for (session of data) {
-                $("#nextSessionsContainer").append(`
-                <div class="o-session">
-                    <div class="o-session-header">
-                        <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
-                        <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
+            let lastUpcomingSessions = sessionStorage.getItem('lastUpcomingSessions');
+            let upcomingSessions = data.map(session => session._id);
+            console.log(upcomingSessions)
+            if(lastUpcomingSessions == null){
+                for (session of data) {
+                    $("#nextSessionsContainer").append(`
+                    <div class="o-session">
+                        <div class="o-session-header">
+                            <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
+                            <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
+                        </div>
+                        <div class="o-upsession-time">
+                            <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
+                            <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
+                        </div>
                     </div>
-                    <div class="o-session-time">
-                        <span>Inicio:&nbsp;<span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span></span>
-                        <span>Fin:&nbsp;<span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span></span>
-                    </div>
-                </div>
-            `)
+                `)
+                }
             }
         }
     })

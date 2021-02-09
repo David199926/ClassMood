@@ -103,6 +103,15 @@
     position: relative;
 }
 
+/*estilos del tiempo de la sesion actual*/
+.o-session-time{
+    color: #ababab;
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
 /*estilos para el contenedor de los controles de configuración*/
 .o-config-set{
     display: flex;
@@ -270,6 +279,7 @@
     background-color: #2E8AE5;
     color: white;
 }
+
 
 /* mediaquery */
 @media only screen and (max-width:1335px){
