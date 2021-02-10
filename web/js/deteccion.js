@@ -4,9 +4,12 @@ const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 't
 /**
  * funcion para activar/desactivar transmision de video
  * @param {HTMLElement} cameraControl
+ * @param {HTMLElement} microControl 
+ * @param {String} id
  */
-function camera(cameraControl) {
+function camera(cameraControl,microControl,id) {
     let state = !JSON.parse(cameraControl.dataset.state);
+    let microState = !JSON.parse(microControl.dataset.state)
     let started = document.getElementById('detectionController').dataset.state === "started";    
     if(state){
         changeCameraControl(cameraControl, state);
@@ -17,6 +20,10 @@ function camera(cameraControl) {
             cleanVideoPlaceHolder();
             changeCameraControl(cameraControl, state);
         })
+    }
+    if(microState){
+        micro(microControl,microState)
+        eel.run(id)
     }
 }
 
@@ -33,12 +40,13 @@ function changeCameraControl(cameraControl, state) {
 /**
  * funcion para activar/desactivar micrófono
  * @param {HTMLElement} microControl 
+ * @param {boolean} microState
  */
-function micro(microControl) {
+function micro(microControl,microState) {
     let state = !JSON.parse(microControl.dataset.state);
     //setear imagen
-    document.getElementById("microIcon").src = state ? './src/Microphone.png' : './src/NoMicrophone.png';
-    microControl.dataset.state = state;
+    document.getElementById("microIcon").src = stamicroStatete ? './src/Microphone.png' : './src/NoMicrophone.png';
+    microControl.dataset.state = microState;
 }
 
 /**
@@ -142,7 +150,11 @@ function displayCameraDevices() {
     MdevicesControl.dataset.state = 'true'
 }
 
-// funcion para mantener seleccionada la opcion
+/**
+ * funcion para mantener seleccionada la opcion
+ * @param {String} id 
+ * @param {String} type 
+ */
 function selectOption(id, type) {
     if (type === "micro") {
         // se esconden todos los fondos
@@ -171,6 +183,7 @@ function selectOption(id, type) {
         imgOption.hidden = false
         option.classList.add('o-yes-selected')
     }
+    
 }
 
 /**
