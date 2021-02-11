@@ -64,11 +64,12 @@ body{
     width: 100%;
     background-color: #363636;
     border-radius: 23px;
-    height: 135px;
+    height: 125px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: .5rem;
 }
 
 /*estilos del header de la sesion*/
@@ -198,4 +199,52 @@ body{
 .o-reload-image{
     width: 1rem;
     margin: auto;
+}
+
+/*estilos del placeholder de sesiones*/
+.o-sessions-placeholder{
+    height: 30rem;
+    overflow: auto;
+}
+
+/*estilos del fondo del modal*/
+.o-modal-background{
+    position: fixed;
+    top: -100vh;
+    left: 0;
+    z-index: 999;
+    background: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.o-modal-background:target{
+    opacity: 1;
+    top: 0;
+}
+
+/*estilos del modal*/
+.o-session-modal{
+    position: fixed;
+    left: 50%;
+    top: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #242424;
+    height: 10rem;
+    width: 15rem;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    justify-content: space-between;
+}
+
+/*estilos de la info del modal*/
+.o-modal-info{
+    margin-top: .5rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    display: block;
 }

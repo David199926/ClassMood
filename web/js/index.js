@@ -7,11 +7,13 @@ function getCurrentSession(user) {
     let url = 'https://classmood-appserver.herokuapp.com/available';
     $.get(url, { Correo: user.Correo }, (data) => {
         if (data.length === 0) {
-            document.getElementById("mainContainer").innerHTML = `
+            eel.stopTransmition()(_=>{
+                document.getElementById("mainContainer").innerHTML = `
                 <div class="o-nosession-content">
                     <span>No hay sesiones disponibles</span>
                     <img src="./src/NoSession.png" alt="NoSession">
                 </div>`;
+            })
         }
         else {
             let session = data[0];
@@ -28,7 +30,7 @@ function getCurrentSession(user) {
                         eel.stopTransmition()(_ => {
                             //remover la ultima sesion de la memoria
                             sessionStorage.removeItem('currentSession');
-                            reloadSessions();
+                            location.href = 'index.html#modalBackground';
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
                     getDevices();
@@ -53,16 +55,16 @@ function getUpcomingSessions(user) {
         else {
             for (session of data) {
                 $("#sessionsPlaceholder").append(`
-                <div class="o-session">
-                    <div class="o-session-header">
-                        <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
-                        <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
-                    </div>
-                    <div class="o-upsession-time">
-                        <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
-                        <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
-                    </div>
-                </div>`);
+                    <div class="o-session">
+                        <div class="o-session-header">
+                            <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
+                            <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
+                        </div>
+                        <div class="o-upsession-time">
+                            <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
+                            <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
+                        </div>
+                    </div>`);
             }
         }
     })
@@ -72,12 +74,12 @@ function getUpcomingSessions(user) {
  * funcion para recargar las sesiones
  */
 function reloadSessions() {
-    console.log('RECARGAAAAAR');
     let user = JSON.parse(sessionStorage.getItem("user"));
     getUpcomingSessions(user);
     getCurrentSession(user);
 }
 
+if(sessionStorage.getItem('currentSession') !== null) sessionStorage.removeItem('currentSession')
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
 //setear el nombre del usuario en el menu lateral
