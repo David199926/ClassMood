@@ -1,6 +1,8 @@
 import eel
 import deteccion.Audio.Microphone as Microphone
-import deteccion.Audio.AudioDetector as AudioDetector
+# import deteccion.Audio.AudioDetector as AudioDetector
+from deteccion.Audio.AudioDetector import EmotionDetector
+from deteccion.Audio.Microphone import Microphone
 import collections
 import sys
 import webrtcvad
@@ -11,15 +13,14 @@ import numpy as np
 def run(device):
     sample_rate = 16000
     vad = webrtcvad.Vad(3)
-    segments = vad_collector(sample_rate, 30, 300, vad, device)
+    segments = vad_collector(sample_rate, 30, 300, vad, '72b4d17e4322f0a25e32156db8f176fe6725f1afc0da7e46fea7cd1669d7c696')
     #emotion detector
-    detector = AudioDetector('deteccion\Audio\modelAudio.sav')
-    for i, segment in enumerate(segments):
+    detector = EmotionDetector('deteccion\Audio\modelAudio.sav')
         #convert to np.array dtype = float32
-        input = np.frombuffer(segment, dtype = np.int16).astype(np.float32)/32767
-        #pass to neural net
-        output = detector.predict(input)
-        print(output)
+    input = np.frombuffer(bytes(segments), dtype = np.int16).astype(np.float32)/32767
+    #pass to neural net
+    output = detector.predict(input)
+    print(output)
     
     return detector.history
 
@@ -31,10 +32,9 @@ def vad_collector(sample_rate, frame_duration_ms, padding_duration_ms, vad,devic
       ring_buffer = collections.deque(maxlen=num_padding_frames)
       #we have two states: TRIGGERED and NOTRIGGERED. We start in the NOTTRIGGERED state
       triggered = False
-      Microphone = Microphone(device,sample_rate,frame_duration_ms)
-
+      Microphones = Microphone(device,sample_rate,frame_duration_ms)
       voiced_frames = None
-      frame = Microphone.getFrame
+      frame = Microphones.getFrame()
       is_speech = vad.is_speech(frame, sample_rate)
 
       if not triggered:
@@ -65,7 +65,7 @@ def vad_collector(sample_rate, frame_duration_ms, padding_duration_ms, vad,devic
               triggered = False
               yield voiced_frames
               ring_buffer.clear()
-              voiced_frames = None
+              voiced_frames = []
 
       #if triggered:
       #sys.stdout.write('NOT TRIGGERED')

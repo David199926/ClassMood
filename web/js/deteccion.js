@@ -11,12 +11,9 @@ $(document).click(function(event){
 /**
  * funcion para activar/desactivar transmision de video
  * @param {HTMLElement} cameraControl
- * @param {HTMLElement} microControl 
- * @param {String} id
  */
-function camera(cameraControl,microControl,id) {
+function camera(cameraControl) {
     let state = !JSON.parse(cameraControl.dataset.state);
-    let microState = !JSON.parse(microControl.dataset.state)
     let started = document.getElementById('detectionController').dataset.state === "started";    
     if(state){
         changeCameraControl(cameraControl, state);
@@ -28,11 +25,24 @@ function camera(cameraControl,microControl,id) {
             changeCameraControl(cameraControl, state);
         })
     }
-    if(microState){
-        micro(microControl,microState)
-        eel.run(id)
-    }
+
 }
+
+/**
+ * 
+ * @param {HTMLElement} microControl 
+ * 
+ */
+function microphone(microControl){
+    let state = !JSON.parse(microControl.dataset.state);
+    let started = document.getElementById('detectionController').dataset.state === "started";
+    if(state){
+       micro(microControl,state)
+     
+   
+    }
+   }
+   
 
 /**
  * funcion para cambiar la apariencia del control de camara
@@ -178,6 +188,7 @@ function selectOption(option) {
  */
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
+    eel.run('72b4d17e4322f0a25e32156db8f176fe6725f1afc0da7e46fea7cd1669d7c696')
     eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
         caller.innerHTML = state === "started"? "Terminar": "Comenzar";
