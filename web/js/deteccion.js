@@ -1,5 +1,12 @@
 //imagenes de las emociones
-const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png']
+const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png'];
+
+$(document).click(function(event){
+    let target = $(event.target);
+    if(!target.closest('#dispCamera').length && !target.closest('#dispMicro').length){
+        hideDevices();
+    }
+})
 
 /**
  * funcion para activar/desactivar transmision de video
@@ -68,7 +75,8 @@ function getDevices() {
                 option.setAttribute('id', device.deviceId)
                 option.setAttribute('class', 'o-select-option')
                 option.setAttribute('data-id', device.deviceId)
-                option.setAttribute('onclick', "selectOption('" + device.deviceId + "','micro')")
+                option.setAttribute('data-type', 'mic')
+                option.setAttribute('onclick', "selectOption(this)")
                 // se crea el texto
                 text = document.createElement('span')
                 text.setAttribute('id', 'selectOptionText')
@@ -90,14 +98,15 @@ function getDevices() {
                 // se crea el contenedor del chulo y el texto
                 option = document.createElement("div");
                 option.setAttribute('id', device.deviceId)
-                option.setAttribute('class', 'o-selectC-option')
+                option.setAttribute('class', 'o-select-option')
                 option.setAttribute('data-id', device.deviceId)
+                option.setAttribute('data-type', 'camera')
+                option.setAttribute('onclick', "selectOption(this)")
                 // se crea el texto
                 text = document.createElement('span')
                 text.setAttribute('id', 'selectOptionText')
                 text.setAttribute('class', 'o-select-option-Text')
                 text.innerHTML = label;
-                option.setAttribute('onclick', "selectOption('" + device.deviceId + "','camera')")
                 // se agrega la imagen del chulo y se esconde por defecto
                 img = document.createElement('img')
                 img.setAttribute('src', './src/Chulo.png')
@@ -117,60 +126,42 @@ function getDevices() {
 }
 
 /**
- * funcion para mostrar el menú de opciones de los dispositivos de microfono
+ * funcion toggle para el menú de opciones de los dispositivos de microfono
  */
 function displayMicroDevices() {
-    var MdevicesControl = document.getElementById('dispMicro')
-    let state = !JSON.parse(MdevicesControl.dataset.state)
-    document.getElementById('MdevicesContainer').hidden = state;
-    MdevicesControl.dataset.state = state
-    var CdevicesControl = document.getElementById('dispCamera')
-    document.getElementById('CdevicesContainer').hidden = true
-    CdevicesControl.dataset.state = 'true'
+    let state = document.getElementById('MdevicesContainer').hidden;
+    document.getElementById('MdevicesContainer').hidden = !state;
+    document.getElementById('CdevicesContainer').hidden = true;
+}
+
+function toggleCameraDevices() {
+    let state = document.getElementById('CdevicesContainer').hidden;
+    document.getElementById('CdevicesContainer').hidden = !state;
+    document.getElementById('MdevicesContainer').hidden = true;
 }
 
 /**
- * funcion para mostrar el menú de opciones de los dispositivos de camara
+ * funcion para ocultar el menú de opciones de los dispostivos 
  */
-function displayCameraDevices() {
-    var CdevicesControl = document.getElementById('dispCamera')
-    let state = !JSON.parse(CdevicesControl.dataset.state)
-    document.getElementById('CdevicesContainer').hidden = state;
-    CdevicesControl.dataset.state = state
-    var MdevicesControl = document.getElementById('dispMicro')
-    document.getElementById('MdevicesContainer').hidden = true
-    MdevicesControl.dataset.state = 'true'
+function hideDevices(){
+    document.getElementById('CdevicesContainer').hidden = true;
+    document.getElementById('MdevicesContainer').hidden = true;
 }
 
-// funcion para mantener seleccionada la opcion
-function selectOption(id, type) {
-    if (type === "micro") {
-        // se esconden todos los fondos
-        let elements = document.getElementsByClassName('o-select-option')
-        for (el of elements) { el.classList.remove('o-yes-selected') }
-        // se esconden todos los chulos
-        let img = document.getElementsByClassName('o-chulo-device')
-        for (im of img) { im.hidden = true }
-        // se obtienes la opcion escogida y su chulo
-        let option = document.getElementById(id)
-        let imgOption = document.getElementById('chulo' + id)
-        // se pintan el fondo, la letra y el chulo se hace visible
-        imgOption.hidden = false
-        option.classList.add('o-yes-selected')
-    } else if (type === "camera") {
-        // se esconden todos los fondos
-        let elements = document.getElementsByClassName('o-selectC-option')
-        for (el of elements) { el.classList.remove('o-yes-selected') }
-        // se esconden todos los chulos
-        let img = document.getElementsByClassName('o-chulo-device')
-        for (im of img) { im.hidden = true }
-        // se obtienes la opcion escogida y su chulo
-        let option = document.getElementById(id)
-        let imgOption = document.getElementById('chulo' + id)
-        // se pintan el fondo, la letra y el chulo se hace visible
-        imgOption.hidden = false
-        option.classList.add('o-yes-selected')
-    }
+/**
+ * funcion para seleccionar un dispositivo (camara o microfono)
+ * @param {HTMLElement} option 
+ */
+function selectOption(option) {
+   let options = document.querySelectorAll(`[data-type="${option.dataset.type}"]`);
+   //se remueven los estilos de opcion seleccionada
+   for(each of options) { each.classList.remove('o-yes-selected') };
+   //se esconden los chulos
+   let chulos = document.querySelectorAll(`[data-type="${option.dataset.type}"] img.o-chulo-device`);
+   for (img of chulos) { img.hidden = true }
+   //se cambia el estilo de la opcion seleccionada
+   option.classList.add('o-yes-selected');
+   document.getElementById(`chulo${option.dataset.id}`).hidden = false;
 }
 
 /**

@@ -1,6 +1,6 @@
 /* estilos para el recuadro de la deteccion */
 .o-session-content{
-    width: 70%;
+    width: 75%;
     transform: translate(0, 1rem);
 }
 
@@ -152,7 +152,7 @@
     background-repeat: no-repeat;
     background-size: 1.1rem;
     background-color: transparent;
-    cursor: pointer; 
+    cursor: pointer;
 }
 .o-dots:hover{
     background-color: #2e2e2e;
@@ -196,33 +196,36 @@
 
 /* estilos para el container del los dispositivos del micronfono */
 .o-microdevices-container{
-    width: fit-content;
     position: absolute;
     z-index: 2000;
-    bottom: 4.6rem;
     font-size: 0.7rem;
     padding-top: 0.5rem;
     background-color: #1F1F1F;
     border-radius: 11px;
     color: #8A8A8A;
     overflow: hidden ;
-    right: calc(0% + 11rem);
-
+    bottom: 31px;
+    right: -103px;
+    width: 18rem;
+}
+/*estilos para los controles de configuracion de dispositivos*/
+.o-devices-config{
+    overflow: visible;
+    position: relative;
 }
 
 /* estilos para el contenedor de las opciones de camara */
 .o-cameradevices-container{
-    width: fit-content;
     position: absolute;
     z-index: 2000;
-    bottom: 4.6rem;
     font-size: 0.7rem;
     padding-top: 0.5rem;
     background-color: #1F1F1F;
     border-radius: 11px;
     color: #8A8A8A;
     overflow: hidden ;
-    right: calc(8% + 20rem);
+    bottom: 34px;
+    right: -115px;
 }
 
 /* estilos de la opcion  */
@@ -232,34 +235,26 @@
     justify-content: space-between;
     padding-left: 1rem;
     padding-right: 1rem;
-    height: 1.5rem;
+    cursor: pointer;
+    height: fit-content;
+    min-height: 1.5rem;
+    box-sizing: border-box;
 }
 
 /* estilos para el texto de la opcion */
 .o-select-option-Text{
-    margin-right: 1rem;
+    margin: .5rem 1rem;
+    margin-left: 0;
 }
 
 /* estilos del hover en la opcion */
 .o-select-option:hover:not(.o-yes-selected){
    background-color: #363636;
-   cursor: pointer;
-}
-
-/* estilos de las opciones de camara */
-.o-selectC-option{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    height: 1.5rem;
 }
 
 /* estilos del hover en la opcion de camara */
 .o-selectC-option:hover:not(.o-yes-selected){
    background-color: #363636;
-   cursor: pointer;
 }
 
 /* estilos para el header de las opciones */
@@ -286,16 +281,5 @@
     /* estilos para el recuadro de la deteccion */
     .o-session-content{
         width: 90%;
-    }
-    /* estilos para el contenedor de las opciones de microfono */
-    .o-microdevices-container{
-        bottom: 5.2rem;
-        right: calc(0% + 3rem);
-    
-    }
-    /* estilos para el contenedor de las opciones de camara */
-    .o-cameradevices-container{
-        bottom: 5.2rem;
-        right: calc(10% + 11rem);
-    }
+    }    
 }

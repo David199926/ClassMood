@@ -27,28 +27,33 @@
         <button class="o-btn o-btn-secundary o-btn-start" id="detectionController" onclick="detectionEvent(this)"
             data-state="stopped">Comenzar</button>
         <div class="o-config-set">
-            <!-- boton de apagar camara -->
-            <div class="o-dot-icon-container">
-                <button class="o-btn-config" onclick="camera(this)" data-state="true">
-                    <img src="./src/Camera.png" class="o-camera-icon" alt="camara icon" id="cameraIcon">
-                </button>
-                <div class="o-dots" id="dispCamera" data-state="true" onclick="displayCameraDevices()">
-                    <div class="o-cameradevices-container" id="CdevicesContainer" hidden>
-                        <div class="o-header-option"><span>Selecciona una cámara</span></div>
-                    </div>
+
+            <!-- configuracion de camara -->
+            <div class="o-devices-config" id="cameraDevices">
+                <div class="o-cameradevices-container" id="CdevicesContainer" hidden>
+                    <div class="o-header-option"><span>Selecciona una cámara</span></div>
+                </div>
+                <div class="o-dot-icon-container">
+                    <button class="o-btn-config" onclick="camera(this)" data-state="true">
+                        <img src="./src/Camera.png" class="o-camera-icon" alt="camara icon" id="cameraIcon">
+                    </button>
+                    <div class="o-dots" id="dispCamera" onclick="toggleCameraDevices()"></div>
                 </div>
             </div>
-            <!-- boton de apagar microfono -->
-            <div class="o-dot-icon-container">
-                <button class="o-btn-config" onclick="micro(this)" data-state="true">
-                    <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon" width="16rem">
-                </button>
-                <div class="o-dots" id="dispMicro" data-state="true" onclick="displayMicroDevices()">
-                    <div class="o-microdevices-container" id="MdevicesContainer" hidden>
-                        <div class="o-header-option"><span>Selecciona un micrófono</span></div>
-                    </div>
+            
+            <!-- configuracion de microfono -->
+            <div class="o-devices-config">
+                <div class="o-microdevices-container" id="MdevicesContainer" hidden>
+                    <div class="o-header-option"><span>Selecciona un micrófono</span></div>
+                </div>
+                <div class="o-dot-icon-container">
+                    <button class="o-btn-config" onclick="micro(this)" data-state="true">
+                        <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon" width="16rem">
+                    </button>
+                    <div class="o-dots" id="dispMicro" onclick="displayMicroDevices()"></div>
                 </div>
             </div>
+            
             <!-- boton donde se despliega la emocion detectada -->
             <button class="o-btn-config o-btn-img" onclick="emotion()" id="emotionControl" data-state='true'>
                 <img src="./src/Emotions.png" id="emotionIcon" alt="imagen de la emocion" width="30px"
