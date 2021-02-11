@@ -30,7 +30,7 @@ function getCurrentSession(user) {
                         eel.stopTransmition()(_ => {
                             //remover la ultima sesion de la memoria
                             sessionStorage.removeItem('currentSession');
-                            reloadSessions();
+                            location.href = 'index.html#modalBackground';
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
                     getDevices();
@@ -74,12 +74,12 @@ function getUpcomingSessions(user) {
  * funcion para recargar las sesiones
  */
 function reloadSessions() {
-    console.log('RECARGAAAAAR');
     let user = JSON.parse(sessionStorage.getItem("user"));
     getUpcomingSessions(user);
     getCurrentSession(user);
 }
 
+if(sessionStorage.getItem('currentSession') !== null) sessionStorage.removeItem('currentSession')
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
 //setear el nombre del usuario en el menu lateral

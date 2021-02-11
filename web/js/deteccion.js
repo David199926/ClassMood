@@ -210,13 +210,8 @@ eel.expose(processEmotion);
  * @param {any} emotion 
  */
 function processEmotion(emotion) {
-    if (JSON.parse(emotionControl.dataset.state)){
-        //enviar la deteccion y mostrar en pantalla
-        submitEmotion(emotion, showEmotion)
-    }else{
-        //enviar la deteccion y no mostrar en pantalla
-        submitEmotion(emotion)
-    }
+    if (sessionStorage.getItem('currentSession') == null) return;
+    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state)? showEmotion: undefined);
 }
 
 /**
@@ -247,7 +242,6 @@ function getRoundInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
 /**
  * funcion para enviar al servidor una emocion detectada,
  * llama a success cuando la operacion ha sido exitosa
@@ -263,8 +257,8 @@ function submitEmotion(emotion, success = _=>{}) {
         CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
     }
     $.post(url, data, ()=>{
-        console.log('Send!!')
-        success(Number(emotion[1]))
+        console.log('Send!!');
+        success(Number(emotion[1]));
     }).fail(()=>{
         throw new Error('Error al subir los datos')
     })
