@@ -33,8 +33,7 @@ function getCurrentSession(user) {
                             location.href = 'index.html#modalBackground';
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
-                    getDevices();
-                    eel.startTransmition(false);
+                    getDevices(eel.startTransmition);
                 })
             }
         }

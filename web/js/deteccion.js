@@ -62,10 +62,13 @@ function emotion() {
 /**
  * funcion para obtener y mostrar los dispositivos
  */
-function getDevices() {
+function getDevices(callback = _=>{}) {
     audioOptions = document.getElementById("MdevicesContainer");
     videoOptions = document.getElementById("CdevicesContainer");
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function (mediaStream) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
+        let tracks = mediaStream.getTracks();
+        tracks[0].stop();
+        tracks[1].stop();
         navigator.mediaDevices.enumerateDevices().then(function (devices) {
             devices.forEach((device) => {
                 let label = device.label
@@ -119,12 +122,16 @@ function getDevices() {
                     // se agrega el contendor al select de opciones
                     videoOptions.append(option)
                 }
+                console.log('Hoola')
+                callback(false);
             })
         })
+    
     }).catch(function (err) {
         console.log(err.name + ": " + err.message);
     });
 }
+    
 
 /**
  * funcion toggle para el menú de opciones de los dispositivos de microfono
