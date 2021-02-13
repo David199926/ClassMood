@@ -1,12 +1,24 @@
 //imagenes de las emociones
 const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png'];
 
+/**
+ * evento para cerrar menus de duspositivos al hacer clicl fuera
+ */
 $(document).click(function(event){
     let target = $(event.target);
     if(!target.closest('#dispCamera').length && !target.closest('#dispMicro').length){
         hideDevices();
     }
 })
+
+/**
+ * evento para re pintar los dispositivos cuando hay un cambio
+ */
+navigator.mediaDevices.ondevicechange = function(event){
+    navigator.mediaDevices.enumerateDevices().then(function (devices) {
+        paintDevices(devices);
+    })
+}
 
 /**
  * funcion para activar/desactivar transmision de video
@@ -63,75 +75,61 @@ function emotion() {
  * funcion para obtener y mostrar los dispositivos
  */
 function getDevices(callback = _=>{}) {
-    audioOptions = document.getElementById("MdevicesContainer");
-    videoOptions = document.getElementById("CdevicesContainer");
     navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
         let tracks = mediaStream.getTracks();
         tracks[0].stop();
         tracks[1].stop();
         navigator.mediaDevices.enumerateDevices().then(function (devices) {
-            devices.forEach((device) => {
-                let label = device.label
-                if (device.kind === "audioinput") {
-                    option = document.createElement("div");
-                    // se crea el contenedor del texto y el chulo
-                    option.setAttribute('id', device.deviceId)
-                    option.setAttribute('class', 'o-select-option')
-                    option.setAttribute('data-id', device.deviceId)
-                    option.setAttribute('data-type', 'mic')
-                    option.setAttribute('onclick', "selectOption(this)")
-                    // se crea el texto
-                    text = document.createElement('span')
-                    text.setAttribute('id', 'selectOptionText')
-                    text.setAttribute('class', 'o-select-option-Text')
-                    text.innerHTML = label;
-                    // se crea y se oculta el chulo por defecto
-                    img = document.createElement('img')
-                    img.setAttribute('src', './src/Chulo.png')
-                    img.setAttribute('class', 'o-chulo-device')
-                    img.setAttribute('id', 'chulo' + device.deviceId)
-                    img.setAttribute('hidden', true)
-                    // se agregan el texto mas el chulo al contendor
-                    option.append(text)
-                    option.append(img)
-                    // se agrega el contendor al select de opciones
-                    audioOptions.append(option)
-                } else if (device.kind === "videoinput") {
-                    label = label.split("(")[0].trim() //only device name
-                    // se crea el contenedor del chulo y el texto
-                    option = document.createElement("div");
-                    option.setAttribute('id', device.deviceId)
-                    option.setAttribute('class', 'o-select-option')
-                    option.setAttribute('data-id', device.deviceId)
-                    option.setAttribute('data-type', 'camera')
-                    option.setAttribute('onclick', "selectOption(this)")
-                    // se crea el texto
-                    text = document.createElement('span')
-                    text.setAttribute('id', 'selectOptionText')
-                    text.setAttribute('class', 'o-select-option-Text')
-                    text.innerHTML = label;
-                    // se agrega la imagen del chulo y se esconde por defecto
-                    img = document.createElement('img')
-                    img.setAttribute('src', './src/Chulo.png')
-                    img.setAttribute('class', 'o-chulo-device')
-                    img.setAttribute('id', 'chulo' + device.deviceId)
-                    img.setAttribute('hidden', true)
-                    // se agregan el chulo mas el texto al contenedor
-                    option.append(text)
-                    option.append(img)
-                    // se agrega el contendor al select de opciones
-                    videoOptions.append(option)
-                }
-                console.log('Hoola')
-                callback(false);
-            })
+            paintDevices(devices);
+            callback(false);
         })
-    
     }).catch(function (err) {
         console.log(err.name + ": " + err.message);
     });
 }
-    
+
+/**
+ * funcion para pintar la lista de dispositivos
+ * @param {object} devices 
+ */
+function paintDevices(devices){
+    let audioOptions = document.getElementById("MdevicesContainer");
+    let videoOptions = document.getElementById("CdevicesContainer");
+    //borrar opciones anteriores
+    $('.o-select-option').remove();
+    devices.forEach((device) => {
+        let label = device.kind === "audioinput"? device.label : device.label.split("(")[0].trim();
+        let option = document.createElement("div");
+        // se crea el contenedor del texto y el chulo
+        option.setAttribute('id', device.deviceId)
+        option.setAttribute('class', 'o-select-option')
+        option.setAttribute('data-id', device.deviceId)
+        option.setAttribute('data-type', device.kind ==="audioinput" ? 'mic': 'camera')
+        option.setAttribute('onclick', "selectOption(this)")
+        // se crea el texto
+        text = document.createElement('span')
+        text.setAttribute('id', 'selectOptionText')
+        text.setAttribute('class', 'o-select-option-Text')
+        text.innerHTML = label;
+        // se crea y se oculta el chulo por defecto
+        img = document.createElement('img')
+        img.setAttribute('src', './src/Chulo.png')
+        img.setAttribute('class', 'o-chulo-device')
+        img.setAttribute('id', 'chulo' + device.deviceId)
+        img.setAttribute('hidden', true)
+        // se agregan el texto mas el chulo al contendor
+        option.append(text)
+        option.append(img)
+        if(device.kind === "audioinput"){
+            // se agrega el contendor al select de opciones
+            audioOptions.append(option)
+        }else if(device.kind === "videoinput"){
+            // se agrega el contendor al select de opciones
+            videoOptions.append(option)
+        }
+    })
+}
+
 
 /**
  * funcion toggle para el menú de opciones de los dispositivos de microfono
