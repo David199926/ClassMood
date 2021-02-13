@@ -45,9 +45,12 @@
     justify-content: flex-start;
     position: absolute;
     top: 0;
+    width: 100%;
     left: 0;
     z-index: 99;
     margin: .5rem;
+    background: linear-gradient(90deg, rgba(2,0,36,0.4606793400954131) 0%, rgba(154,153,167,0) 30%, rgba(255,255,255,0) 100%);
+
 }
 
 /* estilos del titutlo de la materia */
