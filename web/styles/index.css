@@ -8,7 +8,7 @@ body{
 /*estilos del menu lateral*/
 .o-sidemenu{
     background-color: #242424;
-    height: fit-content;
+    height: 100vh;
     width: 320px;
     display: flex;
     flex-direction: column;
@@ -247,4 +247,26 @@ body{
     color: #ffffff;
     font-size: 1.2rem;
     display: block;
+}
+
+/*CEstilos del scroll bar*/
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #363636; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #484848; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bababa; 
 }
