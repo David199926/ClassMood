@@ -71,20 +71,21 @@ function emotion() {
     emotionControl.dataset.state = state
 }
 
+
 /**
  * funcion para obtener y mostrar los dispositivos
  */
-function getDevices(callback = _=>{}) {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
-        let tracks = mediaStream.getTracks();
-        tracks[0].stop();
-        tracks[1].stop();
-        navigator.mediaDevices.enumerateDevices().then(function (devices) {
-            paintDevices(devices);
-            callback(false);
-        })
-    }).catch(function (err) {
-        console.log(err.name + ": " + err.message);
+async function getDevices() {
+    return new Promise((resolve, reject) =>{
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
+            let tracks = mediaStream.getTracks();
+            tracks[0].stop();
+            tracks[1].stop();
+            navigator.mediaDevices.enumerateDevices().then(function (devices) {
+                paintDevices(devices);
+                resolve();
+            }).catch(err => {reject(err)});
+        }).catch(err => {reject(err)});
     });
 }
 

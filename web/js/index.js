@@ -33,7 +33,12 @@ function getCurrentSession(user) {
                             location.href = 'index.html#modalBackground';
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
-                    getDevices(eel.startTransmition);
+                    getDevices().then(res =>{
+                        //una vez configurados los dispositivos podemos empezar la transmision
+                        eel.startTransmition();
+                    }).catch(error =>{
+                        console.log('error gestionando dispositivos', error)
+                    });
                 })
             }
         }
