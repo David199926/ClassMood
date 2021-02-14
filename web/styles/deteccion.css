@@ -48,9 +48,8 @@
     width: 100%;
     left: 0;
     z-index: 99;
-    margin: .5rem;
-    background: linear-gradient(90deg, rgba(2,0,36,0.4606793400954131) 0%, rgba(154,153,167,0) 30%, rgba(255,255,255,0) 100%);
-
+    padding: .5rem;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 11%, rgba(0,0,0,0.4203431372549019) 27%, rgba(0,0,0,0.6276260504201681) 39%, rgba(0,0,0,0.8293067226890756) 56%, rgba(0,0,0,1) 100%);
 }
 
 /* estilos del titutlo de la materia */

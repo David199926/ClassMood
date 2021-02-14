@@ -8,7 +8,7 @@ body{
 /*estilos del menu lateral*/
 .o-sidemenu{
     background-color: #242424;
-    height: 100vh;
+    height: fit-content;
     width: 320px;
     display: flex;
     flex-direction: column;
