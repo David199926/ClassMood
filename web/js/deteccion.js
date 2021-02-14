@@ -79,10 +79,12 @@ async function getDevices() {
     return new Promise((resolve, reject) =>{
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
             let tracks = mediaStream.getTracks();
-            tracks[0].stop();
-            tracks[1].stop();
+            //cerrar los flujos de los dispositivos para que no se genere conflicto con python
+            tracks.forEach(track => {track.stop()});
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
-                paintDevices(devices);
+                //obtengo los dispositivos guardados en configuracion
+                let {camera, microphone} = JSON.parse(sessionStorage.getItem('conf'));
+                paintDevices(devices, [camera, microphone]);
                 resolve();
             }).catch(err => {reject(err)});
         }).catch(err => {reject(err)});
@@ -92,8 +94,10 @@ async function getDevices() {
 /**
  * funcion para pintar la lista de dispositivos
  * @param {object} devices 
+ * @param {object} preSelected dispositivos que deberán pintarse como seleccionados
  */
-function paintDevices(devices){
+function paintDevices(devices, preSelected){
+    console.log(preSelected)
     let audioOptions = document.getElementById("MdevicesContainer");
     let videoOptions = document.getElementById("CdevicesContainer");
     //borrar opciones anteriores
@@ -128,6 +132,8 @@ function paintDevices(devices){
             // se agrega el contendor al select de opciones
             videoOptions.append(option)
         }
+        //si es una opcion preseleccionada, se marca
+        if(preSelected.includes(label)){selectOption(option)}
     })
 }
 

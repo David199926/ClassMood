@@ -67,6 +67,7 @@
                 if(data !== "wrong password" || data !== "no found"){
                     //user found
                     sessionStorage.setItem("user", JSON.stringify(data));
+                    sessionStorage.setItem("conf", JSON.stringify(conf));
                     window.location.href = "index.html";
                 }
             }).fail(()=>{

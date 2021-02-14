@@ -27,6 +27,8 @@ function logIn(){
             conf.user.email = email;
             conf.user.password = data.Contrasena;
             conf.user.code = data.Codigo;
+            //guardar configuracion en variables de sesion
+            sessionStorage.setItem('conf', JSON.stringify(conf));
             eel.saveConf(conf)(_=>{
                 window.location.href = "index.html";
             });
@@ -45,6 +47,10 @@ $("#password").keyup((event)=>{
     if(event.keyCode == 13) $('#logInButton').click()
 })
 
+/**
+ * funcion para mostrar/ocultar el panel de carga
+ * @param {bool} bool si es true se muestra la pantalla, de lo contrario se oculta
+ */
 function toggleLoadingPage(bool){
     document.getElementById('loadingPanel').style.display = bool? "flex": "none";
 }

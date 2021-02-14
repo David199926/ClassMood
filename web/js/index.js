@@ -104,12 +104,17 @@ function timeFormatter(time) {
  */
 function logOut() {
     sessionStorage.removeItem("user");
-    eel.readConf()(conf => {
-        conf.user.email = "";
-        conf.user.password = "";
-        conf.user.code = "";
-        eel.saveConf(conf)(_ => {
-            location.href = "LogIn.html"
+    //terminar la transmision
+    eel.stopTransmition()(_=>{
+        //remover los datos del usuario en el archivo se configuracion
+        eel.readConf()(conf => {
+            conf.user.email = "";
+            conf.user.password = "";
+            conf.user.code = "";
+            eel.saveConf(conf)(_ => {
+                location.href = "LogIn.html"
+            })
         })
     })
+    
 }
