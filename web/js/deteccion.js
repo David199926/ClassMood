@@ -186,8 +186,9 @@ function selectOption(option, save = true) {
    //se cambia el estilo de la opcion seleccionada
    option.classList.add('o-yes-selected');
    document.getElementById(`chulo${option.dataset.id}`).hidden = false;
+   
+   //guardar en configuracion
    if(!save) return;
-    //guardar en configuracion
     let conf = JSON.parse(sessionStorage.getItem('conf'));
     if(['camera', 'mic'].includes(option.dataset.type)){
         conf[option.dataset.type] = option.children[0].innerHTML;
