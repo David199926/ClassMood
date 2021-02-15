@@ -220,7 +220,6 @@ function selectOption(option, save = true) {
  */
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
-    eel.run('72b4d17e4322f0a25e32156db8f176fe6725f1afc0da7e46fea7cd1669d7c696')
     eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
         caller.innerHTML = state === "started"? "Terminar": "Comenzar";

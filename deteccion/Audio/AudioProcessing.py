@@ -1,6 +1,4 @@
 import eel
-import deteccion.Audio.Microphone as Microphone
-# import deteccion.Audio.AudioDetector as AudioDetector
 from deteccion.Audio.AudioDetector import EmotionDetector
 from deteccion.Audio.Microphone import Microphone
 import collections
