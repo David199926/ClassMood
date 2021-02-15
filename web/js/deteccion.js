@@ -83,8 +83,8 @@ async function getDevices() {
             tracks.forEach(track => {track.stop()});
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
                 //obtengo los dispositivos guardados en configuracion
-                let {camera, microphone} = JSON.parse(sessionStorage.getItem('conf'));
-                paintDevices(devices, [camera, microphone]);
+                let {camera, mic} = JSON.parse(sessionStorage.getItem('conf'));
+                paintDevices(devices,  {camera, mic});
                 resolve();
             }).catch(err => {reject(err)});
         }).catch(err => {reject(err)});
@@ -94,10 +94,9 @@ async function getDevices() {
 /**
  * funcion para pintar la lista de dispositivos
  * @param {object} devices 
- * @param {object} preSelected dispositivos que deberán pintarse como seleccionados
+ * @param {object} preSelectedDevices dispositivos que deberán pintarse como seleccionados
  */
-function paintDevices(devices, preSelected){
-    console.log(preSelected)
+function paintDevices(devices, preSelectedDevices){
     let audioOptions = document.getElementById("MdevicesContainer");
     let videoOptions = document.getElementById("CdevicesContainer");
     //borrar opciones anteriores
@@ -133,7 +132,18 @@ function paintDevices(devices, preSelected){
             videoOptions.append(option)
         }
         //si es una opcion preseleccionada, se marca
-        if(preSelected.includes(label)){selectOption(option)}
+        if(preSelectedDevices.camera === label){
+            delete preSelectedDevices.camera;
+            selectOption(option, false);
+        }
+        if(preSelectedDevices.mic === label){
+            delete preSelectedDevices.mic;
+            selectOption(option, false);
+        }
+    })
+    //si los dispositivos preseleccionados no fueron encontrados se seleccionaran los primeros
+    Object.keys(preSelectedDevices).forEach(type =>{
+        selectOption(document.querySelector(`[data-type = ${type}]`))
     })
 }
 
@@ -164,8 +174,9 @@ function hideDevices(){
 /**
  * funcion para seleccionar un dispositivo (camara o microfono)
  * @param {HTMLElement} option 
+ * @param {boolean} save flag para guardar el dispositivo en configuracion (por defecto igual a true)
  */
-function selectOption(option) {
+function selectOption(option, save = true) {
    let options = document.querySelectorAll(`[data-type="${option.dataset.type}"]`);
    //se remueven los estilos de opcion seleccionada
    for(each of options) { each.classList.remove('o-yes-selected') };
@@ -175,6 +186,13 @@ function selectOption(option) {
    //se cambia el estilo de la opcion seleccionada
    option.classList.add('o-yes-selected');
    document.getElementById(`chulo${option.dataset.id}`).hidden = false;
+   if(!save) return;
+    //guardar en configuracion
+    let conf = JSON.parse(sessionStorage.getItem('conf'));
+    if(['camera', 'mic'].includes(option.dataset.type)){
+        conf[option.dataset.type] = option.children[0].innerHTML;
+    }
+    eel.saveConf(conf);
 }
 
 /**
