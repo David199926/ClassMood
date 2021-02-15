@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    <!-- Panel de carga -->
+    <div class="o-loading-panel" id="loadingPanel">
+        <div class="o-carga" id="carga"></div>
+    </div>
     <div class="element1">
         <img src="./src/ClassMood.png" alt="ClassMood Detection" class="o-title">
         <span class="o-subtitle">Detectamos tus emociones durante tus clases</span>
@@ -25,7 +29,7 @@
             <input type="password" id="password" class="o-login-input">
             <span class="o-validation-error" id="validationError"></span>
             <input type="button" id="logInButton" value="Iniciar Sesión" class="o-btn o-btn-primary o-login-button" onclick="logIn()">
-            <span class="o-registerlink">¿Aún no tienes cuenta? <a href="https://demotion-1.herokuapp.com/register" target="blank">Regístrate aquí</a></span>
+            <span class="o-registerlink">¿Aún no tienes cuenta? <a href="https://classmood-web.herokuapp.com/register" target="blank">Regístrate aquí</a></span>
         </form>
     </div>
     <script src="js/login.js"></script>

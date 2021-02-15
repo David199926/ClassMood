@@ -31,7 +31,7 @@
             <!-- footer -->
             <div class="o-sidemenu-footer">
                 <!-- ClassMood Web -->
-                <a class="o-classmoodweb" href="https://demotion-1.herokuapp.com" target="blank">Visita
+                <a class="o-classmoodweb" href="https://classmood-web.herokuapp.com" target="blank">Visita
                     <strong>ClassMood Web</strong></a>
                 <!-- Cerrar sesion -->
                 <div class="o-logout" onclick="logOut()">
@@ -41,13 +41,35 @@
             </div>
         </div>
     </div>
+    
     <!-- Contenedor principal -->
-    <div class="o-main-container" id="mainContainer"></div>
+    <div class="right-side">
+        <div class="o-main-container" id="mainContainer"></div>
+        <a class="o-credits" href="#creditsModal">Céditos</a>
+    </div>
+    
+    
     <!-- Modal para notificar expiracion de sesion -->
     <div class="o-modal-background" id="modalBackground">
         <div class="o-session-modal" id="sessionModal">
-            <span class="o-modal-info">La sesión ha expirado</span>
+            <span class="o-modal-title">La sesión ha expirado</span>
             <button class="o-modal-btn o-btn o-btn-primary" onclick="{location.href = 'index.html';}">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Modal de créditos -->
+    <div class="o-modal-background" id="creditsModal">
+        <div class="o-credits-modal" id="">
+            <span class="o-modal-title">Créditos</span>
+            <span class="o-modal-info">Esta aplicación ha sido desarollada por:</span>
+            <span class="o-modal-title">David López Peña</span>
+            <span class="o-modal-title">Gabriel Mercado Rivera</span><br>
+            <span class="o-modal-info">Algunos de los íconos han sido creados por:</span>
+            <a class="o-modal-title" href="https://www.flaticon.es/autores/dave-gandy" target="blank">Dave Gandy</a>
+            <a class="o-modal-title" href="https://www.flaticon.com/authors/kiranshastry" target="blank">Kiranshastry</a>
+            <a class="o-modal-info" href="https://www.flaticon.com/" target="blank">de flaticon.com</a>
+            <br>
+            <button class="o-modal-btn o-btn o-btn-primary" onclick="{location.href = '#';}">¡Gracias a todos!</button>
         </div>
     </div>
 </body>

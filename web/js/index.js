@@ -33,8 +33,12 @@ function getCurrentSession(user) {
                             location.href = 'index.html#modalBackground';
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
-                    getDevices();
-                    eel.startTransmition(false);
+                    getDevices().then(res =>{
+                        //una vez configurados los dispositivos podemos empezar la transmision
+                        eel.startTransmition();
+                    }).catch(error =>{
+                        console.log('error gestionando dispositivos', error)
+                    });
                 })
             }
         }
@@ -100,12 +104,17 @@ function timeFormatter(time) {
  */
 function logOut() {
     sessionStorage.removeItem("user");
-    eel.readConf()(conf => {
-        conf.user.email = "";
-        conf.user.password = "";
-        conf.user.code = "";
-        eel.saveConf(conf)(_ => {
-            location.href = "LogIn.html"
+    //terminar la transmision
+    eel.stopTransmition()(_=>{
+        //remover los datos del usuario en el archivo se configuracion
+        eel.readConf()(conf => {
+            conf.user.email = "";
+            conf.user.password = "";
+            conf.user.code = "";
+            eel.saveConf(conf)(_ => {
+                location.href = "LogIn.html"
+            })
         })
     })
+    
 }

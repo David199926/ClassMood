@@ -51,7 +51,7 @@ def transmit():
 
 
 @eel.expose
-def startTransmition(processingFlag):
+def startTransmition(processingFlag = False):
     global control
     control = True
     changeProcessing(processingFlag)

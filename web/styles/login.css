@@ -86,3 +86,31 @@ body{
 .o-registerlink a{
     color: #ffffff;
 }
+
+/*estilos de la pagina de carga*/
+.o-loading-panel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+/*estilos de el circulo de carga*/
+.o-carga{
+    border: 15px solid #242424;
+    border-top-color: #DECC54;
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border-radius: 100%;
+    animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}

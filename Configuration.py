@@ -1,14 +1,16 @@
 import eel
 import json
 import os
-confTemplate = {"user": {"email": "", "password": "", "code": ""}}
+confTemplate = {"user": {"email": "", "password": "", "code": ""}, "camera": "", "microphone": ""}
 FILES_PATH = os.path.join(os.path.expanduser('~'), "Documents", "ClassMood")
 CONF_FILE = os.path.join(FILES_PATH, "conf.json")
+
 
 def setConfFiles():
     try:
         os.mkdir(FILES_PATH)
-    except: pass
+    except:
+        pass
     finally:
         saveConf(confTemplate)
 
