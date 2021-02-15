@@ -2,6 +2,7 @@ body{
     background: url('../src/Background.png') no-repeat center top;
     background-size: auto;
     position: relative;
+    overflow: hidden;
 }
 
 /*estilos de la division derecha de la patalla*/
@@ -113,4 +114,60 @@ body{
 @keyframes girar {
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
+}
+
+/*estilos del panel de informacion*/
+.o-information-panel{
+    box-sizing: border-box;
+    padding: 2rem 2rem 1.5rem 2rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35rem;
+    height: 42rem;
+    border-radius: 1rem;
+    background-color: #242424;
+    left: 10rem;
+    bottom: -40rem;
+    cursor: pointer;
+    z-index: 999;
+    transition: bottom 500ms ease-in-out;
+}
+.o-information-panel:hover{
+    bottom: 0;
+}
+
+/*estilos del icono de interrogacion del panel de informacion*/
+.o-interrogation-icon{
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: #f8e040;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50px);
+}
+
+/*estilos del titulo del panel de informacion*/
+.o-information-panel-title{
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+/*estilos de las imagenes del panel de informacion*/
+.o-information-img{
+    height: 12rem;
+    margin: 1rem;
+}
+
+/*estilos para el texto del panel de informacion*/
+.o-information-text{
+    color: #ababab;
+    font-size: 1.2rem;
+    text-align: center;
 }
