@@ -37,7 +37,24 @@ function camera(cameraControl) {
             changeCameraControl(cameraControl, state);
         })
     }
+
 }
+
+/**
+ * 
+ * @param {HTMLElement} microControl 
+ * 
+ */
+function microphone(microControl){
+    let state = !JSON.parse(microControl.dataset.state);
+    let started = document.getElementById('detectionController').dataset.state === "started";
+    if(state){
+       micro(microControl,state)
+     
+   
+    }
+   }
+   
 
 /**
  * funcion para cambiar la apariencia del control de camara
@@ -52,12 +69,13 @@ function changeCameraControl(cameraControl, state) {
 /**
  * funcion para activar/desactivar micrófono
  * @param {HTMLElement} microControl 
+ * @param {boolean} microState
  */
-function micro(microControl) {
+function micro(microControl,microState) {
     let state = !JSON.parse(microControl.dataset.state);
     //setear imagen
-    document.getElementById("microIcon").src = state ? './src/Microphone.png' : './src/NoMicrophone.png';
-    microControl.dataset.state = state;
+    document.getElementById("microIcon").src = stamicroStatete ? './src/Microphone.png' : './src/NoMicrophone.png';
+    microControl.dataset.state = microState;
 }
 
 /**
