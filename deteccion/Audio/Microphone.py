@@ -11,7 +11,7 @@ class Microphone:
 
     def startRecording(self):
         try:
-            self.stream = self.audio.open(format=pyaudio.paInt16, channels=2,
+            self.stream = self.audio.open(format=pyaudio.paInt16, channels=1,
                     rate=self.fs, input=True,
                     frames_per_buffer=self.chunk,input_device_index = self.index)
         except Exception as e: print(f'Error creando stream de audio: {e}')

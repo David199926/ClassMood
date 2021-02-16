@@ -14,7 +14,8 @@ class AudioDetector:
 
     def predict(self, x):
         features = self._features(X = x, mfcc = True, chroma = True, mel = True, fs = True).reshape(1,180)
-        return self.loadedModel.predict(features)[0]
+        output = self.loadedModel.predict(features)[0]
+        return self.emotions.index(output)
     
     def _features(self, X, mfcc, chroma, mel,fs):
         result = np.array([])
