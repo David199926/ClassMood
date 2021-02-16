@@ -248,7 +248,7 @@ body{
 .o-session-modal{
     position: fixed;
     left: 50%;
-    top: 30vh;
+    top: -100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -281,7 +281,7 @@ body{
 .o-credits-modal{
     position: fixed;
     left: 50%;
-    top: 30vh;
+    top: -100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -291,6 +291,10 @@ body{
     box-sizing: border-box;
     border-radius: 1rem;
     justify-content: space-between;
+}
+
+.o-modal-background:target .o-session-modal, .o-modal-background:target .o-credits-modal{
+    top: 30vh
 }
 
 

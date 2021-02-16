@@ -29,7 +29,7 @@ function camera(cameraControl) {
     let started = document.getElementById('detectionController').dataset.state === "started";
     if (state) {
         changeCameraControl(cameraControl, state);
-        eel.startTransmition(started)
+        eel.startVideoTransmition(started)
     }
     else {
         eel.stopVideoTransmition()(_ => {
@@ -50,7 +50,7 @@ function microphone(microControl) {
     if (state) {
         changeMicrophoneControl(microControl, state)
         let device = JSON.parse(sessionStorage.getItem('conf')).mic
-        eel.startRecording(device, started)
+        eel.startAudioRecording(device, started)
     }
     else{
         eel.stopAudioRecording()(_=>{

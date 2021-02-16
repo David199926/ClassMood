@@ -7,12 +7,14 @@ function getCurrentSession(user) {
     let url = 'https://classmood-appserver.herokuapp.com/available';
     $.get(url, { Correo: user.Correo }, (data) => {
         if (data.length === 0) {
-            eel.stopTransmition()(_=>{
-                document.getElementById("mainContainer").innerHTML = `
-                <div class="o-nosession-content">
-                    <span>No hay sesiones disponibles</span>
-                    <img src="./src/NoSession.png" alt="NoSession">
-                </div>`;
+            eel.stopVideoTransmition()(_ => {
+                eel.stopAudioRecording()(_ => {
+                    document.getElementById("mainContainer").innerHTML = `
+                    <div class="o-nosession-content">
+                        <span>No hay sesiones disponibles</span>
+                        <img src="./src/NoSession.png" alt="NoSession">
+                    </div>`;
+                })
             })
         }
         else {
@@ -26,16 +28,20 @@ function getCurrentSession(user) {
                     sessionStorage.setItem('currentSession', JSON.stringify(session));
                     //seteo un timer para actualizar la pagina cuando haya acabado la sesion
                     setTimeout(_ => {
-                        eel.stopTransmition()(_ => {
-                            //remover la ultima sesion de la memoria
-                            sessionStorage.removeItem('currentSession');
-                            location.href = 'index.html#modalBackground';
+                        eel.stopVideoTransmition()(_ => {
+                            eel.stopAudioRecording()(_ => {
+                                //remover la ultima sesion de la memoria
+                                sessionStorage.removeItem('currentSession');
+                                location.href = 'index.html#modalBackground';
+                            })
+
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()));
-                    getDevices().then(res =>{
-                        //una vez configurados los dispositivos podemos empezar la transmision
-                        eel.startRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
-                    }).catch(error =>{
+                    getDevices().then(res => {
+                        //una vez configurados los dispositivos podemos empezar la captura de audio y video
+                        eel.startVideoTransmition();
+                        eel.startAudioRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
+                    }).catch(error => {
                         console.log('error gestionando dispositivos', error)
                     });
                 })
@@ -82,7 +88,7 @@ function reloadSessions() {
     getCurrentSession(user);
 }
 
-if(sessionStorage.getItem('currentSession') !== null) sessionStorage.removeItem('currentSession')
+if (sessionStorage.getItem('currentSession') !== null) sessionStorage.removeItem('currentSession')
 //obtener el usuario
 let user = JSON.parse(sessionStorage.getItem("user"));
 //setear el nombre del usuario en el menu lateral
@@ -104,16 +110,19 @@ function timeFormatter(time) {
 function logOut() {
     sessionStorage.removeItem("user");
     //terminar la transmision
-    eel.stopTransmition()(_=>{
-        //remover los datos del usuario en el archivo se configuracion
-        eel.readConf()(conf => {
-            conf.user.email = "";
-            conf.user.password = "";
-            conf.user.code = "";
-            eel.saveConf(conf)(_ => {
-                location.href = "LogIn.html"
+    eel.stopVideoTransmition()(_ => {
+        eel.stopAudioRecording()(_ => {
+            //remover los datos del usuario en el archivo se configuracion
+            eel.readConf()(conf => {
+                conf.user.email = "";
+                conf.user.password = "";
+                conf.user.code = "";
+                eel.saveConf(conf)(_ => {
+                    location.href = "LogIn.html"
+                })
             })
         })
+
     })
-    
+
 }

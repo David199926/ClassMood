@@ -100,7 +100,7 @@ def transmit(frame):
 
 
 @eel.expose
-def startRecording(device, processingFlag=False):
+def startAudioRecording(device, processingFlag=False):
     global control
     control = True
     changeAudioProcessing(processingFlag)
