@@ -228,20 +228,17 @@ function selectOption(option, save = true) {
  */
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
-    /*
-    eel.changeProcessing(state === "started")(_=>{
-        caller.dataset.state = state;
-        caller.innerHTML = state === "started"? "Terminar": "Comenzar";
-        caller.classList.add(state === "started"? "o-btn-primary" : "o-btn-secundary")
-        caller.classList.remove(state === "started"? "o-btn-secundary" : "o-btn-primary")
+    
+    eel.changeVideoProcessing(state === "started")(_=>{
+        eel.changeAudioProcessing(state === "started")(_ => {
+            caller.dataset.state = state;
+            caller.innerHTML = state === "started" ? "Terminar" : "Comenzar";
+            caller.classList.add(state === "started" ? "o-btn-primary" : "o-btn-secundary")
+            caller.classList.remove(state === "started" ? "o-btn-secundary" : "o-btn-primary")
+        })
         if(state === "stopped") cleanVideoPlaceHolder();
-    })*/
-    eel.changeAudioProcessing(state === "started")(_ => {
-        caller.dataset.state = state;
-        caller.innerHTML = state === "started" ? "Terminar" : "Comenzar";
-        caller.classList.add(state === "started" ? "o-btn-primary" : "o-btn-secundary")
-        caller.classList.remove(state === "started" ? "o-btn-secundary" : "o-btn-primary")
     })
+    
 }
 
 /**
