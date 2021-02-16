@@ -4,23 +4,17 @@ import librosa
 from datetime import datetime
 
 
-class EmotionDetector:
+class AudioDetector:
+
+    emotions = ["angry", "disgust", "fear", "happy", "sad", "surprised", "neutral"]
 
     def __init__(self, modelPath):
         with open(modelPath, 'rb') as file:
             self.loadedModel = pickle.load(file) 
-        self.history = []
-        
-        self.emotions = ["angry", "disgust", "fear", "happy", "sad", "surprised", "neutral"]
 
     def predict(self, x):
         features = self._features(X = x, mfcc = True, chroma = True, mel = True, fs = True).reshape(1,180)
-        output = self.loadedModel.predict(features)[0]
-        #add result to history
-        i = self.emotions.index(output)
-        self.history.append((datetime.now().strftime("%H:%M:%S"), str(i)))
-        return output
-    
+        return self.loadedModel.predict(features)[0]
     
     def _features(self, X, mfcc, chroma, mel,fs):
         result = np.array([])

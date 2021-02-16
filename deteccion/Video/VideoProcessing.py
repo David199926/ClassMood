@@ -54,7 +54,7 @@ def transmit():
 def startTransmition(processingFlag = False):
     global control
     control = True
-    changeProcessing(processingFlag)
+    changeVideoProcessing(processingFlag)
     loadDetector()
     #iniciar la captura de video
     global camera
@@ -63,16 +63,16 @@ def startTransmition(processingFlag = False):
 
 
 @eel.expose
-def stopTransmition():
+def stopVideoTransmition():
     global control
     control = False
-    changeProcessing(False)
+    changeVideoProcessing(False)
     #liberar recurso de camara
     global camera
     camera.release()
     
 @eel.expose
-def changeProcessing(newValue):
+def changeVideoProcessing(newValue):
     global processingControl
     if not isinstance(newValue, bool): return
     #si va a iniicar el procesamiento debo estar transmitiendo

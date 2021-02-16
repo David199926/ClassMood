@@ -1,11 +1,8 @@
 import eel
 import Configuration
 import sys
-sys.path.append('deteccion\Video')
-sys.path.append('deteccion\Audio')
-import VideoProcessing
-import AudioProcessing
-
+from deteccion.Video import VideoProcessing
+from deteccion.Audio import AudioProcessing
 
 if __name__ == "__main__":
     eel.init('web')

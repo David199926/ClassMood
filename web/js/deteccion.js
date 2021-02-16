@@ -4,9 +4,9 @@ const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 't
 /**
  * evento para cerrar menus de duspositivos al hacer clicl fuera
  */
-$(document).click(function(event){
+$(document).click(function (event) {
     let target = $(event.target);
-    if(!target.closest('#dispCamera').length && !target.closest('#dispMicro').length){
+    if (!target.closest('#dispCamera').length && !target.closest('#dispMicro').length) {
         hideDevices();
     }
 })
@@ -14,7 +14,7 @@ $(document).click(function(event){
 /**
  * evento para re pintar los dispositivos cuando hay un cambio
  */
-navigator.mediaDevices.ondevicechange = function(event){
+navigator.mediaDevices.ondevicechange = function (event) {
     navigator.mediaDevices.enumerateDevices().then(function (devices) {
         paintDevices(devices);
     })
@@ -26,13 +26,13 @@ navigator.mediaDevices.ondevicechange = function(event){
  */
 function camera(cameraControl) {
     let state = !JSON.parse(cameraControl.dataset.state);
-    let started = document.getElementById('detectionController').dataset.state === "started";    
-    if(state){
+    let started = document.getElementById('detectionController').dataset.state === "started";
+    if (state) {
         changeCameraControl(cameraControl, state);
         eel.startTransmition(started)
     }
-    else{
-        eel.stopTransmition()(_=>{
+    else {
+        eel.stopVideoTransmition()(_ => {
             cleanVideoPlaceHolder();
             changeCameraControl(cameraControl, state);
         })
@@ -41,20 +41,25 @@ function camera(cameraControl) {
 }
 
 /**
- * 
+ * function para activar/desactivar captura de audio
  * @param {HTMLElement} microControl 
- * 
  */
-function microphone(microControl){
+function microphone(microControl) {
     let state = !JSON.parse(microControl.dataset.state);
     let started = document.getElementById('detectionController').dataset.state === "started";
-    if(state){
-       micro(microControl,state)
-     
-   
+    if (state) {
+        changeMicrophoneControl(microControl, state)
+        let device = JSON.parse(sessionStorage.getItem('conf')).mic
+        eel.startRecording(device, started)
     }
-   }
-   
+    else{
+        eel.stopAudioRecording()(_=>{
+            //limpiar indicador de señal
+            changeMicrophoneControl(microControl, state)
+        })
+    }
+}
+
 
 /**
  * funcion para cambiar la apariencia del control de camara
@@ -71,11 +76,9 @@ function changeCameraControl(cameraControl, state) {
  * @param {HTMLElement} microControl 
  * @param {boolean} microState
  */
-function micro(microControl,microState) {
-    let state = !JSON.parse(microControl.dataset.state);
-    //setear imagen
-    document.getElementById("microIcon").src = stamicroStatete ? './src/Microphone.png' : './src/NoMicrophone.png';
-    microControl.dataset.state = microState;
+function changeMicrophoneControl(microControl, state) {
+    document.getElementById("microIcon").src = state ? './src/Microphone.png' : './src/NoMicrophone.png';
+    microControl.dataset.state = state;
 }
 
 /**
@@ -94,18 +97,18 @@ function emotion() {
  * funcion para obtener y mostrar los dispositivos
  */
 async function getDevices() {
-    return new Promise((resolve, reject) =>{
-        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream=>{
+    return new Promise((resolve, reject) => {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream => {
             let tracks = mediaStream.getTracks();
             //cerrar los flujos de los dispositivos para que no se genere conflicto con python
-            tracks.forEach(track => {track.stop()});
+            tracks.forEach(track => { track.stop() });
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
                 //obtengo los dispositivos guardados en configuracion
-                let {camera, mic} = JSON.parse(sessionStorage.getItem('conf'));
-                paintDevices(devices,  {camera, mic});
+                let { camera, mic } = JSON.parse(sessionStorage.getItem('conf'));
+                paintDevices(devices, { camera, mic });
                 resolve();
-            }).catch(err => {reject(err)});
-        }).catch(err => {reject(err)});
+            }).catch(err => { reject(err) });
+        }).catch(err => { reject(err) });
     });
 }
 
@@ -114,19 +117,19 @@ async function getDevices() {
  * @param {object} devices 
  * @param {object} preSelectedDevices dispositivos que deberán pintarse como seleccionados
  */
-function paintDevices(devices, preSelectedDevices){
+function paintDevices(devices, preSelectedDevices) {
     let audioOptions = document.getElementById("MdevicesContainer");
     let videoOptions = document.getElementById("CdevicesContainer");
     //borrar opciones anteriores
     $('.o-select-option').remove();
     devices.forEach((device) => {
-        let label = device.kind === "audioinput"? device.label : device.label.split("(")[0].trim();
+        let label = device.kind === "audioinput" ? device.label : device.label.split("(")[0].trim();
         let option = document.createElement("div");
         // se crea el contenedor del texto y el chulo
         option.setAttribute('id', device.deviceId)
         option.setAttribute('class', 'o-select-option')
         option.setAttribute('data-id', device.deviceId)
-        option.setAttribute('data-type', device.kind ==="audioinput" ? 'mic': 'camera')
+        option.setAttribute('data-type', device.kind === "audioinput" ? 'mic' : 'camera')
         option.setAttribute('onclick', "selectOption(this)")
         // se crea el texto
         text = document.createElement('span')
@@ -142,25 +145,25 @@ function paintDevices(devices, preSelectedDevices){
         // se agregan el texto mas el chulo al contendor
         option.append(text)
         option.append(img)
-        if(device.kind === "audioinput"){
+        if (device.kind === "audioinput") {
             // se agrega el contendor al select de opciones
             audioOptions.append(option)
-        }else if(device.kind === "videoinput"){
+        } else if (device.kind === "videoinput") {
             // se agrega el contendor al select de opciones
             videoOptions.append(option)
         }
         //si es una opcion preseleccionada, se marca
-        if(preSelectedDevices.camera === label){
+        if (preSelectedDevices.camera === label) {
             delete preSelectedDevices.camera;
             selectOption(option, false);
         }
-        if(preSelectedDevices.mic === label){
+        if (preSelectedDevices.mic === label) {
             delete preSelectedDevices.mic;
             selectOption(option, false);
         }
     })
     //si los dispositivos preseleccionados no fueron encontrados se seleccionaran los primeros
-    Object.keys(preSelectedDevices).forEach(type =>{
+    Object.keys(preSelectedDevices).forEach(type => {
         selectOption(document.querySelector(`[data-type = ${type}]`))
     })
 }
@@ -184,7 +187,7 @@ function toggleCameraDevices() {
 /**
  * funcion para ocultar el menú de opciones de los dispostivos 
  */
-function hideDevices(){
+function hideDevices() {
     document.getElementById('CdevicesContainer').hidden = true;
     document.getElementById('MdevicesContainer').hidden = true;
 }
@@ -195,21 +198,26 @@ function hideDevices(){
  * @param {boolean} save flag para guardar el dispositivo en configuracion (por defecto igual a true)
  */
 function selectOption(option, save = true) {
-   let options = document.querySelectorAll(`[data-type="${option.dataset.type}"]`);
-   //se remueven los estilos de opcion seleccionada
-   for(each of options) { each.classList.remove('o-yes-selected') };
-   //se esconden los chulos
-   let chulos = document.querySelectorAll(`[data-type="${option.dataset.type}"] img.o-chulo-device`);
-   for (img of chulos) { img.hidden = true }
-   //se cambia el estilo de la opcion seleccionada
-   option.classList.add('o-yes-selected');
-   document.getElementById(`chulo${option.dataset.id}`).hidden = false;
-   
-   //guardar en configuracion
-   if(!save) return;
+    let options = document.querySelectorAll(`[data-type="${option.dataset.type}"]`);
+    //se remueven los estilos de opcion seleccionada
+    for (each of options) { each.classList.remove('o-yes-selected') };
+    //se esconden los chulos
+    let chulos = document.querySelectorAll(`[data-type="${option.dataset.type}"] img.o-chulo-device`);
+    for (img of chulos) { img.hidden = true }
+    //se cambia el estilo de la opcion seleccionada
+    option.classList.add('o-yes-selected');
+    document.getElementById(`chulo${option.dataset.id}`).hidden = false;
+    //se cambia el dispositivo en python
+    if (option.dataset.type === 'mic') {
+        eel.changeDevice(option.children[0].innerHTML)
+    }
+
+    //guardar en configuracion
+    if (!save) return;
     let conf = JSON.parse(sessionStorage.getItem('conf'));
-    if(['camera', 'mic'].includes(option.dataset.type)){
+    if (['camera', 'mic'].includes(option.dataset.type)) {
         conf[option.dataset.type] = option.children[0].innerHTML;
+        sessionStorage.setItem('conf', JSON.stringify(conf));
     }
     eel.saveConf(conf);
 }
@@ -220,12 +228,19 @@ function selectOption(option, save = true) {
  */
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
+    /*
     eel.changeProcessing(state === "started")(_=>{
         caller.dataset.state = state;
         caller.innerHTML = state === "started"? "Terminar": "Comenzar";
         caller.classList.add(state === "started"? "o-btn-primary" : "o-btn-secundary")
         caller.classList.remove(state === "started"? "o-btn-secundary" : "o-btn-primary")
         if(state === "stopped") cleanVideoPlaceHolder();
+    })*/
+    eel.changeAudioProcessing(state === "started")(_ => {
+        caller.dataset.state = state;
+        caller.innerHTML = state === "started" ? "Terminar" : "Comenzar";
+        caller.classList.add(state === "started" ? "o-btn-primary" : "o-btn-secundary")
+        caller.classList.remove(state === "started" ? "o-btn-secundary" : "o-btn-primary")
     })
 }
 
@@ -245,6 +260,12 @@ function transmitVideo(blob) {
     document.getElementById('videoCapture').src = "data:image/jpeg;base64," + blob
 }
 
+eel.expose(transmitAudio)
+function transmitAudio(){
+    console.log('Hola')
+}
+
+
 eel.expose(processEmotion);
 /**
  * funcion llamada por python para procesar una emocion detectada
@@ -252,7 +273,7 @@ eel.expose(processEmotion);
  */
 function processEmotion(emotion) {
     if (sessionStorage.getItem('currentSession') == null) return;
-    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state)? showEmotion: undefined);
+    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
 }
 
 /**
@@ -289,7 +310,7 @@ function getRoundInteger(min, max) {
  * @param {Object} emotion 
  * @param {Function} success 
  */
-function submitEmotion(emotion, success = _=>{}) {
+function submitEmotion(emotion, success = _ => { }) {
     //enviar
     let url = "https://classmood-appserver.herokuapp.com/submit"
     let data = {
@@ -297,10 +318,11 @@ function submitEmotion(emotion, success = _=>{}) {
         CodigoEstudiante: JSON.parse(sessionStorage.getItem('user')).Codigo,
         CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
     }
-    $.post(url, data, ()=>{
+    $.post(url, data, () => {
         console.log('Send!!');
         success(Number(emotion[1]));
-    }).fail(()=>{
+    }).fail(() => {
         throw new Error('Error al subir los datos')
     })
 }
+

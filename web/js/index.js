@@ -25,17 +25,16 @@ function getCurrentSession(user) {
                     document.getElementById('sessionDuration').innerHTML = `${timeFormatter(new Date(session.HoraInicio))}&nbsp--&nbsp${timeFormatter(new Date(session.HoraFinal))}`;
                     sessionStorage.setItem('currentSession', JSON.stringify(session));
                     //seteo un timer para actualizar la pagina cuando haya acabado la sesion
-                    let displacement = 0;
                     setTimeout(_ => {
                         eel.stopTransmition()(_ => {
                             //remover la ultima sesion de la memoria
                             sessionStorage.removeItem('currentSession');
                             location.href = 'index.html#modalBackground';
                         })
-                    }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()) + displacement);
+                    }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()));
                     getDevices().then(res =>{
                         //una vez configurados los dispositivos podemos empezar la transmision
-                        eel.startTransmition();
+                        eel.startRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
                     }).catch(error =>{
                         console.log('error gestionando dispositivos', error)
                     });
