@@ -6,6 +6,7 @@ import webrtcvad
 import numpy as np
 from datetime import datetime
 import sys
+import time
 
 processingControl = False
 control = False
@@ -19,9 +20,8 @@ paddingDuration = 300
 # detector de habla en audio
 vad = webrtcvad.Vad(3)
 microphone = Microphone(fs, frameDuration)
-
-
-
+#umbral de potencia de señal de audio
+powerThreshold = 2e-4
 
 
 @eel.expose
@@ -48,7 +48,7 @@ def detectVoiced():
     # we have two states: TRIGGERED and NOTRIGGERED. We start in the NOTTRIGGERED state
     triggered = False
     voiced_frames = []
-
+  
     for frame in capture():
         # transmitir frame de audio
         transmit(frame)
@@ -59,18 +59,21 @@ def detectVoiced():
         if not triggered:
             ring_buffer.append((frame, is_speech))
             num_voiced = len([f for f, speech in ring_buffer if speech])
-
+            # eel.barSounds(triggered)()
             if num_voiced > 0.9 * ring_buffer.maxlen:
                 triggered = True
                 for f, s in ring_buffer:
                     voiced_frames.append(f)
                 ring_buffer.clear()
         else:
+            eel.barSounds(True)()
             voiced_frames.append(frame)
+            # eel.barSounds(triggered)()
             ring_buffer.append((frame, is_speech))
             num_unvoiced = len([f for f, speech in ring_buffer if not speech])
             if num_unvoiced > 0.9 * ring_buffer.maxlen:
                 triggered = False
+                eel.barSounds(False)()
                 yield b''.join(voiced_frames)
                 ring_buffer.clear()
                 voiced_frames = []
@@ -82,6 +85,7 @@ def detectVoiced():
 
 
 def processing():
+    
     for segment in detectVoiced():
         # convertir a np.array dtype = float32
         input = np.frombuffer(segment, dtype=np.int16).astype(np.float32)/32767
@@ -91,12 +95,15 @@ def processing():
                 eel.processEmotion([
                     datetime.now().strftime("%H:%M:%S"),
                     str(emotion)
-                ])()
+                ])()       
+                    
 
 
 def transmit(frame):
     # visualizacion del audio en js
-    eel.transmitAudio()()
+    frame = np.frombuffer(frame, dtype=np.int16).astype(np.float32)
+    signaled = np.mean(frame**2) > ((2**16)/2)**2*powerThreshold
+    eel.transmitAudio(1 if signaled else 0)()
 
 
 @eel.expose

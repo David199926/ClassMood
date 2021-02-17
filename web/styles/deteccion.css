@@ -166,6 +166,8 @@
     overflow: hidden;
     display: grid;
     grid-template-columns: 70% 30%;
+    box-sizing: border-box;
+    border: 2px solid transparent;
 }
 
 /* estilos de los puntos blancos */

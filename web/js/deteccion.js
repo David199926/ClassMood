@@ -258,8 +258,9 @@ function transmitVideo(blob) {
 }
 
 eel.expose(transmitAudio)
-function transmitAudio(){
-    console.log('Hola')
+function transmitAudio(flag){
+    document.getElementById('audioToggle').style.borderColor = flag? '#00ff00' : 'transparent'
+    //console.log(`${flag? '': 'no '} se detecta audio`)
 }
 
 
