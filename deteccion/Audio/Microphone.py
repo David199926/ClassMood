@@ -36,8 +36,11 @@ class Microphone:
         self.index = 0
   
     def release(self):
-        self.stream.stop_stream()
-        self.stream.close()
+        try:
+            self.stream.stop_stream()
+            self.stream.close()
+        except AttributeError:
+            print('se intento cerrar el stream sin haberlo creado')
 
 '''
     def __del__(self):
