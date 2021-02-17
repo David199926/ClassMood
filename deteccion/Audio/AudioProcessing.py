@@ -60,21 +60,17 @@ def detectVoiced():
         if not triggered:
             ring_buffer.append((frame, is_speech))
             num_voiced = len([f for f, speech in ring_buffer if speech])
-            # eel.barSounds(triggered)()
             if num_voiced > 0.9 * ring_buffer.maxlen:
                 triggered = True
                 for f, s in ring_buffer:
                     voiced_frames.append(f)
                 ring_buffer.clear()
         else:
-            eel.barSounds(True)()
             voiced_frames.append(frame)
-            # eel.barSounds(triggered)()
             ring_buffer.append((frame, is_speech))
             num_unvoiced = len([f for f, speech in ring_buffer if not speech])
             if num_unvoiced > 0.9 * ring_buffer.maxlen:
                 triggered = False
-                eel.barSounds(False)()
                 yield b''.join(voiced_frames)
                 ring_buffer.clear()
                 voiced_frames = []
