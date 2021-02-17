@@ -7,6 +7,7 @@ import numpy as np
 from datetime import datetime
 import sys
 import time
+import os
 
 processingControl = False
 control = False
@@ -32,7 +33,7 @@ def changeDevice(device):
 def loadDetector():
     # detector de emociones en habla
     global detector
-    detector = AudioDetector('deteccion\Audio\modelAudio.sav')
+    detector = AudioDetector(os.path.join('deteccion','Audio','modelAudio.sav'))
 
 
 def capture():

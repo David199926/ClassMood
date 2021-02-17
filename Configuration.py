@@ -1,7 +1,7 @@
 import eel
 import json
 import os
-confTemplate = {"user": {"email": "", "password": "", "code": ""}, "camera": "", "microphone": ""}
+confTemplate = {"user": {"email": "", "password": "", "code": ""}, "camera": "", "mic": ""}
 FILES_PATH = os.path.join(os.path.expanduser('~'), "Documents", "ClassMood")
 CONF_FILE = os.path.join(FILES_PATH, "conf.json")
 

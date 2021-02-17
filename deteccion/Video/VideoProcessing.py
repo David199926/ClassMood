@@ -4,6 +4,7 @@ from deteccion.Video.VideoDetector import VideoDetector
 import time
 from datetime import datetime
 import base64
+import os
 
 processingControl = False
 control = False
@@ -16,8 +17,8 @@ t0 = 0
 
 def loadDetector():
     global detector
-    detector = VideoDetector(r'deteccion\Video\model.json')
-    detector.loadWeights(r'deteccion\Video\pesos\pesos_23.01.2021-14_17_21.H5')
+    detector = VideoDetector(os.path.join('deteccion','Video','model.json'))
+    detector.loadWeights(os.path.join('deteccion','Video','pesos','pesos_23.01.2021-14_17_21.H5'))
 
     
 def capture():

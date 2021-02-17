@@ -1,6 +1,7 @@
 import tensorflow as tf
 import cv2
 import numpy as np
+import os
 
 class VideoDetector:
     #Enojo -> 0
@@ -15,7 +16,8 @@ class VideoDetector:
     __certainty = 0.75
 
     def __init__(self, fileName = None):
-        self.faceCascade = cv2.CascadeClassifier('deteccion\Video\haarcascade_frontalface_default.xml')
+        route = os.path.join('deteccion', 'Video', 'haarcascade_frontalface_default.xml')
+        self.faceCascade = cv2.CascadeClassifier(route)
         if fileName is not None:
             with open(fileName, 'r') as model:
                 self.loadedModel = tf.keras.models.model_from_json(model.read())
