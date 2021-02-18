@@ -8,7 +8,6 @@ body{
 /*estilos del menu lateral*/
 .o-sidemenu{
     background-color: #242424;
-    height: 100vh;
     width: 320px;
     display: flex;
     flex-direction: column;
@@ -160,11 +159,21 @@ body{
 /*link al modal de créditos*/
 .o-credits{
     position: absolute;
-    bottom: 1rem;
+    bottom: 0;
     left: 1rem;
-    color: #757575;
+    width: 5rem;
+    height: 2.5rem;
+    border-radius: 1rem 1rem 0 0;
+    background-color: #2a2a2a;
+    display: flex;
+    cursor: pointer;
 }
-.o-credits:hover{
+
+.o-credits span{
+    color: #757575;
+    margin: auto;
+}
+.o-credits:hover span{
     color: #b9b9b9;
 }
 
@@ -177,6 +186,7 @@ body{
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: auto;
 }
 
 /*estilos de la pantalla de no sesiones disponibles*/
@@ -223,7 +233,6 @@ body{
 
 /*estilos del placeholder de sesiones*/
 .o-sessions-placeholder{
-    height: 30rem;
     overflow: auto;
 }
 
