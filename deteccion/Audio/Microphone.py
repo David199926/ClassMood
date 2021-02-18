@@ -28,7 +28,7 @@ class Microphone:
     def changeMicrophone(self, device):
         numdevices = self.audio.get_host_api_info_by_index(0).get("deviceCount")
         for i in range(numdevices):
-            if(self.audio.get_device_info_by_host_api_device_index(0, i).get('name') in device):
+            if(self.audio.get_device_info_by_host_api_device_index(0, i).get('name').lower() in device.lower()):
                 self.index = i
                 print(f'{device} asignado como dispositivo de audio')
                 return
