@@ -68,8 +68,8 @@ function microphone(microControl) {
     }
     else{
         eel.stopAudioRecording()(_=>{
-            //limpiar indicador de señal
-            changeMicrophoneControl(microControl, state)
+            cleanAudioIndicator();
+            changeMicrophoneControl(microControl, state);
         })
     }
 }
@@ -272,9 +272,19 @@ function transmitVideo(blob) {
 }
 
 eel.expose(transmitAudio)
+/**
+ * funcion para mostrar el indicador de señal de audio
+ * @param {number} flag 
+ */
 function transmitAudio(flag){
-    document.getElementById('audioToggle').style.borderColor = flag? '#00ff00' : 'transparent'
-    //console.log(`${flag? '': 'no '} se detecta audio`)
+    document.getElementById('audioToggle').style.borderColor = flag? '#00ff00' : 'transparent';
+}
+
+/**
+ * funcion para limpiar el indicador de audio
+ */
+function cleanAudioIndicator(){
+    document.getElementById('audioToggle').style.borderColor = 'transparent';
 }
 
 
