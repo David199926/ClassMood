@@ -2,7 +2,7 @@
 const emotionImgs = ['enojado.png', 'disgusto.png', 'miedo.png', 'feliz.png', 'triste.png', 'sorpresa.png', 'neutral.png'];
 
 /**
- * evento para cerrar menus de duspositivos al hacer clicl fuera
+ * evento para cerrar menus de dispositivos al hacer clicl fuera
  */
 $(document).click(function (event) {
     let target = $(event.target);
@@ -10,6 +10,19 @@ $(document).click(function (event) {
         hideDevices();
     }
 })
+
+/**
+ * funcion que le muestra al usuario el error 'Could not start video source'
+ */
+eel.expose(verifyCameraUsage)
+function verifyCameraUsage(){
+    document.getElementById('oExternalVideoUsage').style.display = 'flex'
+}
+
+function reload(me){
+    me.disabled = true;
+    location.reload();
+}
 
 /**
  * evento para re pintar los dispositivos cuando hay un cambio

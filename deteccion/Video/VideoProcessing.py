@@ -1,5 +1,5 @@
 import eel
-from deteccion.Video.VideoCamera import VideoCamera
+from deteccion.Video.VideoCamera import VideoCamera, ExternalCameraUsageError
 from deteccion.Video.VideoDetector import VideoDetector
 import time
 from datetime import datetime
@@ -25,9 +25,13 @@ def capture():
     #inicializar intervalo de procesamiento
     t0 = time.time()
     while control:
-        frame = camera.getFrame()
-        if processingControl: processing(frame)
-        yield frame
+        try:
+            frame = camera.getFrame()
+            if processingControl: processing(frame)
+            yield frame
+        except ExternalCameraUsageError:
+            #se le notifica al usuario que su camara está siendo utilizada por otra aplicación
+            eel.verifyCameraUsage()()
 
 
 def processing(frame):

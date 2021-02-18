@@ -11,12 +11,17 @@ a{
 
 /*estilos del boton generico*/
 .o-btn{
-    width: 10rem;
+    min-width: 10rem;
     height: 2.3rem;
     border-radius: 19px;
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+.o-btn:disabled{
+    opacity: 50%;
+    cursor: default;
 }
 
 /*estilos del boton principal*/
@@ -25,7 +30,7 @@ a{
     background-color: #DECC54;
     outline: none;
 }
-.o-btn-primary:hover{
+.o-btn-primary:enabled:hover{
     background-color: #f8e040;
 }
 

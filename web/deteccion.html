@@ -11,7 +11,7 @@
         <!-- Contenedor de partículas -->
         <div id="particleContainer" class="o-particle-container"></div>
         <!-- indicador de sonido -->
-        <div class="o-sound-level-container">
+        <div class="o-sound-level-container" style="display: none;">
             <div class="o-sound-level"></div>
             <div class="o-sound-level"></div>
             <div class="o-sound-level"></div>
@@ -19,7 +19,14 @@
             <div class="o-sound-level"></div>
         </div>
         <!-- Captura de video -->
-        <img id="videoCapture" class="o-video-capture" src="./src/dummy.png" alt="">
+        <img id="videoCapture" class="o-video-capture" src="./src/dummy.png">
+        <!-- mensaje could not start video source -->
+        <div class="o-external-video-usage" id="oExternalVideoUsage">
+            <span>
+                Para iniciar el análisis de video asegurate que ninguna aplicación esté utilizando la cámara
+            </span>
+            <button class="o-btn o-btn-primary" onclick="reload(this)">Recargar</button>
+        </div>
     </div>
     <!-- panel donde se agregan todos los botones de control -->
     <div class="o-footer-detection">

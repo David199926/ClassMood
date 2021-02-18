@@ -42,7 +42,11 @@ function getCurrentSession(user) {
                         eel.startVideoTransmition();
                         eel.startAudioRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
                     }).catch(error => {
-                        console.log('error gestionando dispositivos', error)
+                        console.log('error gestionando dispositivos', error);
+                        if(error.message === 'Could not start video source'){
+                            verifyCameraUsage();
+                        }
+                        
                     });
                 })
             }

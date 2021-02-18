@@ -9,6 +9,7 @@ body{
 .o-sidemenu{
     background-color: #242424;
     width: 320px;
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     position: relative;
