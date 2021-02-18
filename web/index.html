@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jquery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- mousetrap -->
+    <script src="js/mousetrap.min.js"></script>
     <script defer src="js/index.js"></script>
     <script src="/eel.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
@@ -24,7 +27,7 @@
             <div class="o-sessions" id="nextSessionsContainer">
                 <div class="o-next-sessions">
                     <span class="o-next-sessions-text">Próximas sesiones</span>
-                    <div class="o-reload-sessions"><img src="./src/reload.png" class="o-reload-image" title="sincronizar sesiones" onclick="reloadSessions()"></div>
+                    <div class="o-reload-sessions"><img src="./src/reload.png" class="o-reload-image" title="sincronizar sesiones (ctrl + s)" onclick="reloadSessions()"></div>
                 </div>
                 <div class="o-sessions-placeholder" id="sessionsPlaceholder"></div>
             </div>

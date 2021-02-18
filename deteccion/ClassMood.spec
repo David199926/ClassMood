@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ClassMood.py'],
-             pathex=['/home/bruno/Proyectos/ClassMood'],
+             pathex=['/home/bruno/Proyectos/ClassMood/deteccion'],
              binaries=[],
              datas=[('/home/bruno/.local/lib/python3.8/site-packages/eel/eel.js', 'eel'), ('web', 'web'), ('deteccion/Video/model.json', 'deteccion/Video'), ('deteccion/Video/haarcascade_frontalface_default.xml', 'deteccion/Video'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.data-00000-of-00001', 'deteccion/Video/pesos'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.index', 'deteccion/Video/pesos')],
              hiddenimports=['bottle_websocket'],
@@ -19,15 +19,19 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
           [],
+          exclude_binaries=True,
           name='ClassMood',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          upx_exclude=[],
-          runtime_tmpdir=None,
           console=False , icon='Icon.ico')
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='ClassMood')

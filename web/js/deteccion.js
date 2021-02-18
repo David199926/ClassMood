@@ -11,12 +11,13 @@ $(document).click(function (event) {
     }
 })
 
+$('#oExternalVideoUsage').hide()
 /**
  * funcion que le muestra al usuario el error 'Could not start video source'
  */
 eel.expose(verifyCameraUsage)
 function verifyCameraUsage(){
-    document.getElementById('oExternalVideoUsage').style.display = 'flex'
+    $('#oExternalVideoUsage').show()
 }
 
 function reload(me){

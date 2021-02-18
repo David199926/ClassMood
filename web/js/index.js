@@ -130,3 +130,38 @@ function logOut() {
     })
 
 }
+
+//shortcuts de teclado
+
+//sincronizacion de teclado
+Mousetrap.bind('ctrl+s', e =>{
+    e.preventDefault();
+    reloadSessions();
+});
+
+//toggle de camera
+Mousetrap.bind('ctrl+c', e =>{
+    e.preventDefault();
+    let device = document.getElementById('cameraToggle');
+    camera(device);
+});
+
+//toggle de mic
+Mousetrap.bind('ctrl+m', e =>{
+    e.preventDefault();
+    let device = document.getElementById('micToggle');
+    microphone(device);
+});
+
+//toggle de emociones
+Mousetrap.bind('ctrl+e', e =>{
+    e.preventDefault();
+    emotion();
+});
+
+//toggle para iniciar deteccion
+Mousetrap.bind('ctrl+d', e =>{
+    e.preventDefault();
+    detectionEvent(document.getElementById('detectionController'))
+});
+

@@ -32,7 +32,7 @@
     <div class="o-footer-detection">
         <span id="sessionDuration" class="o-session-time"></span>
         <button class="o-btn o-btn-secundary o-btn-start" id="detectionController" onclick="detectionEvent(this)"
-            data-state="stopped">Comenzar</button>
+            data-state="stopped" title="comenzar/detener deteccion (ctrl + d)">Comenzar</button>
         <div class="o-config-set">
 
             <!-- configuracion de camara -->
@@ -41,30 +41,33 @@
                     <div class="o-header-option"><span>Selecciona una cámara</span></div>
                 </div>
                 <div class="o-dot-icon-container">
-                    <button class="o-btn-config" onclick="camera(this)" data-state="true">
+                    <button class="o-btn-config" onclick="camera(this)" data-state="true" id="cameraToggle"
+                        title="activar/desactivar cámara (ctrl + c)">
                         <img src="./src/Camera.png" class="o-camera-icon" alt="camara icon" id="cameraIcon">
                     </button>
                     <div class="o-dots" id="dispCamera" onclick="toggleCameraDevices()"></div>
                 </div>
             </div>
-            
+
             <!-- configuracion de microfono -->
             <div class="o-devices-config">
                 <div class="o-microdevices-container" id="MdevicesContainer" hidden>
                     <div class="o-header-option"><span>Selecciona un micrófono</span></div>
                 </div>
                 <div class="o-dot-icon-container" id="audioToggle">
-                    <button class="o-btn-config" onclick="microphone(this)" data-state="true">
-                        <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon" width="16rem">
+                    <button class="o-btn-config" onclick="microphone(this)" data-state="true" id="micToggle"
+                        title="ctivar/desactivar micrófono (ctrl + m)">
+                        <img src="./src/Microphone.png" class="micro-icon" id="microIcon" alt="micro icon"
+                            width="16rem">
                     </button>
                     <div class="o-dots" id="dispMicro" onclick="displayMicroDevices()"></div>
                 </div>
             </div>
-            
+
             <!-- boton donde se despliega la emocion detectada -->
             <button class="o-btn-config o-btn-img" onclick="emotion()" id="emotionControl" data-state='true'>
                 <img src="./src/Emotions.png" id="emotionIcon" alt="imagen de la emocion" width="30px"
-                    title="ver emociones detectadas">
+                    title="mostrar/ocultar emociones detectadas (ctrl + e)">
             </button>
         </div>
     </div>

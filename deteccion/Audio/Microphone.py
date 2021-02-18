@@ -26,6 +26,7 @@ class Microphone:
         
 
     def changeMicrophone(self, device):
+        print(f'buscando {device}')
         numdevices = self.audio.get_host_api_info_by_index(0).get("deviceCount")
         for i in range(numdevices):
             if(self.audio.get_device_info_by_host_api_device_index(0, i).get('name').lower() in device.lower()):
@@ -41,10 +42,3 @@ class Microphone:
             self.stream.close()
         except AttributeError:
             print('se intento cerrar el stream sin haberlo creado')
-
-'''
-    def __del__(self):
-        self.stream.stop_stream()
-        self.stream.close()
-        audio.terminate()
-        '''
