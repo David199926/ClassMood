@@ -1,44 +1,61 @@
+"""This is the microphone module
+display and prepare microphone devices, setting attributes 
+such as device name, sample frequency and frame duration
+configured microphone instances can return audio frames from
+audio streams 
+"""
+
+
 import pyaudio
+
 
 class Microphone:
     audio = pyaudio.PyAudio()
 
-    def __init__(self, fs, frame_duration, device = '' ):
+    def __init__(self, fs, frame_duration, device=''):
         self.fs = fs
         self.index = 0
-        self.changeMicrophone(device) 
-        self.chunk= int(self.fs * frame_duration /1000)
+        self.change_microphone(device)
+        self.chunk = int(self.fs * frame_duration / 1000)
 
-    def startRecording(self):
+    def start_recording(self):
+        """Opens audio stream with instance params"""
         try:
             self.stream = self.audio.open(format=pyaudio.paInt16, channels=1,
-                    rate=self.fs, input=True,
-                    frames_per_buffer=self.chunk,input_device_index = self.index)
-        except Exception as e: print(f'Error creando stream de audio: {e}')
- 
-    def getFrame(self):
-        try:
-            # start Recording
-            ret = self.stream.read(self.chunk)
-            return ret
-        except AttributeError:
-            print('El stream de audio no ha sido inicializado')
-        
+                                          rate=self.fs, input=True,
+                                          frames_per_buffer=self.chunk, input_device_index=self.index)
+        except Exception as e:
+            print(f'Error creating audio stream: {e}')
 
-    def changeMicrophone(self, device):
+    def get_frame(self):
+        """Return binary audio frame from audio stream"""
+        try:
+            frame = self.stream.read(self.chunk)
+            return frame
+        except AttributeError:
+            print('Audio stream is not initialiized')
+
+    def change_microphone(self, device):
+        """Changes microphone device to 'device'"""
         print(f'buscando {device}')
-        numdevices = self.audio.get_host_api_info_by_index(0).get("deviceCount")
+        numdevices = self.audio.get_host_api_info_by_index(
+            0).get("deviceCount")
+
         for i in range(numdevices):
-            if(self.audio.get_device_info_by_host_api_device_index(0, i).get('name').lower() in device.lower()):
+            if (self.audio.get_device_info_by_host_api_device_index(
+                0, i).get('name').lower() in device.lower()):
+                # 'device' was found
                 self.index = i
-                print(f'{device} asignado como dispositivo de audio')
+                print(f'{device} asigned as audio device')
                 return
-        print('no se ha encontrado el dispositivo, se cargara el primero')
+
+        print("Couldn't find device, default will be used")
         self.index = 0
-  
+
     def release(self):
+        """Close all audio stream resources"""
         try:
             self.stream.stop_stream()
             self.stream.close()
         except AttributeError:
-            print('se intento cerrar el stream sin haberlo creado')
+            print('You tried to close the stream without creating it')

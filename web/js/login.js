@@ -23,13 +23,13 @@ function logIn(){
         } 
         //si no hay errores
         sessionStorage.setItem("user", JSON.stringify(data));
-        eel.readConf()((conf)=>{
+        eel.read_conf()((conf)=>{
             conf.user.email = email;
             conf.user.password = data.Contrasena;
             conf.user.code = data.Codigo;
             //guardar configuracion en variables de sesion
             sessionStorage.setItem('conf', JSON.stringify(conf));
-            eel.saveConf(conf)(_=>{
+            eel.save_conf(conf)(_=>{
                 window.location.href = "index.html";
             });
         })
