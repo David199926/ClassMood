@@ -43,10 +43,10 @@ function getCurrentSession(user) {
                         eel.startAudioRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
                     }).catch(error => {
                         console.log('error gestionando dispositivos', error);
-                        if(error.message === 'Could not start video source'){
+                        if (error.message === 'Could not start video source') {
                             verifyCameraUsage();
                         }
-                        
+
                     });
                 })
             }
@@ -134,33 +134,33 @@ function logOut() {
 //shortcuts de teclado
 
 //sincronizacion de teclado
-Mousetrap.bind('ctrl+s', e =>{
+Mousetrap.bind('ctrl+s', e => {
     e.preventDefault();
     reloadSessions();
 });
 
 //toggle de camera
-Mousetrap.bind('ctrl+c', e =>{
+Mousetrap.bind('ctrl+c', e => {
     e.preventDefault();
     let device = document.getElementById('cameraToggle');
     camera(device);
 });
 
 //toggle de mic
-Mousetrap.bind('ctrl+m', e =>{
+Mousetrap.bind('ctrl+m', e => {
     e.preventDefault();
     let device = document.getElementById('micToggle');
     microphone(device);
 });
 
 //toggle de emociones
-Mousetrap.bind('ctrl+e', e =>{
+Mousetrap.bind('ctrl+e', e => {
     e.preventDefault();
     emotion();
 });
 
 //toggle para iniciar deteccion
-Mousetrap.bind('ctrl+d', e =>{
+Mousetrap.bind('ctrl+d', e => {
     e.preventDefault();
     detectionEvent(document.getElementById('detectionController'))
 });
