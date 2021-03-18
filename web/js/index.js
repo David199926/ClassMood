@@ -7,8 +7,8 @@ function getCurrentSession(user) {
     let url = 'https://classmood-appserver.herokuapp.com/available';
     $.get(url, { Correo: user.Correo }, (data) => {
         if (data.length === 0) {
-            eel.stopVideoTransmition()(_ => {
-                eel.stopAudioRecording()(_ => {
+            eel.stop_video_transmition()(_ => {
+                eel.stop_audio_recording()(_ => {
                     document.getElementById("mainContainer").innerHTML = `
                     <div class="o-nosession-content">
                         <span>No hay sesiones disponibles</span>
@@ -28,8 +28,8 @@ function getCurrentSession(user) {
                     sessionStorage.setItem('currentSession', JSON.stringify(session));
                     //seteo un timer para actualizar la pagina cuando haya acabado la sesion
                     setTimeout(_ => {
-                        eel.stopVideoTransmition()(_ => {
-                            eel.stopAudioRecording()(_ => {
+                        eel.stop_video_transmition()(_ => {
+                            eel.stop_audio_recording()(_ => {
                                 //remover la ultima sesion de la memoria
                                 sessionStorage.removeItem('currentSession');
                                 location.href = 'index.html#modalBackground';
@@ -39,8 +39,8 @@ function getCurrentSession(user) {
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()));
                     getDevices().then(res => {
                         //una vez configurados los dispositivos podemos empezar la captura de audio y video
-                        eel.startVideoTransmition();
-                        eel.startAudioRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
+                        eel.start_video_transmition();
+                        eel.start_audio_recording(JSON.parse(sessionStorage.getItem('conf')).mic);
                     }).catch(error => {
                         console.log('error gestionando dispositivos', error);
                         if (error.message === 'Could not start video source') {
@@ -114,14 +114,14 @@ function timeFormatter(time) {
 function logOut() {
     sessionStorage.removeItem("user");
     //terminar la transmision
-    eel.stopVideoTransmition()(_ => {
-        eel.stopAudioRecording()(_ => {
+    eel.stop_video_transmition()(_ => {
+        eel.stop_audio_recording()(_ => {
             //remover los datos del usuario en el archivo se configuracion
-            eel.readConf()(conf => {
+            eel.read_conf()(conf => {
                 conf.user.email = "";
                 conf.user.password = "";
                 conf.user.code = "";
-                eel.saveConf(conf)(_ => {
+                eel.save_conf(conf)(_ => {
                     location.href = "LogIn.html"
                 })
             })
