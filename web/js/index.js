@@ -1,15 +1,16 @@
+const user = JSON.parse(sessionStorage.getItem('user'));
+
 /**
- * funcion para obtener la sesion actual (si existe)
+ * Sends request to ClassMood app server looking for current sessions
  * @param {object} user 
  */
 function getCurrentSession(user) {
-    //obtener la sesión actual (si existe)
     let url = 'https://classmood-appserver.herokuapp.com/available';
-    $.get(url, { Correo: user.Correo }, (data) => {
+    $.get(url, { Correo: user.email }, (data) => {
         if (data.length === 0) {
-            eel.stopVideoTransmition()(_ => {
-                eel.stopAudioRecording()(_ => {
-                    document.getElementById("mainContainer").innerHTML = `
+            eel.stop_video_transmition()(() => {
+                eel.stop_audio_recording()(() => {
+                    document.getElementById('mainContainer').innerHTML = `
                     <div class="o-nosession-content">
                         <span>No hay sesiones disponibles</span>
                         <img src="./src/NoSession.png" alt="NoSession">
@@ -20,33 +21,32 @@ function getCurrentSession(user) {
         else {
             let session = data[0];
             if (sessionStorage.getItem('currentSession') == null) {
-                //si no hay sesiones en curso
-                $('#mainContainer').load('deteccion.html', _ => {
-                    document.getElementById("titleDetection").innerHTML = session.NombreCurso;
-                    document.getElementById("groupDetection").innerHTML = `Grupo ${session.NumeroGrupo}`;
-                    document.getElementById('sessionDuration').innerHTML = `${timeFormatter(new Date(session.HoraInicio))}&nbsp--&nbsp${timeFormatter(new Date(session.HoraFinal))}`;
+                // if there's no current session running in the app
+                $('#mainContainer').load('deteccion.html', () => {
+                    document.getElementById('titleDetection').innerHTML = session.NombreCurso;
+                    document.getElementById('groupDetection').innerHTML = `Grupo ${session.NumeroGrupo}`;
+                    document.getElementById('sessionDuration').innerHTML = 
+                    `${timeFormatter(new Date(session.HoraInicio))} -- ${timeFormatter(new Date(session.HoraFinal))}`;
                     sessionStorage.setItem('currentSession', JSON.stringify(session));
-                    //seteo un timer para actualizar la pagina cuando haya acabado la sesion
-                    setTimeout(_ => {
-                        eel.stopVideoTransmition()(_ => {
-                            eel.stopAudioRecording()(_ => {
-                                //remover la ultima sesion de la memoria
+                    // set timer to reload app when session is over
+                    setTimeout(() => {
+                        eel.stop_video_transmition()(() => {
+                            eel.stop_audio_recording()(() => {
                                 sessionStorage.removeItem('currentSession');
                                 location.href = 'index.html#modalBackground';
                             })
-
                         })
                     }, Math.abs(new Date(session.HoraFinal).getTime() - new Date().getTime()));
+
                     getDevices().then(res => {
-                        //una vez configurados los dispositivos podemos empezar la captura de audio y video
-                        eel.startVideoTransmition();
-                        eel.startAudioRecording(JSON.parse(sessionStorage.getItem('conf')).mic);
-                    }).catch(error => {
-                        console.log('error gestionando dispositivos', error);
+                        // once devices are configured, we can start audio and video capture
+                        eel.start_video_transmition();
+                        eel.start_audio_recording(JSON.parse(sessionStorage.getItem('conf')).mic);
+                    }).catch((error) => {
+                        console.log('error with device handling', error);
                         if (error.message === 'Could not start video source') {
                             verifyCameraUsage();
                         }
-
                     });
                 })
             }
@@ -55,19 +55,19 @@ function getCurrentSession(user) {
 }
 
 /**
- * funcion para obtener las sesiones próximas (si existen)
+ * Sends request to ClassMood app server looking for upcoming sessions
  * @param {object} user 
  */
 function getUpcomingSessions(user) {
-    document.getElementById('sessionsPlaceholder').innerHTML = "";
+    document.getElementById('sessionsPlaceholder').innerHTML = '';
     let url = 'https://classmood-appserver.herokuapp.com/upcoming'
     $.get(url, { Correo: user.Correo }, (data) => {
         if (data.length === 0) {
-            $("#sessionsPlaceholder").append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>');
+            $('#sessionsPlaceholder').append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>');
         }
         else {
             for (session of data) {
-                $("#sessionsPlaceholder").append(`
+                $('#sessionsPlaceholder').append(`
                     <div class="o-session">
                         <div class="o-session-header">
                             <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
@@ -84,24 +84,23 @@ function getUpcomingSessions(user) {
 }
 
 /**
- * funcion para recargar las sesiones
+ * Reloads current and upcoming sessions
  */
 function reloadSessions() {
-    let user = JSON.parse(sessionStorage.getItem("user"));
     getUpcomingSessions(user);
     getCurrentSession(user);
 }
 
-if (sessionStorage.getItem('currentSession') !== null) sessionStorage.removeItem('currentSession')
-//obtener el usuario
-let user = JSON.parse(sessionStorage.getItem("user"));
-//setear el nombre del usuario en el menu lateral
-document.getElementById("userName").innerHTML = user.Nombre + ' ' + user.Apellido;
+if (sessionStorage.getItem('currentSession') !== null) {
+    sessionStorage.removeItem('currentSession')
+}
+// set user name in side menu
+document.getElementById('userName').innerHTML = user.Nombre + ' ' + user.Apellido;
 getCurrentSession(user);
 getUpcomingSessions(user);
 
 /**
- * funcion para dar formato a los objetos Date
+ * Formats date objects
  * @param {object} time 
  */
 function timeFormatter(time) {
@@ -109,20 +108,20 @@ function timeFormatter(time) {
 }
 
 /**
- * función para cerrar sesión
+ * LogOut function
  */
 function logOut() {
-    sessionStorage.removeItem("user");
-    //terminar la transmision
-    eel.stopVideoTransmition()(_ => {
-        eel.stopAudioRecording()(_ => {
-            //remover los datos del usuario en el archivo se configuracion
-            eel.readConf()(conf => {
-                conf.user.email = "";
-                conf.user.password = "";
-                conf.user.code = "";
-                eel.saveConf(conf)(_ => {
-                    location.href = "LogIn.html"
+    sessionStorage.removeItem('user');
+    // stop audio recording and video transmition
+    eel.stop_video_transmition()(() => {
+        eel.stop_audio_recording()(() => {
+            // remove user data from conf file
+            eel.read_conf()(conf => {
+                conf.user.email = '';
+                conf.user.password = '';
+                conf.user.code = '';
+                eel.save_conf(conf)(() => {
+                    location.href = 'LogIn.html'
                 })
             })
         })
@@ -131,7 +130,7 @@ function logOut() {
 
 }
 
-//shortcuts de teclado
+// Keyboard shortcuts
 
 //sincronizacion de teclado
 Mousetrap.bind('ctrl+s', e => {

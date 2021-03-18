@@ -43,10 +43,10 @@ function camera(cameraControl) {
     let started = document.getElementById('detectionController').dataset.state === "started";
     if (state) {
         changeCameraControl(cameraControl, state);
-        eel.startVideoTransmition(started)
+        eel.start_video_transmition(started)
     }
     else {
-        eel.stopVideoTransmition()(_ => {
+        eel.stop_video_transmition()(_ => {
             cleanVideoPlaceHolder();
             changeCameraControl(cameraControl, state);
         })
@@ -64,10 +64,10 @@ function microphone(microControl) {
     if (state) {
         changeMicrophoneControl(microControl, state)
         let device = JSON.parse(sessionStorage.getItem('conf')).mic
-        eel.startAudioRecording(device, started)
+        eel.start_audio_recording(device, started)
     }
     else{
-        eel.stopAudioRecording()(_=>{
+        eel.stop_audio_recording()(_=>{
             cleanAudioIndicator();
             changeMicrophoneControl(microControl, state);
         })
@@ -223,7 +223,7 @@ function selectOption(option, save = true) {
     document.getElementById(`chulo${option.dataset.id}`).hidden = false;
     //se cambia el dispositivo en python
     if (option.dataset.type === 'mic') {
-        eel.changeDevice(option.children[0].innerHTML)
+        eel.change_device(option.children[0].innerHTML)
     }
 
     //guardar en configuracion
@@ -233,7 +233,7 @@ function selectOption(option, save = true) {
         conf[option.dataset.type] = option.children[0].innerHTML;
         sessionStorage.setItem('conf', JSON.stringify(conf));
     }
-    eel.saveConf(conf);
+    eel.save_conf(conf);
 }
 
 /**
@@ -243,8 +243,8 @@ function selectOption(option, save = true) {
 function detectionEvent(caller) {
     let state = caller.dataset.state === "stopped" ? "started" : "stopped";
     
-    eel.changeVideoProcessing(state === "started")(_=>{
-        eel.changeAudioProcessing(state === "started")(_ => {
+    eel.change_video_processing(state === "started")(_=>{
+        eel.change_audio_processing(state === "started")(_ => {
             caller.dataset.state = state;
             caller.innerHTML = state === "started" ? "Terminar" : "Comenzar";
             caller.classList.add(state === "started" ? "o-btn-primary" : "o-btn-secundary")
@@ -341,7 +341,6 @@ function submitEmotion(emotion, success = _ => { }) {
         CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
     }
     $.post(url, data, () => {
-        console.log('Send!!');
         success(Number(emotion[1]));
     }).fail(() => {
         throw new Error('Error al subir los datos')
