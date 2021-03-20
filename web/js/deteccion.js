@@ -33,13 +33,7 @@ function (event) {
 }
 
 
-/**
- * Shows external video usage warning to user
- */
-eel.expose(verifyCameraUsage)
-function verifyCameraUsage(){
-    $('#oExternalVideoUsage').show();
-}
+
 
 /**
  * Reloads app after external video usage warning
@@ -150,7 +144,7 @@ async function getDevices() {
 /**
  * Draws devices list
  * @param {object} devices 
- * @param {object} preSelectedDevices dispositivos que deberán pintarse como seleccionados
+ * @param {object} preSelectedDevices
  */
 function paintDevices(devices, preSelectedDevices) {
     let audioOptions = document.getElementById('MdevicesContainer');
@@ -197,7 +191,7 @@ function paintDevices(devices, preSelectedDevices) {
             selectOption(option, false);
         }
     })
-    //si los dispositivos preseleccionados no fueron encontrados se seleccionaran los primeros
+    // si los dispositivos preseleccionados no fueron encontrados se seleccionaran los primeros
     Object.keys(preSelectedDevices).forEach(type => {
         selectOption(document.querySelector(`[data-type = ${type}]`))
     })
@@ -283,23 +277,9 @@ function cleanVideoPlaceHolder() {
     document.getElementById('videoCapture').src = './src/dummy.png'
 }
 
-eel.expose(transmitVideo);
-/**
- * funcion llamada por python para mostrar captura de video
- * @param {String} blob 
- */
-function transmitVideo(blob) {
-    document.getElementById('videoCapture').src = 'data:image/jpeg;base64,' + blob
-}
 
-eel.expose(transmitAudio)
-/**
- * funcion para mostrar el indicador de señal de audio
- * @param {number} flag 
- */
-function transmitAudio(flag){
-    document.getElementById('audioToggle').style.borderColor = flag? '#00ff00' : 'transparent';
-}
+
+
 
 /**
  * funcion para limpiar el indicador de audio
@@ -309,15 +289,7 @@ function cleanAudioIndicator(){
 }
 
 
-eel.expose(processEmotion);
-/**
- * funcion llamada por python para procesar una emocion detectada
- * @param {any} emotion 
- */
-function processEmotion(emotion) {
-    if (sessionStorage.getItem('currentSession') == null) return;
-    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
-}
+
 
 /**
  * Muestra un emoji flotante de la emocion detectada
@@ -367,4 +339,46 @@ function submitEmotion(emotion, success = _ => { }) {
         throw new Error('Error al subir los datos')
     })
 }
+
+// exposed functions
+
+eel.expose(transmitAudio)
+/**
+ * Shows audio signal indicator
+ * @param {number} show whether if shows indicator or not
+ */
+function transmitAudio(show){
+    document.getElementById('audioToggle').style.borderColor = show? '#00ff00' : 'transparent';
+}
+
+eel.expose(transmitVideo);
+/**
+ * Shows video capture in HTML video placeholder
+ * @param {String} blob 
+ */
+function transmitVideo(blob) {
+    document.getElementById('videoCapture').src = 'data:image/jpeg;base64,' + blob;
+}
+
+ eel.expose(verifyCameraUsage)
+ /**
+ * Shows external video usage warning to user
+ */
+ function verifyCameraUsage(){
+     $('#oExternalVideoUsage').show();
+ }
+
+eel.expose(processEmotion);
+/**
+ * Process a detected emotion
+ * @param {any} emotion detected emotion
+ */
+function processEmotion(emotion) {
+    if (sessionStorage.getItem('currentSession') === null){
+        return null;
+    } 
+    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
+}
+
+
 
