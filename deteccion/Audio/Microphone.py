@@ -37,7 +37,7 @@ class Microphone:
 
     def change_microphone(self, device):
         """Changes microphone device to 'device'"""
-        print(f'buscando {device}')
+        print(f'looking for {device}')
         numdevices = self.audio.get_host_api_info_by_index(
             0).get("deviceCount")
 

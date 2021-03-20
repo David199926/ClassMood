@@ -12,7 +12,7 @@ const emotionImgs = [
 // hide external video usage warning on app load
 $('#oExternalVideoUsage').hide();
 
-// close device menues when user clicks out of them
+// close device menus when user clicks out of them
 $(document).click(function (event) {
     let target = $(event.target);
     if (!target.closest('#dispCamera').length && !target.closest('#dispMicro').length) {
@@ -20,32 +20,26 @@ $(document).click(function (event) {
     }
 })
 
-navigator.mediaDevices.ondevicechange = 
-/**
- * draw available devices after device change
- */
-function (event) {
-    navigator.mediaDevices.enumerateDevices().then(
-        (devices) => {
-            paintDevices(devices);
-        }
-    )
-}
+navigator.mediaDevices.ondevicechange =
+    /**
+     * draw available devices after device change
+     */
+    function (event) {
+        navigator.mediaDevices.enumerateDevices().then(
+            (devices) => {
+                paintDevices(devices);
+            }
+        )
+    }
 
 
-/**
- * Shows external video usage warning to user
- */
-eel.expose(verifyCameraUsage)
-function verifyCameraUsage(){
-    $('#oExternalVideoUsage').show();
-}
+
 
 /**
  * Reloads app after external video usage warning
  * @param {HTMLElement} me Button with onclick
  */
-function reload(me){
+function reload(me) {
     me.disabled = true;
     location.reload();
 }
@@ -81,8 +75,8 @@ function microphone(microControl) {
         let device = JSON.parse(sessionStorage.getItem('conf')).mic
         eel.start_audio_recording(device, started)
     }
-    else{
-        eel.stop_audio_recording()(_=>{
+    else {
+        eel.stop_audio_recording()(_ => {
             cleanAudioIndicator();
             changeMicrophoneControl(microControl, state);
         })
@@ -127,7 +121,7 @@ function emotion() {
  */
 async function getDevices() {
     return new Promise((resolve, reject) => {
-        navigator.mediaDevices.getUserMedia({audio: true, video: true}).then((mediaStream) => {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then((mediaStream) => {
             let tracks = mediaStream.getTracks();
             // close video and audio streams to avoid conflicts with Python
             tracks.forEach((track) => {
@@ -135,8 +129,8 @@ async function getDevices() {
             });
             navigator.mediaDevices.enumerateDevices().then((devices) => {
                 // get devices stored in configuration info
-                let {camera, mic} = JSON.parse(sessionStorage.getItem('conf'));
-                paintDevices(devices, {camera, mic});
+                let { camera, mic } = JSON.parse(sessionStorage.getItem('conf'));
+                paintDevices(devices, { camera, mic });
                 resolve();
             }).catch((err) => {
                 reject(err)
@@ -150,44 +144,43 @@ async function getDevices() {
 /**
  * Draws devices list
  * @param {object} devices 
- * @param {object} preSelectedDevices dispositivos que deberán pintarse como seleccionados
+ * @param {object} preSelectedDevices
  */
 function paintDevices(devices, preSelectedDevices) {
     let audioOptions = document.getElementById('MdevicesContainer');
     let videoOptions = document.getElementById('CdevicesContainer');
-    //borrar opciones anteriores
+    // remove all options
     $('.o-select-option').remove();
     devices.forEach((device) => {
         let label = device.kind === 'audioinput' ? device.label : device.label.split('(')[0].trim();
         let option = document.createElement('div');
-        // se crea el contenedor del texto y el chulo
-        option.setAttribute('id', device.deviceId)
-        option.setAttribute('class', 'o-select-option')
-        option.setAttribute('data-id', device.deviceId)
-        option.setAttribute('data-type', device.kind === 'audioinput' ? 'mic' : 'camera')
-        option.setAttribute('onclick', 'selectOption(this)')
-        // se crea el texto
-        text = document.createElement('span')
-        text.setAttribute('id', 'selectOptionText')
-        text.setAttribute('class', 'o-select-option-Text')
+
+        // set option attributes
+        option.setAttribute('id', device.deviceId);
+        option.setAttribute('class', 'o-select-option');
+        option.setAttribute('data-type', device.kind === 'audioinput' ? 'mic' : 'camera');
+        option.setAttribute('onclick', 'selectOption(this)');
+        // set option label
+        text = document.createElement('span');
+        text.setAttribute('class', 'o-select-option-Text');
         text.innerHTML = label;
-        // se crea y se oculta el chulo por defecto
-        img = document.createElement('img')
-        img.setAttribute('src', './src/Chulo.png')
-        img.setAttribute('class', 'o-chulo-device')
-        img.setAttribute('id', 'chulo' + device.deviceId)
-        img.setAttribute('hidden', true)
-        // se agregan el texto mas el chulo al contendor
-        option.append(text)
-        option.append(img)
+        // create and hide option's checks icons
+        img = document.createElement('img');
+        img.setAttribute('src', './src/Chulo.png');
+        img.setAttribute('class', 'o-chulo-device');
+        img.setAttribute('id', 'chulo' + device.deviceId);
+        img.setAttribute('hidden', true);
+
+        // append label and check to option container
+        option.append(text);
+        option.append(img);
+
         if (device.kind === 'audioinput') {
-            // se agrega el contendor al select de opciones
-            audioOptions.append(option)
+            audioOptions.append(option);
         } else if (device.kind === 'videoinput') {
-            // se agrega el contendor al select de opciones
-            videoOptions.append(option)
+            videoOptions.append(option);
         }
-        //si es una opcion preseleccionada, se marca
+        // if option is a preselected device, select it
         if (preSelectedDevices.camera === label) {
             delete preSelectedDevices.camera;
             selectOption(option, false);
@@ -196,16 +189,15 @@ function paintDevices(devices, preSelectedDevices) {
             delete preSelectedDevices.mic;
             selectOption(option, false);
         }
-    })
-    //si los dispositivos preseleccionados no fueron encontrados se seleccionaran los primeros
-    Object.keys(preSelectedDevices).forEach(type => {
+    });
+    // if preselected devices are not found, select first devices in the list 
+    Object.keys(preSelectedDevices).forEach((type) => {
         selectOption(document.querySelector(`[data-type = ${type}]`))
-    })
+    });
 }
 
-
 /**
- * funcion toggle para el menú de opciones de los dispositivos de microfono
+ * Hides/shows microphone devices menu
  */
 function displayMicroDevices() {
     let state = document.getElementById('MdevicesContainer').hidden;
@@ -213,6 +205,9 @@ function displayMicroDevices() {
     document.getElementById('CdevicesContainer').hidden = true;
 }
 
+/**
+ * Hides/shows camera devices menu
+ */
 function toggleCameraDevices() {
     let state = document.getElementById('CdevicesContainer').hidden;
     document.getElementById('CdevicesContainer').hidden = !state;
@@ -220,7 +215,7 @@ function toggleCameraDevices() {
 }
 
 /**
- * funcion para ocultar el menú de opciones de los dispostivos 
+ * Hides camera and microphone menus
  */
 function hideDevices() {
     document.getElementById('CdevicesContainer').hidden = true;
@@ -228,27 +223,33 @@ function hideDevices() {
 }
 
 /**
- * funcion para seleccionar un dispositivo (camara o microfono)
- * @param {HTMLElement} option 
- * @param {boolean} save flag para guardar el dispositivo en configuracion (por defecto igual a true)
+ * Selects a device (camera or microphone)
+ * @param {HTMLElement} option device to be selected (camera or microphone)
+ * @param {boolean} save whether to save the device in configuration or not (default value is true)
  */
 function selectOption(option, save = true) {
     let options = document.querySelectorAll(`[data-type='${option.dataset.type}']`);
-    //se remueven los estilos de opcion seleccionada
-    for (each of options) { each.classList.remove('o-yes-selected') };
-    //se esconden los chulos
     let chulos = document.querySelectorAll(`[data-type='${option.dataset.type}'] img.o-chulo-device`);
-    for (img of chulos) { img.hidden = true }
-    //se cambia el estilo de la opcion seleccionada
+    // remove selected style from all options
+    for (each of options) {
+        each.classList.remove('o-yes-selected');
+    };
+    // hide check icons from all options
+    for (img of chulos) {
+        img.hidden = true;
+    }
+    // add selected style to selected option
     option.classList.add('o-yes-selected');
-    document.getElementById(`chulo${option.dataset.id}`).hidden = false;
-    //se cambia el dispositivo en python
+    // show check icon for selected option
+    document.getElementById(`chulo${option.id}`).hidden = false;
+
+    // change device in Python
     if (option.dataset.type === 'mic') {
         eel.change_device(option.children[0].innerHTML)
     }
 
-    //guardar en configuracion
-    if (!save) return;
+    // save in configuration
+    if (!save) { return null };
     let conf = JSON.parse(sessionStorage.getItem('conf'));
     if (['camera', 'mic'].includes(option.dataset.type)) {
         conf[option.dataset.type] = option.children[0].innerHTML;
@@ -258,88 +259,58 @@ function selectOption(option, save = true) {
 }
 
 /**
- * funcion del boton de comenzar/terminar captura de emociones
- * @param {HTMLElement} caller 
+ * Starts/ends emotion detection in audio and video
+ * @param {HTMLElement} caller button that calls the function
  */
 function detectionEvent(caller) {
     let state = caller.dataset.state === 'stopped' ? 'started' : 'stopped';
-    
-    eel.change_video_processing(state === 'started')(_=>{
-        eel.change_audio_processing(state === 'started')(_ => {
+    eel.change_video_processing(state === 'started')(() => {
+        eel.change_audio_processing(state === 'started')(() => {
             caller.dataset.state = state;
             caller.innerHTML = state === 'started' ? 'Terminar' : 'Comenzar';
             caller.classList.add(state === 'started' ? 'o-btn-primary' : 'o-btn-secundary')
             caller.classList.remove(state === 'started' ? 'o-btn-secundary' : 'o-btn-primary')
-        })
-        if(state === 'stopped') cleanVideoPlaceHolder();
-    })
-    
+        });
+        if (state === 'stopped') {
+            cleanVideoPlaceHolder();
+        }
+    });
 }
 
 /**
- * funcion para limpiar el contenedor de video
+ * Cleans video placeholder
  */
 function cleanVideoPlaceHolder() {
-    document.getElementById('videoCapture').src = './src/dummy.png'
-}
-
-eel.expose(transmitVideo);
-/**
- * funcion llamada por python para mostrar captura de video
- * @param {String} blob 
- */
-function transmitVideo(blob) {
-    document.getElementById('videoCapture').src = 'data:image/jpeg;base64,' + blob
-}
-
-eel.expose(transmitAudio)
-/**
- * funcion para mostrar el indicador de señal de audio
- * @param {number} flag 
- */
-function transmitAudio(flag){
-    document.getElementById('audioToggle').style.borderColor = flag? '#00ff00' : 'transparent';
+    document.getElementById('videoCapture').src = './src/dummy.png';
 }
 
 /**
- * funcion para limpiar el indicador de audio
+ * Cleans the audio indicator
  */
-function cleanAudioIndicator(){
+function cleanAudioIndicator() {
     document.getElementById('audioToggle').style.borderColor = 'transparent';
 }
 
-
-eel.expose(processEmotion);
 /**
- * funcion llamada por python para procesar una emocion detectada
- * @param {any} emotion 
- */
-function processEmotion(emotion) {
-    if (sessionStorage.getItem('currentSession') == null) return;
-    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
-}
-
-/**
- * Muestra un emoji flotante de la emocion detectada
+ * Shows a floating emoji for the detected emotion
  * @param {Number} emotion 
  */
 function showEmotion(emotion) {
     let particle = document.createElement('img');
-    particle.classList.add('o-emotion-particle')
-    particle.src = `./src/emotions/${emotionImgs[emotion]}`
-    $(particle).css('left', getRoundInteger(0, $('#particleContainer').width()))
-    $('#particleContainer').append(particle)
+    particle.classList.add('o-emotion-particle');
+    particle.src = `./src/emotions/${emotionImgs[emotion]}`;
+    $(particle).css('left', getRoundInteger(0, $('#particleContainer').width()));
+    $('#particleContainer').append(particle);
     $(particle).animate({
         top: '-100%',
-        opacity: 0
-    }, getRoundInteger(5000, 8000), _ => {
-        $(particle).remove()
-    })
+        opacity: 0,
+    }, getRoundInteger(5000, 8000), () => {
+        $(particle).remove();
+    });
 }
 
-
 /**
- * funcion para generar numeros aleatorios entre min y max
+ * Generates random integers from min to max
  * @param {Number} min 
  * @param {Number} max 
  */
@@ -348,18 +319,19 @@ function getRoundInteger(min, max) {
 }
 
 /**
- * funcion para enviar al servidor una emocion detectada,
+ * Sends a detected emotion to ClassMood app server
+ * 
  * llama a success cuando la operacion ha sido exitosa
  * @param {Object} emotion 
- * @param {Function} success 
+ * @param {function(): any} success call this function if emotion have been send successfully
  */
-function submitEmotion(emotion, success = _ => { }) {
+function submitEmotion(emotion, success = () => { }) {
     //enviar
-    let url = 'https://classmood-appserver.herokuapp.com/submit'
+    let url = 'https://classmood-appserver.herokuapp.com/submit';
     let data = {
         Emotions: [emotion],
         CodigoEstudiante: JSON.parse(sessionStorage.getItem('user')).Codigo,
-        CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id
+        CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id,
     }
     $.post(url, data, () => {
         success(Number(emotion[1]));
@@ -367,4 +339,46 @@ function submitEmotion(emotion, success = _ => { }) {
         throw new Error('Error al subir los datos')
     })
 }
+
+// exposed functions
+
+eel.expose(transmitAudio)
+/**
+ * Shows audio signal indicator
+ * @param {number} show whether if shows indicator or not
+ */
+function transmitAudio(show) {
+    document.getElementById('audioToggle').style.borderColor = show ? '#00ff00' : 'transparent';
+}
+
+eel.expose(transmitVideo);
+/**
+ * Shows video capture in HTML video placeholder
+ * @param {String} blob 
+ */
+function transmitVideo(blob) {
+    document.getElementById('videoCapture').src = 'data:image/jpeg;base64,' + blob;
+}
+
+eel.expose(verifyCameraUsage)
+/**
+* Shows external video usage warning to user
+*/
+function verifyCameraUsage() {
+    $('#oExternalVideoUsage').show();
+}
+
+eel.expose(processEmotion);
+/**
+ * Process a detected emotion
+ * @param {any} emotion detected emotion
+ */
+function processEmotion(emotion) {
+    if (sessionStorage.getItem('currentSession') === null) {
+        return null;
+    }
+    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
+}
+
+
 
