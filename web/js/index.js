@@ -1,12 +1,22 @@
 const user = JSON.parse(sessionStorage.getItem('user'));
 
+if (sessionStorage.getItem('currentSession') !== null) {
+    sessionStorage.removeItem('currentSession')
+}
+// set user name in side menu
+document.getElementById('userName').innerHTML = user.Nombre + ' ' + user.Apellido;
+getCurrentSession(user);
+getUpcomingSessions(user);
+
+
 /**
  * Sends request to ClassMood app server looking for current sessions
  * @param {object} user 
  */
 function getCurrentSession(user) {
     let url = 'https://classmood-appserver.herokuapp.com/available';
-    $.get(url, { Correo: user.email }, (data) => {
+    $.get(url, { email: user.Correo }, (data) => {
+        console.log('hola')
         if (data.length === 0) {
             eel.stop_video_transmition()(() => {
                 eel.stop_audio_recording()(() => {
@@ -61,7 +71,7 @@ function getCurrentSession(user) {
 function getUpcomingSessions(user) {
     document.getElementById('sessionsPlaceholder').innerHTML = '';
     let url = 'https://classmood-appserver.herokuapp.com/upcoming'
-    $.get(url, { Correo: user.Correo }, (data) => {
+    $.get(url, { email: user.Correo }, (data) => {
         if (data.length === 0) {
             $('#sessionsPlaceholder').append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>');
         }
@@ -77,7 +87,8 @@ function getUpcomingSessions(user) {
                             <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
                             <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
                         </div>
-                    </div>`);
+                    </div>`
+                );
             }
         }
     })
@@ -90,14 +101,6 @@ function reloadSessions() {
     getUpcomingSessions(user);
     getCurrentSession(user);
 }
-
-if (sessionStorage.getItem('currentSession') !== null) {
-    sessionStorage.removeItem('currentSession')
-}
-// set user name in side menu
-document.getElementById('userName').innerHTML = user.Nombre + ' ' + user.Apellido;
-getCurrentSession(user);
-getUpcomingSessions(user);
 
 /**
  * Formats date objects
@@ -125,42 +128,39 @@ function logOut() {
                 })
             })
         })
-
     })
-
 }
 
 // Keyboard shortcuts
 
-//sincronizacion de teclado
-Mousetrap.bind('ctrl+s', e => {
+// sync sessions with server
+Mousetrap.bind('ctrl+s', (e) => {
     e.preventDefault();
     reloadSessions();
 });
 
-//toggle de camera
-Mousetrap.bind('ctrl+c', e => {
+// camera toggle
+Mousetrap.bind('ctrl+c', (e) => {
     e.preventDefault();
     let device = document.getElementById('cameraToggle');
     camera(device);
 });
 
-//toggle de mic
-Mousetrap.bind('ctrl+m', e => {
+// microphone toggle
+Mousetrap.bind('ctrl+m', (e) => {
     e.preventDefault();
     let device = document.getElementById('micToggle');
     microphone(device);
 });
 
-//toggle de emociones
-Mousetrap.bind('ctrl+e', e => {
+// emotion toggle
+Mousetrap.bind('ctrl+e', (e) => {
     e.preventDefault();
     emotion();
 });
 
-//toggle para iniciar deteccion
-Mousetrap.bind('ctrl+d', e => {
+// start/stop detection toggle
+Mousetrap.bind('ctrl+d', (e) => {
     e.preventDefault();
     detectionEvent(document.getElementById('detectionController'))
 });
-
