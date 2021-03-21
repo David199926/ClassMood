@@ -97,7 +97,7 @@ body{
     height: 100vh;
     background-color: rgba(0,0,0,0.5);
     z-index: 999;
-    display: none;
+    display: flex;
 }
 
 /*estilos de el circulo de carga*/
