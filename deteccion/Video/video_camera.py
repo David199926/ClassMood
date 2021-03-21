@@ -19,7 +19,7 @@ class VideoCamera:
         try:
             self.video.release()
         except AttributeError:
-            print('video no definido')
+            print('video source undefined')
 
     def get_frame(self):
         """Return raw video frame in numpy array form"""
