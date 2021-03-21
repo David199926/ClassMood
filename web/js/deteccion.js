@@ -32,9 +32,6 @@ navigator.mediaDevices.ondevicechange =
         )
     }
 
-
-
-
 /**
  * Reloads app after external video usage warning
  * @param {HTMLElement} me Button with onclick
