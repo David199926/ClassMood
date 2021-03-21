@@ -21,7 +21,13 @@
 <body>
     <!-- Menu lateral para las sesiones próximas -->
     <div class="o-sidemenu">
-        <div class="o-user-name-header">Hola&nbsp;<strong id="userName">Usuario</strong></div>
+        <div class="o-user-name-header">
+            <span>Hola&nbsp;<strong id="userName">Usuario</strong></span>
+            <!-- Cerrar sesion -->
+            <div class="o-logout" onclick="logOut()" title="Cerrar sesión">
+                <img src="src/logOut.png" alt="logOut">
+            </div>
+        </div>
         <div class="o-sidemenu-body">
             <!-- Sesiones -->
             <div class="o-sessions" id="nextSessionsContainer">
@@ -35,12 +41,8 @@
             <div class="o-sidemenu-footer">
                 <!-- ClassMood Web -->
                 <a class="o-classmoodweb" href="https://classmood-web.herokuapp.com" target="blank">Visita
-                    <strong>ClassMood Web</strong></a>
-                <!-- Cerrar sesion -->
-                <div class="o-logout" onclick="logOut()">
-                    <img src="src/logOut.png" alt="logOut">
-                    <span>Cerrar sesión</span>
-                </div>
+                    <strong>ClassMood Web</strong>
+                </a>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@ function logIn() {
     }
     $('#loadingPanel').show()
     const url = 'https://classmood-appserver.herokuapp.com/login';
-    $.get(url, { email, password, encrypt: false }, (response) => {
+    $.get(url, { email, password, encrypt: true }, (response) => {
         // if password is incorrect
         if (response.error === 'wrong password') {
             $('#loadingPanel').hide()

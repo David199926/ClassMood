@@ -4,7 +4,7 @@ if (sessionStorage.getItem('currentSession') !== null) {
     sessionStorage.removeItem('currentSession')
 }
 // set user name in side menu
-document.getElementById('userName').innerHTML = user.Nombre + ' ' + user.Apellido;
+document.getElementById('userName').innerHTML = user.Nombre.split(' ')[0] + ' ' + user.Apellido.split(' ')[0];
 getCurrentSession(user);
 getUpcomingSessions(user);
 

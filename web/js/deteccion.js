@@ -102,18 +102,6 @@ function changeMicrophoneControl(microControl, state) {
 }
 
 /**
- * Shows/hides detected emotions
- */
-function emotion() {
-    let emotionControl = document.getElementById('emotionControl');
-    let state = !JSON.parse(emotionControl.dataset.state);
-    // set image
-    document.getElementById('emotionIcon').src = state ? './src/Emotions.png' : './src/NoEmotions.png';
-    emotionControl.dataset.state = state;
-}
-
-
-/**
  * Gets and shows audio and video devices
  */
 async function getDevices() {
@@ -374,7 +362,7 @@ function processEmotion(emotion) {
     if (sessionStorage.getItem('currentSession') === null) {
         return null;
     }
-    submitEmotion(emotion, JSON.parse(emotionControl.dataset.state) ? showEmotion : undefined);
+    submitEmotion(emotion, showEmotion);
 }
 
 
