@@ -8,10 +8,14 @@ $('#loadingPanel').hide()
 function logIn() {
     let email = document.getElementById('email').value.trim();
     let password = document.getElementById('password').value.trim();
-    //if fields are not filled
+    // if fields are not filled
     if (email === '' || password === '') {
         document.getElementById('validationError').innerHTML = 'Llena ambos campos para poder iniciar sesion';
         return null;
+    }
+    // if email is not empty, add the UAO domain if it doesnt have it
+    if (email.match(/@uao.edu.co/) === null) {
+        email += '@uao.edu.co';
     }
     $('#loadingPanel').show()
     const url = 'https://classmood-appserver.herokuapp.com/login';

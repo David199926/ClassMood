@@ -88,10 +88,10 @@ body{
 /*estilos de una sesion proxima*/
 .o-session{
     box-sizing: border-box;
-    width: 100%;
+    width: 19rem;
     background-color: #363636;
     border-radius: 23px;
-    height: 125px;
+    height: 113px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -99,25 +99,21 @@ body{
     margin-bottom: .5rem;
 }
 
-/*estilos del header de la sesion*/
-.o-session-header{
-    display: grid;
-    grid-template-columns: 60% 40%;
-}
-
 /*estilos del titulo de la sesion*/
 .o-session-title{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #ffffff;
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /*estilos del grupo de la sesion*/
 .o-session-group{
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #ababab;
     height: fit-content;
-    margin-top: 5px;
 }
 
 /*estilos del contenedor de los tiempos de una sesion*/
@@ -152,35 +148,27 @@ body{
 
 /*link al modal de créditos*/
 .o-credits{
+    margin: 0 .5rem;
+    font-size: .7rem;
+    color: #ABABAB;
     position: absolute;
-    bottom: 0;
-    left: 1rem;
-    width: 5rem;
-    height: 2.5rem;
-    border-radius: 1rem 1rem 0 0;
-    background-color: #2a2a2a;
-    display: flex;
-    cursor: pointer;
+    bottom: .5rem;
+    opacity: .5;
 }
-
-.o-credits span{
-    color: #757575;
-    margin: auto;
-}
-.o-credits:hover span{
-    color: #b9b9b9;
+.o-credits strong{
+    color: #ffffff;
 }
 
 /*estilos del contenedor principal*/
 .o-main-container{
     width: 100%;
+    min-width: 543px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: auto;
 }
 
 /*estilos de la pantalla de no sesiones disponibles*/

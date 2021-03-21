@@ -79,7 +79,7 @@ function getUpcomingSessions(user) {
             for (session of data) {
                 $('#sessionsPlaceholder').append(`
                     <div class="o-session">
-                        <div class="o-session-header">
+                        <div>
                             <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
                             <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
                         </div>

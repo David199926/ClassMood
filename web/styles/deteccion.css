@@ -1,7 +1,7 @@
 /* estilos para el recuadro de la deteccion */
 .o-session-content{
     width: 75%;
-    transform: translate(0, 1rem);
+    max-width: 1140px;
 }
 
 .o-video-placeholder{
@@ -14,6 +14,8 @@
 
 /*estilos del mensaje que se muestra si otra app está utilizando la cámara*/
 .o-external-video-usage{
+    padding: 1rem;
+    background-color: #242424;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,7 +27,7 @@
 }
 .o-external-video-usage span{
     color: #ababab;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
 }
 
@@ -57,6 +59,7 @@
 
 /* esitlos para el header de la deteccion */
 .o-title-detect-container{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -226,7 +229,7 @@
     right: -103px;
     width: 18rem;
 }
-/*estilos para los controles de configuracion de dispositivos*/
+/* estilos para los controles de configuracion de dispositivos */
 .o-devices-config{
     overflow: visible;
     position: relative;
@@ -295,16 +298,34 @@
 }
 
 /* mediaquery */
-@media only screen and (max-width:1200px){
+@media only screen and (max-width: 1200px){
     /* estilos para el recuadro de la deteccion */
     .o-session-content{
         width: 90%;
-    }    
+    }
+    /* estilos para el container del los dispositivos del micronfono */
+    .o-microdevices-container{
+        right: 0;
+    }
 }
 
-@media only screen and (max-width:1300px){
+@media only screen and (max-height: 800px){
+    /* estilos para el recuadro de la deteccion */
+    .o-session-content{
+        max-width: 802px;
+    }
+}
+
+@media only screen and (max-width: 1300px){
     /* estilos para el recuadro de la deteccion */
     .o-btn-start{
         transform: translate(0, 0);
     }    
+}
+
+@media only screen and (max-width: 885px){
+    /* estilos para el container del los dispositivos del micronfono */
+    .o-microdevices-container{
+        right: -103px;
+    }
 }

@@ -38,6 +38,13 @@ navigator.mediaDevices.ondevicechange =
  */
 function reload(me) {
     me.disabled = true;
+    // checks if warning was produced by the app itself
+    let cameraControl = document.getElementById('cameraToggle');
+    if (JSON.parse(cameraControl.dataset.state)) {
+        /* if this is the case, close video stream
+        to avoid repeating the error */
+        camera(cameraControl);
+    }
     location.reload();
 }
 

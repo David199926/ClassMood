@@ -34,7 +34,7 @@ PADDING_DURATION = 300
 _vad = webrtcvad.Vad(3)
 _microphone = Microphone(FS, FRAME_DURATION)
 # umbral de potencia de señal de audio
-POWER_THRESHOLD = 2e-4
+POWER_THRESHOLD = 1e-4
 
 
 @eel.expose
