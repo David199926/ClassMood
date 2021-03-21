@@ -32,9 +32,6 @@ navigator.mediaDevices.ondevicechange =
         )
     }
 
-
-
-
 /**
  * Reloads app after external video usage warning
  * @param {HTMLElement} me Button with onclick
@@ -329,9 +326,9 @@ function submitEmotion(emotion, success = () => { }) {
     //enviar
     let url = 'https://classmood-appserver.herokuapp.com/submit';
     let data = {
-        Emotions: [emotion],
-        CodigoEstudiante: JSON.parse(sessionStorage.getItem('user')).Codigo,
-        CodigoSesion: JSON.parse(sessionStorage.getItem('currentSession'))._id,
+        emotions: [emotion],
+        studentCode: JSON.parse(sessionStorage.getItem('user')).Codigo,
+        sessionCode: JSON.parse(sessionStorage.getItem('currentSession'))._id,
     }
     $.post(url, data, () => {
         success(Number(emotion[1]));
