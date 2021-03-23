@@ -40,9 +40,12 @@
         <form class="o-login-card">
             <span class="o-login-title">Inicia Sesión</span>
             <label for="email" class="o-login-label">Correo</label>
-            <input type="text" id="email" class="o-login-input" autocomplete="off">
+            <input type="text" id="email" class="o-login-input" maxlength="30">
             <label for="password" class="o-login-label">Contraseña</label>
-            <input type="password" id="password" class="o-login-input">
+            <div class="o-password-container">
+                <input type="password" id="password" class="o-login-input" maxlength="30">
+                <img id="eye" src="src/eye.png" alt="eye" onclick="toggleVisibility()">
+            </div>
             <span class="o-validation-error" id="validationError"></span>
             <input type="button" id="logInButton" value="Iniciar Sesión" class="o-btn o-btn-primary o-login-button" onclick="logIn()">
             <span class="o-registerlink">¿Aún no tienes cuenta? <a href="https://classmood-web.herokuapp.com/register" target="blank">Regístrate aquí</a></span>

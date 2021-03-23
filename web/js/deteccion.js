@@ -326,16 +326,24 @@ function selectEmotion(element) {
 /**
  * Sends a request to app server to submit student's commment
  */
-function submitComment(){
+function submitComment() {
+    let emotions = [
+        'Enojo',
+        'Disgusto',
+        'Miedo',
+        'Felicidad',
+        'Tristeza',
+        'Sorpresa',
+    ]
     let currentSession = JSON.parse(sessionStorage.getItem('currentSession'));
     let url = `https://classmood-appserver.herokuapp.com/detections/${user.Codigo}/${currentSession._id}`;
     let data = {
         emocion: document.getElementById('emotionTitle').innerHTML,
         comentario: document.getElementById('emotionComment').value,
     };
-    $.post(url, data, (response) => {
-        console.log(response);
+    $.post(url, data, () => {
         location.href = '#';
+        showEmotion(emotions.indexOf(data.emocion));
     }).fail(() => {
         throw new Error('Cant send the comment');
     })

@@ -67,6 +67,26 @@ body{
     width: 100%;
 }
 
+/* estilos del contenedor de contraseña */
+.o-password-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: #ababab 1px solid;
+}
+
+.o-password-container .o-login-input{
+    width: 85%;
+    border-bottom: none;
+}
+
+.o-password-container img{
+    width: 1.8rem;
+    height: auto;
+    cursor: pointer;
+}
+
+
 /*estilos del mensaje de error*/
 .o-validation-error{
     margin-top: 1rem;

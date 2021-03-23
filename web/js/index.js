@@ -153,9 +153,13 @@ Mousetrap.bind('ctrl+m', (e) => {
 });
 
 // emotion toggle
-Mousetrap.bind('ctrl+e', (e) => {
+Mousetrap.bind('ctrl+r', (e) => {
     e.preventDefault();
-    emotion();
+    location.href = '#emotionsModal';
+});
+Mousetrap.bind('esc', (e) => {
+    e.preventDefault();
+    location.href = '#';
 });
 
 // start/stop detection toggle

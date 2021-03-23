@@ -1,5 +1,16 @@
 // hide loading page
-$('#loadingPanel').hide()
+$('#loadingPanel').hide();
+
+
+/**
+ * Shows/hide password
+ */
+function toggleVisibility() {
+    let password = document.getElementById('password');
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    document.getElementById('eye').src = type === 'text' ? 'src/eye_closed.png' : 'src/eye.png';
+}
 
 /**
  * Sends a request to ClassMood app server to validate user identity
