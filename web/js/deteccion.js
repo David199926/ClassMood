@@ -308,10 +308,38 @@ function commentLengthIndicator() {
  * @param {HTMLElement} element image element clicked
  */
 function selectEmotion(element) {
+    let translator = {
+        anger: 'Enojo',
+        disgust: 'Disgusto',
+        fear: 'Miedo',
+        hapiness: 'Felicidad',
+        sadness: 'Tristeza',
+        sorprise: 'Sorpresa',
+    }
     document.getElementById('commentSection').style.backgroundColor = emotionColors[element.id];
     $('.o-emotions-modal-emotion-container img').removeClass('o-emotion-selected');
     $(element).addClass('o-emotion-selected');
     $(element).parent().attr('data-emotion', element.id);
+    $('#emotionTitle').html(translator[element.id]);
+}
+
+/**
+ * Sends a request to app server to submit student's commment
+ */
+function submitComment(){
+    let currentSession = JSON.parse(sessionStorage.getItem('currentSession'));
+    let url = `https://classmood-appserver.herokuapp.com/detections/${user.Codigo}/${currentSession._id}`;
+    let data = {
+        emocion: document.getElementById('emotionTitle').innerHTML,
+        comentario: document.getElementById('emotionComment').value,
+    };
+    $.post(url, data, (response) => {
+        console.log(response);
+        location.href = '#';
+    }).fail(() => {
+        throw new Error('Cant send the comment');
+    })
+    
 }
 
 /**
@@ -359,8 +387,8 @@ function submitEmotion(emotion, success = () => { }) {
     $.post(url, data, () => {
         success(Number(emotion[1]));
     }).fail(() => {
-        throw new Error('Error al subir los datos')
-    })
+        throw new Error('Cant submit the data');
+    });
 }
 
 // exposed functions
