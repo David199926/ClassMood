@@ -63,6 +63,39 @@
                     <div class="o-dots" id="dispMicro" onclick="displayMicroDevices()"></div>
                 </div>
             </div>
+
+            <!-- reporte manual de emociones -->
+            <div class="o-comment-btn" onclick="location.href = '#emotionsModal'"">
+                <img src="src/comment.png" alt="comentario">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para registrar emocion -->
+    <div id="emotionsModal" class="o-modal-background">
+        <div class="o-emotions-modal">
+            <span class="o-emotions-modal-title">¿Qué sientes ahora?</span>
+            <div class="o-emotions-modal-emotion-container" data-emotion="">
+                <img id="anger" class="" src="src/emotions/enojado.png" alt="enojo" onclick="selectEmotion(this)">
+                <img id="disgust" class="" src="src/emotions/disgusto.png" alt="disgusto" onclick="selectEmotion(this)">
+                <img id="fear" class="" src="src/emotions/miedo.png" alt="miedo" onclick="selectEmotion(this)">
+                <img id="hapiness" class="o-emotion-selected" src="src/emotions/feliz.png" alt="felicidad" onclick="selectEmotion(this)">
+                <img id="sadness" class="" src="src/emotions/triste.png" alt="tristeza" onclick="selectEmotion(this)">
+                <img id="sorprise" class="" src="src/emotions/sorpresa.png" alt="sorpresa" onclick="selectEmotion(this)">
+            </div>
+            <div class="o-modal-comment-section" id="commentSection">
+                <span class="o-emotions-modal-subtitle">Felicidad</span>
+                <span class="o-emotions-modal-info">¿Deseas añadir algún comentario?</span>
+                <span class="o-emotions-modal-info-secundary">Dinos por qué te sientes de esa manera</span>
+                <div class="o-modal-textarea">
+                    <textarea name="" id="emotionComment" cols="30" rows="10" maxlength="200" onkeypress="commentLengthIndicator()"></textarea>
+                    <span id="commentLengthIndicator">0/200</span>
+                </div>
+                <div class="o-modal-footer">
+                    <button class="o-btn o-btn-primary-outlined" onclick="location.href = '#';">Cancelar</button>
+                    <button class="o-btn o-btn-primary" onclick="location.href = '#';">Subir</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

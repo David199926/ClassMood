@@ -17,6 +17,7 @@ a{
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+    outline: none;
 }
 
 .o-btn:disabled{
@@ -27,18 +28,26 @@ a{
 /*estilos del boton principal*/
 .o-btn-primary{
     color: #000000;
-    background-color: #DECC54;
-    outline: none;
+    background-color: #FFDF00;
 }
 .o-btn-primary:enabled:hover{
-    background-color: #f8e040;
+    background-color: #FFD500;
+}
+
+/* estilos del boton principal outlined */
+.o-btn-primary-outlined{
+    color: #000000;
+    background-color: transparent;
+    border: 2px solid #FFDF00;
+}
+.o-btn-primary-outlined:hover{
+    border-color: #FFD500;
 }
 
 /*estilos del boton secundario*/
 .o-btn-secundary{
-    color: #fff;
+    color: #FFFFFF;
     background-color: #363636;
-    outline: none;
 }
 .o-btn-secundary:hover{
     background-color: #2e2e2e;

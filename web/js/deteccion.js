@@ -9,6 +9,16 @@ const emotionImgs = [
     'neutral.png',
 ];
 
+// emotions's colors
+const emotionColors = {
+    anger: '#FFB09C',
+    disgust: '#DDFFD5',
+    fear: '#FBD1FF',
+    hapiness: '#FFF7AB',
+    sadness: '#C2ECFF',
+    sorprise: '#FFC9D8',
+}
+
 // hide external video usage warning on app load
 $('#oExternalVideoUsage').hide();
 
@@ -281,6 +291,27 @@ function cleanVideoPlaceHolder() {
  */
 function cleanAudioIndicator() {
     document.getElementById('audioToggle').style.borderColor = 'transparent';
+}
+
+/**
+ * Shows comment's length (< 200)
+ */
+function commentLengthIndicator() {
+    let comment = document.getElementById('emotionComment');
+    let commentLengthIndicator = document.getElementById('commentLengthIndicator');
+    commentLengthIndicator.innerHTML = `${comment.value.length}/${comment.maxLength}`;
+    commentLengthIndicator.style.color = comment.value.length === comment.maxLength ? '#FF0000' : '#000000';
+}
+
+/**
+ * Selects an emotion for emotion registration
+ * @param {HTMLElement} element image element clicked
+ */
+function selectEmotion(element) {
+    document.getElementById('commentSection').style.backgroundColor = emotionColors[element.id];
+    $('.o-emotions-modal-emotion-container img').removeClass('o-emotion-selected');
+    $(element).addClass('o-emotion-selected');
+    $(element).parent().attr('data-emotion', element.id);
 }
 
 /**

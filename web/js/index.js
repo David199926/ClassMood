@@ -16,7 +16,6 @@ getUpcomingSessions(user);
 function getCurrentSession(user) {
     let url = 'https://classmood-appserver.herokuapp.com/available';
     $.get(url, { email: user.Correo }, (data) => {
-        console.log('hola')
         if (data.length === 0) {
             eel.stop_video_transmition()(() => {
                 eel.stop_audio_recording()(() => {
