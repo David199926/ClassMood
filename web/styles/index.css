@@ -127,6 +127,21 @@ body{
     align-self: flex-end;
 }
 
+/* estilos enlace de ayuda */
+.o-help{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.o-help img{
+    width: 1.8rem;
+}
+.o-help span{
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-left: 1.5rem;
+}
+
 /*estilos del link de ClassMood web*/
 .o-classmoodweb{
     color: #ababab;
@@ -134,8 +149,9 @@ body{
     display: block;
     margin: .5rem 0;
 }
-.o-classmoodweb strong{
+.o-classmoodweb a{
     color: #ffffff;
+    text-decoration: underline;
 }
 
 /*contenedor del lado derecho*/
@@ -155,8 +171,9 @@ body{
     bottom: .5rem;
     opacity: .5;
 }
-.o-credits strong{
+.o-credits span{
     color: #ffffff;
+    text-decoration: underline;
 }
 
 /*estilos del contenedor principal*/
