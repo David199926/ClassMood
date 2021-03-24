@@ -20,12 +20,18 @@
         </div>
         <!-- Captura de video -->
         <img id="videoCapture" class="o-video-capture" src="./src/dummy.png">
+
         <!-- mensaje could not start video source -->
-        <div class="o-external-video-usage" id="oExternalVideoUsage">
+        <div class="o-external-video-usage o-video-message" id="oExternalVideoUsage">
             <span>
                 Para iniciar el análisis de video asegurate que ninguna aplicación esté utilizando la cámara
             </span>
             <button class="o-btn o-btn-primary" onclick="reload(this)">Recargar</button>
+        </div>
+
+        <!-- mensaje preparanddo cámara -->
+        <div class="o-preparing-camera o-video-message" id="preparingCamera">
+            <span>Preparando Cámara</span>
         </div>
     </div>
     <!-- panel donde se agregan todos los botones de control -->
@@ -68,6 +74,7 @@
             <div class="o-comment-btn" onclick="location.href = '#emotionsModal';"" title="reportar una emoción (ctrl + r)">
                 <img src="src/comment.png" alt="comentario">
             </div>
+
         </div>
     </div>
 

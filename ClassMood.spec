@@ -4,9 +4,9 @@ block_cipher = None
 
 
 a = Analysis(['ClassMood.py'],
-             pathex=['D:\\U\\TESIS\\Codigos\\Componentes\\DesktopApp\\ClassMood'],
+             pathex=['C:\\Python38\\Libsite-packages\\sklearn', 'D:\\U\\TESIS\\Codigos\\Componentes\\DesktopApp\\ClassMood'],
              binaries=[],
-             datas=[('C:\\Python38\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web'), ('C:\\Python38\\Lib\\site-packages\\librosa\\util\\example_data', 'librosa\\util\\example_data'), ('deteccion/Video/model.json', 'deteccion/Video'), ('deteccion/Video/haarcascade_frontalface_default.xml', 'deteccion/Video'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.data-00000-of-00001', 'deteccion/Video/pesos'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.index', 'deteccion/Video/pesos')],
+             datas=[('C:\\Python38\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web'), ('C:\\Python38\\Lib\\site-packages\\librosa\\util\\example_data', 'librosa\\util\\example_data'), ('deteccion/Video/model.json', 'deteccion/Video'), ('deteccion/Video/haarcascade_frontalface_default.xml', 'deteccion/Video'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.data-00000-of-00001', 'deteccion/Video/pesos'), ('deteccion/Video/pesos/pesos_23.01.2021-14_17_21.H5.index', 'deteccion/Video/pesos'), ('deteccion/Audio/modelAudio.sav', 'deteccion/Audio')],
              hiddenimports=['bottle_websocket'],
              hookspath=[],
              runtime_hooks=[],

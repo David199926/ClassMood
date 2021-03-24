@@ -13,7 +13,7 @@
 }
 
 /*estilos del mensaje que se muestra si otra app está utilizando la cámara*/
-.o-external-video-usage{
+.o-video-message{
     padding: 1rem;
     background-color: #242424;
     display: flex;
@@ -25,10 +25,14 @@
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.o-external-video-usage span{
+.o-video-message span{
     color: #ababab;
     font-size: 1rem;
     margin-bottom: 1rem;
+}
+
+.o-external-video-usage{
+    z-index: 100;
 }
 
 /*estilos de la captura de video*/
@@ -37,6 +41,7 @@
     height: 100%;
     position: absolute;
     top: 0;
+    z-index: 98;
 }
 /*estilos para el contenedor de emociones detectadas (partículas)*/
 .o-particle-container{

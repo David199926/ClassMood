@@ -66,11 +66,13 @@ function camera(cameraControl) {
     let state = !JSON.parse(cameraControl.dataset.state);
     let started = document.getElementById('detectionController').dataset.state === 'started';
     if (state) {
+        $('#preparingCamera').show();
         changeCameraControl(cameraControl, state);
         eel.start_video_transmition(started);
     }
     else {
         eel.stop_video_transmition()(() => {
+            $('#preparingCamera').hide();
             cleanVideoPlaceHolder();
             changeCameraControl(cameraControl, state);
         })
