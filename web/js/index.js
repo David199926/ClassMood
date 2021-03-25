@@ -68,27 +68,28 @@ function getCurrentSession(user) {
  * @param {object} user 
  */
 function getUpcomingSessions(user) {
-    document.getElementById('sessionsPlaceholder').innerHTML = '';
+    $('#sessionsPlaceholder').html('');
     let url = 'https://classmood-appserver.herokuapp.com/upcoming'
     $.get(url, { email: user.Correo }, (data) => {
         if (data.length === 0) {
-            $('#sessionsPlaceholder').append('<span class="o-no-next-sessions">No hay sesiones agendadas</span>');
+            $('#sessionsPlaceholder').html('<span class="o-no-next-sessions">No hay sesiones agendadas</span>');
         }
         else {
+            let content = '';
             for (session of data) {
-                $('#sessionsPlaceholder').append(`
-                    <div class="o-session">
-                        <div>
-                            <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
-                            <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
-                        </div>
-                        <div class="o-upsession-time">
-                            <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
-                            <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
-                        </div>
-                    </div>`
-                );
+                content +=
+                `<div class="o-session">
+                    <div>
+                        <span class="o-session-title" id="sessionGroupName">${session.NombreCurso}</span>
+                        <span class="o-session-group" id="sessionGroupNumber">Grupo ${session.NumeroGrupo}</span>
+                    </div>
+                    <div class="o-upsession-time">
+                        <span id="sessionStartTime">${timeFormatter(new Date(session.HoraInicio))}</span>&nbsp--&nbsp
+                        <span id="sessioneNDTime">${timeFormatter(new Date(session.HoraFinal))}</span>
+                    </div>
+                </div>`
             }
+            $('#sessionsPlaceholder').html(content);
         }
     })
 }
