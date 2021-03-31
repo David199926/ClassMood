@@ -338,6 +338,7 @@ function submitComment() {
         'Sorpresa',
     ]
     let currentSession = JSON.parse(sessionStorage.getItem('currentSession'));
+    //let url = `http://localhost:3000/detections/${user.Codigo}/${currentSession._id}`;
     let url = `https://classmood-appserver.herokuapp.com/detections/${user.Codigo}/${currentSession._id}`;
     let data = {
         emocion: document.getElementById('emotionTitle').innerHTML,
@@ -387,8 +388,8 @@ function getRoundInteger(min, max) {
  * @param {function(): any} success call this function if emotion have been send successfully
  */
 function submitEmotion(emotion, success = () => { }) {
-    //enviar
     let url = 'https://classmood-appserver.herokuapp.com/submit';
+    //let url = 'http://localhost:3000/submit';
     let data = {
         emotions: [emotion],
         studentCode: JSON.parse(sessionStorage.getItem('user')).Codigo,
