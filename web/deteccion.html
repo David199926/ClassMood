@@ -95,7 +95,8 @@
                 <span class="o-emotions-modal-info">¿Deseas añadir algún comentario?</span>
                 <span class="o-emotions-modal-info-secundary">Dinos por qué te sientes de esa manera</span>
                 <div class="o-modal-textarea">
-                    <textarea name="" id="emotionComment" cols="30" rows="10" maxlength="200" onkeypress="commentLengthIndicator()"></textarea>
+                    <textarea name="" id="emotionComment" cols="30" rows="10" maxlength="200"
+                    onkeyup="commentLengthIndicator()" onkeydown="commentLengthIndicator()"></textarea>
                     <span id="commentLengthIndicator">0/200</span>
                 </div>
                 <div class="o-modal-footer">

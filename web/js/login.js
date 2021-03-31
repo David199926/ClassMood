@@ -9,7 +9,7 @@ function toggleVisibility() {
     let password = document.getElementById('password');
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
-    document.getElementById('eye').src = type === 'text' ? 'src/eye_closed.png' : 'src/eye.png';
+    document.getElementById('eye').src = type === 'text' ? './imgs/eye_closed.png' : './imgs/eye.png';
 }
 
 /**
