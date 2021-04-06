@@ -347,10 +347,11 @@ function submitComment() {
     $.post(url, data, () => {
         location.href = '#';
         showEmotion(emotions.indexOf(data.emocion));
+        document.getElementById('emotionComment').value = '';
     }).fail(() => {
         throw new Error('Cant send the comment');
     })
-    
+
 }
 
 /**
