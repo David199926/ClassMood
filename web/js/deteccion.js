@@ -348,6 +348,7 @@ function submitComment() {
         location.href = '#';
         showEmotion(emotions.indexOf(data.emocion));
         document.getElementById('emotionComment').value = '';
+        commentLengthIndicator();
     }).fail(() => {
         throw new Error('Cant send the comment');
     })
